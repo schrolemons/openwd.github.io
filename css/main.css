@@ -199,7 +199,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Ma Shan Zheng, Noto Sans SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Noto Sans SC, Noto Sans SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 30px 0 15px;
@@ -1247,7 +1247,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #a3a370;
+    background: #fcffc1;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
