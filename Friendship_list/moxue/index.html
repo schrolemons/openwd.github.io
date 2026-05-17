@@ -925,6 +925,28 @@
             transform: scale(0.98);
         }
 
+        /* 雷点横线额外动画效果 */
+        .red-strike-item.active .red-strike-text::after {
+            animation: strike-pulse 0.6s ease-in-out;
+        }
+
+        @keyframes strike-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 10px 5px rgba(239, 68, 68, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        /* 雷点item的视觉反馈 */
+        .red-strike-item {
+            border-radius: 12px;
+        }
+
         /* 弹性放大动画 */
         .bounce-scale-item {
             cursor: pointer;
@@ -1161,7 +1183,29 @@
 
         /* 夜间模式 - 雷点删除线 */
         body.night-mode .red-strike-text::after {
-            background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc);
+            background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc) !important;
+        }
+
+        /* 夜间模式 - 雷点脉冲效果 */
+        body.night-mode .red-strike-item.active .red-strike-text::after {
+            animation: night-strike-pulse 0.6s ease-in-out !important;
+        }
+
+        @keyframes night-strike-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 10px 5px rgba(139, 92, 246, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+            }
+        }
+
+        /* 夜间模式 - 雷点点击背景 */
+        body.night-mode .red-strike-item:active {
+            background: rgba(139, 92, 246, 0.1) !important;
         }
 
         /* 夜间模式 - 打字光标 */
@@ -1485,6 +1529,220 @@
 
         body.night-mode .scroll-button.top:active {
             box-shadow: 0 4px 0 #4f46e5, 0 6px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        /* ================================================
+           手机端响应式适配
+           ================================================ */
+
+        @media (max-width: 768px) {
+            /* 整体容器调整 */
+            .max-w-5xl.mx-auto {
+                padding: 1rem !important;
+            }
+
+            /* 头像大小调整 */
+            .moxue-avatar {
+                width: 100px !important;
+                height: 100px !important;
+            }
+
+            /* 标题大小调整 */
+            h1.text-4xl.md:text-5xl {
+                font-size: 2rem !important;
+            }
+
+            /* 卡片padding调整 */
+            .cute-card {
+                padding: 1.5rem !important;
+            }
+
+            /* 章节标题大小 */
+            h2.text-2xl {
+                font-size: 1.3rem !important;
+            }
+
+            /* 标题容器调整 */
+            .title-with-close {
+                padding-right: 50px !important;
+                flex-wrap: wrap !important;
+                gap: 0.5rem !important;
+            }
+
+            /* 关闭按钮调整 */
+            .section-close {
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 1rem !important;
+                top: 10px !important;
+                right: 10px !important;
+            }
+
+            /* 可爱标签大小 */
+            .cute-section-title {
+                padding: 6px 14px !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* 兴趣爱好网格 */
+            .grid.grid-cols-1.md\\:grid-cols-2.gap-4 {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* 列表项调整 */
+            .cute-list-item {
+                padding: 0.8rem 1rem !important;
+            }
+
+            /* 雷点横线效果优化 */
+            .red-strike-text::after {
+                height: 3px !important;
+                background: linear-gradient(90deg, #ef4444, #f87171, #ef4444) !important;
+            }
+
+            /* 雷点item的touch优化 */
+            .red-strike-item {
+                min-height: 48px !important;
+                display: flex !important;
+                align-items: center !important;
+                padding: 0.8rem 1rem !important;
+            }
+
+            /* 雷点横线动画优化 */
+            .red-strike-item:hover .red-strike-text::after,
+            .red-strike-item.active .red-strike-text::after {
+                width: 100% !important;
+            }
+
+            /* 性格特点网格 */
+            .grid.grid-cols-2.gap-4 {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* 总结链接卡片 */
+            .grid.grid-cols-1.md\\:grid-cols-2.gap-4 {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* 监控屏大小调整 */
+            .cute-monitor {
+                border-radius: 12px !important;
+            }
+
+            /* 滚动按钮大小调整 */
+            .scroll-buttons-container {
+                bottom: 1.5rem !important;
+                right: 1.5rem !important;
+            }
+
+            .scroll-button {
+                width: 3rem !important;
+                height: 3rem !important;
+                font-size: 1.2rem !important;
+            }
+
+            /* 弹窗适配 */
+            .hobby-modal,
+            .personality-modal,
+            .confirm-modal {
+                padding: 1.5rem !important;
+                margin: 1rem !important;
+            }
+
+            /* lightbox适配 */
+            #lightbox {
+                padding: 1rem !important;
+            }
+
+            /* 文字大小调整 */
+            .text-lg {
+                font-size: 1rem !important;
+            }
+
+            /* 分隔线图标大小 */
+            .cute-divider,
+            .cute-divider-blue {
+                font-size: 1rem !important;
+            }
+
+            /* 星星背景数量减少，避免性能问题 */
+            .sparkle {
+                font-size: 0.8rem !important;
+            }
+        }
+
+        /* 更小的手机适配 */
+        @media (max-width: 480px) {
+            /* 进一步减小字体 */
+            body {
+                font-size: 14px !important;
+            }
+
+            /* 头像再小一点 */
+            .moxue-avatar {
+                width: 80px !important;
+                height: 80px !important;
+            }
+
+            /* 标题再小 */
+            h1.text-4xl.md:text-5xl {
+                font-size: 1.5rem !important;
+            }
+
+            /* 卡片padding更小 */
+            .cute-card {
+                padding: 1.2rem !important;
+            }
+
+            /* 滚动按钮再小 */
+            .scroll-button {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                font-size: 1rem !important;
+            }
+
+            .scroll-buttons-container {
+                bottom: 1rem !important;
+                right: 1rem !important;
+                gap: 0.75rem !important;
+            }
+        }
+
+        /* 触摸设备优化 */
+        @media (hover: none) and (pointer: coarse) {
+            /* 增大触摸目标 */
+            .red-strike-item,
+            .shake-scale-item,
+            .bounce-scale-item {
+                min-height: 48px !important;
+                padding: 1rem !important;
+            }
+
+            /* 雷点横线效果更明显 */
+            .red-strike-text::after {
+                height: 4px !important;
+            }
+
+            /* 雷点点击反馈更强 */
+            .red-strike-item:active {
+                background: rgba(245, 158, 11, 0.1) !important;
+            }
+
+            /* 移除hover效果，增加active效果 */
+            .scroll-button:active {
+                transform: scale(0.95) !important;
+            }
+
+            /* 卡片点击反馈 */
+            .cute-card {
+                -webkit-tap-highlight-color: transparent !important;
+            }
+
+            /* 按钮点击反馈 */
+            button,
+            [onclick] {
+                -webkit-tap-highlight-color: transparent !important;
+            }
         }
     </style>
 </head>
