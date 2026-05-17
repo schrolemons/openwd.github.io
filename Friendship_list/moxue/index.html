@@ -1532,6 +1532,167 @@
         }
 
         /* ================================================
+           可爱侧边目录
+           ================================================ */
+
+        /* 目录容器 */
+        .cute-toc-container {
+            position: fixed;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* 目录按钮 */
+        .toc-button {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid #fbbf24;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 0 #d97706, 0 8px 20px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+            z-index: 51;
+        }
+
+        .toc-button:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 0 #d97706, 0 12px 28px rgba(245, 158, 11, 0.4);
+        }
+
+        .toc-button:active {
+            transform: scale(0.95);
+        }
+
+        /* 目录面板 */
+        .toc-panel {
+            background: linear-gradient(145deg, #ffffff, #fffbeb);
+            border: 3px solid #fbbf24;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 0 #f59e0b, 0 12px 24px rgba(245, 158, 11, 0.2);
+            min-width: 220px;
+            max-height: 70vh;
+            overflow-y: auto;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .toc-panel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        /* 目录标题 */
+        .toc-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #92400e;
+            text-align: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px dashed #fcd34d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* 目录项 */
+        .toc-item {
+            padding: 0.6rem 0.8rem;
+            margin-bottom: 0.4rem 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #78350f;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-item:hover {
+            background: linear-gradient(90deg, #fef3c7, #fde68a);
+            border-left-color: #f59e0b;
+            transform: translateX(4px);
+        }
+
+        .toc-item.active {
+            background: linear-gradient(90deg, #fef3c7, #fde68a);
+            border-left-color: #f59e0b;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .toc-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+        }
+
+        .toc-text {
+            font-size: 0.95rem;
+        }
+
+        /* 夜间模式目录 */
+        body.night-mode .toc-panel {
+            background: linear-gradient(145deg, #1e1e3f, #2a2a4a);
+            border-color: #8b5cf6;
+            box-shadow: 0 8px 0 #6d28d9, 0 12px 24px rgba(139, 92, 246, 0.3);
+        }
+
+        body.night-mode .toc-button {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            box-shadow: 0 6px 0 #6d28d9, 0 8px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        body.night-mode .toc-button:hover {
+            box-shadow: 0 8px 0 #6d28d9, 0 12px 28px rgba(139, 92, 246, 0.4);
+        }
+
+        body.night-mode .toc-title {
+            color: #c4b5fd;
+            border-bottom-color: #7c3aed;
+        }
+
+        body.night-mode .toc-item {
+            color: #ddd6fe;
+        }
+
+        body.night-mode .toc-item:hover,
+        body.night-mode .toc-item.active {
+            background: linear-gradient(90deg, #312e81, #4c1d95);
+            border-left-color: #8b5cf6;
+            color: #e0e7ff;
+        }
+
+        body.night-mode .toc-icon {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        }
+
+        /* ================================================
            手机端响应式适配
            ================================================ */
 
@@ -2495,6 +2656,24 @@
         section.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         section.style.opacity = '0';
         section.style.transform = 'scale(0.95)';
+
+        // 隐藏对应的目录项
+        const tocIdMap = {
+            'overview-section': 'toc-overview',
+            'friendship-section': 'toc-friendship',
+            'info-section': 'toc-info',
+            'summary-section': 'toc-summary'
+        };
+        const tocItem = document.getElementById(tocIdMap[id]);
+        if (tocItem) {
+            tocItem.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            tocItem.style.opacity = '0';
+            tocItem.style.transform = 'translateX(-10px)';
+            setTimeout(() => {
+                tocItem.style.display = 'none';
+            }, 300);
+        }
+
         setTimeout(() => {
             section.style.display = 'none';
             checkAllClosed();
@@ -2624,6 +2803,34 @@
     </div>
 </div>
 
+<!-- 可爱侧边目录 -->
+<div class="cute-toc-container">
+    <button class="toc-button" onclick="toggleToc()" title="目录">
+        <i class="fa fa-list"></i>
+    </button>
+    <div class="toc-panel" id="toc-panel">
+        <div class="toc-title">
+            <i class="fa fa-bookmark mr-2"></i>目录
+        </div>
+        <div class="toc-item" id="toc-overview" onclick="scrollToSection('overview-section')">
+            <span class="toc-icon"><i class="fa fa-star"></i></span>
+            <span class="toc-text">概述</span>
+        </div>
+        <div class="toc-item" id="toc-friendship" onclick="scrollToSection('friendship-section')">
+            <span class="toc-icon"><i class="fa fa-star"></i></span>
+            <span class="toc-text">个人扩列条</span>
+        </div>
+        <div class="toc-item" id="toc-info" onclick="scrollToSection('info-section')">
+            <span class="toc-icon"><i class="fa fa-user"></i></span>
+            <span class="toc-text">个人信息条</span>
+        </div>
+        <div class="toc-item" id="toc-summary" onclick="scrollToSection('summary-section')">
+            <span class="toc-icon"><i class="fa fa-check"></i></span>
+            <span class="toc-text">总结</span>
+        </div>
+    </div>
+</div>
+
 <!-- 快速滚动按钮 -->
 <div class="scroll-buttons-container">
     <button class="scroll-button top" onclick="scrollToTop()" title="返回顶部">
@@ -2633,5 +2840,54 @@
         <i class="fa fa-arrow-down"></i>
     </button>
 </div>
+
+<script>
+    // 目录功能
+    let tocOpen = false;
+
+    function toggleToc() {
+        tocOpen = !tocOpen;
+        const panel = document.getElementById('toc-panel');
+        if (tocOpen) {
+            panel.classList.add('active');
+        } else {
+            panel.classList.remove('active');
+        }
+    }
+
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            // 关闭目录
+            tocOpen = false;
+            document.getElementById('toc-panel').classList.remove('active');
+        }
+    }
+
+    // 滚动监听，高亮当前所在区域
+    window.addEventListener('scroll', function() {
+        const sections = ['overview-section', 'friendship-section', 'info-section', 'summary-section'];
+        const tocItems = document.querySelectorAll('.toc-item');
+
+        let currentSection = sections[0];
+        sections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150) {
+                    currentSection = sectionId;
+                }
+            }
+        });
+
+        tocItems.forEach((item, index) => {
+            item.classList.remove('active');
+            if (sections[index] === currentSection) {
+                item.classList.add('active');
+            }
+        });
+    });
+</script>
 </body>
 </html>
