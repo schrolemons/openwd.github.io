@@ -393,6 +393,11 @@
             transform: rotate(90deg);
         }
 
+        /* 调整标题区域，避免与关闭按钮重合 */
+        .cute-card > .flex.items-center.mb-8 {
+            padding-right: 60px;
+        }
+
         /* 重要提示区域样式 */
         .final-warning {
             position: fixed;
@@ -892,7 +897,7 @@
         <!-- 概述区域 -->
         <section id="overview-section" class="cute-card p-8 bounce-in closable-section">
             <button class="section-close" onclick="closeSection('overview-section')">✕</button>
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-8 title-with-close">
                     <span class="cute-section-title mr-4">
                         <i class="fa fa-star mr-2"></i>000
                     </span>
@@ -944,7 +949,7 @@
 
         <section id="friendship-section" class="cute-card p-8 bounce-in stagger-1 closable-section">
             <button class="section-close" onclick="closeSection('friendship-section')">✕</button>
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-8 title-with-close">
                     <span class="cute-section-title mr-4">
                         <i class="fa fa-star mr-2"></i>001
                     </span>
@@ -1073,7 +1078,7 @@
 
         <section id="info-section" class="cute-card p-8 bounce-in stagger-2 closable-section">
             <button class="section-close" onclick="closeSection('info-section')">✕</button>
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-8 title-with-close">
                     <span class="cute-section-title-yellow mr-4">
                         <i class="fa fa-user mr-2"></i>002
                     </span>
