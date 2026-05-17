@@ -15,6 +15,155 @@
         body {
             background: linear-gradient(135deg, #fef3c7 0%, #dbeafe 50%, #fef3c7 100%);
             min-height: 100vh;
+            transition: all 0.5s ease;
+        }
+
+        body.night-mode {
+            background: #0f0f23;
+        }
+
+        /* 夜间模式的核心样式 */
+        body.night-mode .cute-card {
+            background: linear-gradient(145deg, #1e1e3f 0%, #2a2a4a 100%);
+            border: 3px solid #8b5cf6;
+            box-shadow: 0 8px 0 #6d28d9, 0 12px 24px rgba(139, 92, 246, 0.3);
+        }
+
+        body.night-mode .cute-card:hover {
+            box-shadow: 0 12px 0 #6d28d9, 0 16px 32px rgba(139, 92, 246, 0.4);
+        }
+
+        body.night-mode .cute-header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.night-mode .cute-section-title {
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            box-shadow: 0 4px 0 #4f46e5;
+        }
+
+        body.night-mode .cute-section-title-yellow {
+            background: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
+            box-shadow: 0 4px 0 #7c3aed;
+        }
+
+        body.night-mode .cute-tag {
+            background: linear-gradient(135deg, #2a2a4a 0%, #3d3d6a 100%);
+            border: 2px solid #a855f7;
+            color: #ddd6fe;
+        }
+
+        body.night-mode .cute-tag-blue {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d4a7f 100%);
+            border: 2px solid #6366f1;
+            color: #bfdbfe;
+        }
+
+        body.night-mode .moxue-avatar {
+            border: 4px solid #8b5cf6;
+            box-shadow: 0 8px 0 #6d28d9, 0 12px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        body.night-mode .section-close {
+            background: #2a2a4a;
+            border: 2px solid #8b5cf6;
+            color: #ddd6fe;
+        }
+
+        body.night-mode .section-close:hover {
+            background: #3d3d6a;
+        }
+
+        /* 夜间模式的文字颜色调整 */
+        body.night-mode h1, body.night-mode h2, body.night-mode h3,
+        body.night-mode h4, body.night-mode p, body.night-mode li,
+        body.night-mode .text-slate-700 {
+            color: #e0e7ff !important;
+        }
+
+        body.night-mode .text-yellow-700, body.night-mode .text-blue-700 {
+            color: #c4b5fd !important;
+        }
+
+        body.night-mode .text-yellow-800, body.night-mode .text-blue-800 {
+            color: #a78bfa !important;
+        }
+
+        /* 夜间模式的标签栏 */
+        body.night-mode .text-blue-600 {
+            color: #a5b4fc !important;
+        }
+
+        body.night-mode .bg-white {
+            background: #1e1e3f !important;
+        }
+
+        /* 夜间模式 - 背景渐变调整 */
+        body.night-mode .bg-gradient-to-r {
+            background: linear-gradient(135deg, #2a2a4a 0%, #3d3d6a 100%) !important;
+        }
+
+        body.night-mode .bg-gradient-to-r.from-blue-50,
+        body.night-mode .bg-gradient-to-r.to-blue-100,
+        body.night-mode .bg-gradient-to-r.from-yellow-50,
+        body.night-mode .bg-gradient-to-r.to-yellow-100 {
+            background: linear-gradient(135deg, #2a2a4a 0%, #3d3d6a 100%) !important;
+        }
+
+        /* 夜间模式 - 边框颜色调整 */
+        body.night-mode .border-blue-200,
+        body.night-mode .border-yellow-200,
+        body.night-mode .border-blue-300,
+        body.night-mode .border-yellow-300 {
+            border-color: #8b5cf6 !important;
+        }
+
+        /* 夜间模式 - 图标背景调整 */
+        body.night-mode .bg-gradient-to-br.from-blue-400,
+        body.night-mode .bg-gradient-to-br.to-blue-600,
+        body.night-mode .bg-gradient-to-br.from-yellow-400,
+        body.night-mode .bg-gradient-to-br.to-orange-400 {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%) !important;
+        }
+
+        /* 夜间模式 - 高亮颜色调整 */
+        body.night-mode .highlight-yellow,
+        body.night-mode .highlight-blue {
+            background: linear-gradient(120deg, #4c1d95 0%, #7c3aed 100%) !important;
+            color: #e0e7ff !important;
+        }
+
+        /* 夜间模式 - 分隔线颜色 */
+        body.night-mode .bg-gradient-to-r.from-yellow-100,
+        body.night-mode .bg-gradient-to-r.to-orange-100,
+        body.night-mode .bg-gradient-to-r.from-blue-100,
+        body.night-mode .bg-gradient-to-r.to-cyan-100 {
+            background: linear-gradient(135deg, #2a2a4a 0%, #3d3d6a 100%) !important;
+        }
+
+        /* 夜间模式 - lightbox调整 */
+        body.night-mode .bg-yellow-100\/95,
+        body.night-mode .bg-yellow-100\/95 {
+            background: rgba(30, 30, 63, 0.95) !important;
+        }
+
+        body.night-mode .border-yellow-300,
+        body.night-mode .border-yellow-400 {
+            border-color: #8b5cf6 !important;
+        }
+
+        /* 夜间模式 - 星星背景 */
+        body.night-mode .sparkle {
+            color: #a855f7 !important;
+        }
+
+        /* 夜间模式 - 信息栏 */
+        body.night-mode .info-box {
+            background: linear-gradient(135deg, #2a2a4a 0%, #3d3d6a 100%) !important;
+            border-color: #8b5cf6 !important;
         }
 
         .sparkle-bg {
@@ -873,6 +1022,183 @@
             0%, 49%, 100% { opacity: 1; }
             50%, 99% { opacity: 0; }
         }
+
+        /* ================================================
+           夜间模式完整补充样式
+           ================================================ */
+
+        /* 夜间模式 - 监控屏样式 */
+        body.night-mode .cute-monitor {
+            background: linear-gradient(145deg, #1a1a3a 0%, #2d2d5a 100%);
+            border: 4px solid #8b5cf6;
+        }
+
+        body.night-mode .monitor-header {
+            background: linear-gradient(180deg, #3d3d7a 0%, #2a2a5a 100%);
+            border-bottom: 3px solid #6d28d9;
+        }
+
+        body.night-mode .monitor-indicator {
+            background: #22c55e;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.7);
+        }
+
+        body.night-mode .monitor-content {
+            background: #1e1e3f;
+            border: 2px solid #4c1d95;
+        }
+
+        body.night-mode .monitor-footer {
+            background: linear-gradient(180deg, transparent 0%, rgba(139, 92, 246, 0.15) 100%);
+        }
+
+        /* 夜间模式 - 导航按钮样式 */
+        body.night-mode .cute-nav-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            border: 3px solid #7c3aed;
+            box-shadow: 0 4px 0 #6d28d9;
+        }
+
+        body.night-mode .cute-nav-btn:hover {
+            box-shadow: 0 6px 0 #6d28d9;
+        }
+
+        body.night-mode .cute-nav-btn:active {
+            box-shadow: 0 2px 0 #6d28d9;
+        }
+
+        /* 夜间模式 - 轮播点样式 */
+        body.night-mode .carousel-dot {
+            border: 2px solid #8b5cf6;
+            background: #2a2a4a;
+        }
+
+        body.night-mode .carousel-dot:hover {
+            background: #4c1d95;
+        }
+
+        body.night-mode .carousel-dot.active {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            border-color: #7c3aed;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+        }
+
+        /* 夜间模式 - 列表项样式 */
+        body.night-mode .cute-list-item {
+            background: linear-gradient(90deg, #2a2a4a 0%, #3d3d6a 50%, #2a2a4a 100%);
+            border-left: 4px solid #8b5cf6;
+        }
+
+        /* 夜间模式 - 弹窗样式 */
+        body.night-mode .hobby-modal,
+        body.night-mode .personality-modal {
+            background: linear-gradient(145deg, #1e1e3f 0%, #2a2a4a 100%);
+            border: 4px solid #8b5cf6;
+        }
+
+        body.night-mode .hobby-modal-content,
+        body.night-mode .personality-modal-content {
+            color: #e0e7ff;
+        }
+
+        body.night-mode .hobby-modal-close,
+        body.night-mode .personality-modal-close {
+            background: #3d3d6a;
+            border: 2px solid #8b5cf6;
+            color: #e0e7ff;
+        }
+
+        body.night-mode .hobby-modal-close:hover,
+        body.night-mode .personality-modal-close:hover {
+            background: #4c1d95;
+        }
+
+        /* 夜间模式 - 确认弹窗样式 */
+        body.night-mode .confirm-modal {
+            background: linear-gradient(145deg, #1e1e3f 0%, #2a2a4a 100%);
+            border: 4px solid #8b5cf6;
+        }
+
+        body.night-mode .confirm-modal-title {
+            color: #e0e7ff;
+        }
+
+        body.night-mode .confirm-modal-message {
+            color: #c4b5fd;
+        }
+
+        body.night-mode .confirm-btn-yes {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        }
+
+        /* 夜间模式 - 分隔线样式 */
+        body.night-mode .cute-divider {
+            color: #a855f7;
+        }
+
+        body.night-mode .cute-divider::before,
+        body.night-mode .cute-divider::after {
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+        }
+
+        body.night-mode .cute-divider-blue {
+            color: #a5b4fc;
+        }
+
+        body.night-mode .cute-divider-blue::before,
+        body.night-mode .cute-divider-blue::after {
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+        }
+
+        /* 夜间模式 - 更多高亮颜色 */
+        body.night-mode .highlight-green,
+        body.night-mode .highlight-purple,
+        body.night-mode .highlight-orange,
+        body.night-mode .highlight-pink {
+            background: linear-gradient(120deg, #4c1d95 0%, #7c3aed 100%) !important;
+            color: #e0e7ff !important;
+        }
+
+        /* 夜间模式 - 雷点删除线 */
+        body.night-mode .red-strike-text::after {
+            background: linear-gradient(90deg, #8b5cf6, #a855f7, #c084fc);
+        }
+
+        /* 夜间模式 - 打字光标 */
+        body.night-mode .typing-cursor-blink {
+            background: #8b5cf6;
+        }
+
+        body.night-mode .typing-cursor {
+            color: #a855f7;
+        }
+
+        /* 夜间模式 - 信息时间栏 */
+        body.night-mode .bg-white\/60 {
+            background: rgba(30, 30, 63, 0.8) !important;
+        }
+
+        body.night-mode .border-blue-300 {
+            border-color: #8b5cf6 !important;
+        }
+
+        /* 夜间模式 - 头像装饰 */
+        body.night-mode .bg-yellow-400 {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7) !important;
+        }
+
+        body.night-mode .bg-blue-400 {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+        }
+
+        /* 夜间模式 - 星星图标 */
+        body.night-mode .text-yellow-400 {
+            color: #a855f7 !important;
+        }
+
+        body.night-mode .text-blue-400 {
+            color: #a5b4fc !important;
+        }
     </style>
 </head>
 <body class="text-slate-800">
@@ -1505,12 +1831,36 @@
 
     startTyping();
 
-    // 头像点击转动动画
+    // 防抖标志
+    let isSpinning = false;
+    // 夜间模式标志
+    let isNightMode = false;
+
+    // 头像点击转动动画 + 切换夜间模式
     function spinAvatar() {
+        if (isSpinning) {
+            return; // 如果正在转动中，直接返回
+        }
+
         const avatar = document.getElementById('avatar-container');
+        isSpinning = true; // 设置正在转动的标志
+
         avatar.classList.remove('spinning');
         void avatar.offsetWidth; // 强制重绘，让动画重新开始
         avatar.classList.add('spinning');
+
+        // 切换夜间模式
+        isNightMode = !isNightMode;
+        if (isNightMode) {
+            document.body.classList.add('night-mode');
+        } else {
+            document.body.classList.remove('night-mode');
+        }
+
+        // 动画结束后重置标志（0.8秒后，与动画时长一致）
+        setTimeout(() => {
+            isSpinning = false;
+        }, 800);
     }
 
     function openLightbox(src, alt) {
