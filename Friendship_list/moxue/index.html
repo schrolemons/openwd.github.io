@@ -154,6 +154,337 @@
             margin-bottom: 0.25rem;
         }
 
+        /* 蓝色弹窗样式 */
+        .hobby-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .hobby-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hobby-modal {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border: 4px solid #3b82f6;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .hobby-modal-overlay.active .hobby-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .hobby-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed #93c5fd;
+        }
+
+        .hobby-modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hobby-modal-title-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .hobby-modal-close {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: #92400e;
+            transition: all 0.2s ease;
+        }
+
+        .hobby-modal-close:hover {
+            background: #fde68a;
+            transform: rotate(90deg);
+        }
+
+        .hobby-modal-content {
+            color: #1e3a8a;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .hobby-modal-content p {
+            margin-bottom: 1rem;
+        }
+
+        .hobby-modal-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 黄色弹窗样式 */
+        .personality-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .personality-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .personality-modal {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 4px solid #f59e0b;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .personality-modal-overlay.active .personality-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .personality-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px dashed #fcd34d;
+        }
+
+        .personality-modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .personality-modal-title-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .personality-modal-close {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #dbeafe;
+            border: 2px solid #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: #1e40af;
+            transition: all 0.2s ease;
+        }
+
+        .personality-modal-close:hover {
+            background: #bfdbfe;
+            transform: rotate(90deg);
+        }
+
+        .personality-modal-content {
+            color: #78350f;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .personality-modal-content p {
+            margin-bottom: 1rem;
+        }
+
+        .personality-modal-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 可关闭窗口样式 */
+        .closable-section {
+            position: relative;
+        }
+
+        .section-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: #92400e;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .section-close:hover {
+            background: #fde68a;
+            transform: rotate(90deg);
+        }
+
+        /* 重要提示区域样式 */
+        .final-warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 50;
+            display: none;
+        }
+
+        .final-warning.active {
+            display: block;
+        }
+
+        /* 确认弹窗样式 */
+        .confirm-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .confirm-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .confirm-modal {
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+            border: 4px solid #f97316;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .confirm-modal-overlay.active .confirm-modal {
+            transform: scale(1);
+        }
+
+        .confirm-modal h3 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #c2410c;
+            margin-bottom: 1.5rem;
+        }
+
+        .confirm-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .confirm-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .confirm-btn-yes {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+        }
+
+        .confirm-btn-no {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
         .paw-icon {
             background: linear-gradient(135deg, #fbbf24, #fcd34d);
             border: 4px solid #f59e0b;
@@ -558,7 +889,61 @@
     </header>
 
     <div class="space-y-8">
-        <section class="cute-card p-8 bounce-in stagger-1">
+        <!-- 概述区域 -->
+        <section id="overview-section" class="cute-card p-8 bounce-in closable-section">
+            <button class="section-close" onclick="closeSection('overview-section')">✕</button>
+            <div class="flex items-center mb-8">
+                    <span class="cute-section-title mr-4">
+                        <i class="fa fa-star mr-2"></i>000
+                    </span>
+                <h2 class="text-2xl font-bold text-blue-700">概述</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-6 border-2 border-blue-300">
+                    <h3 class="font-bold text-blue-700 text-xl mb-4 flex items-center">
+                            <span class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center mr-3 text-white">
+                                <i class="fa fa-paw"></i>
+                            </span>
+                        性格
+                    </h3>
+                    <p class="text-slate-700 leading-relaxed">
+                        本狼平和、抽象、包容性极强，能够和您聊各式各样的（包括世界观）问题啦～喜欢您主动来找咪聊天～（因为不太擅长制造话题啦，熟悉以后就会发疯了）
+                    </p>
+                </div>
+
+                <div class="cute-divider">
+                    <i class="fa fa-heart"></i>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-6 border-2 border-blue-300">
+                    <h3 class="font-bold text-blue-700 text-xl mb-4 flex items-center">
+                            <span class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center mr-3 text-white">
+                                <i class="fa fa-star"></i>
+                            </span>
+                        爱好
+                    </h3>
+                    <p class="text-slate-700 leading-relaxed">
+                        不太喜欢玩游戏（耗费精力惹），平时喜欢鼓捣网站和世界观啦～也喜欢好看的稿子和有意思的毛茸茸——
+                    </p>
+                </div>
+
+                <div class="cute-divider">
+                    <i class="fa fa-heart"></i>
+                </div>
+
+                <div class="text-center py-6">
+                    <p class="text-2xl font-bold text-blue-700">
+                        <i class="fa fa-heart text-yellow-400 mr-2"></i>
+                        期待与您扩列～
+                        <i class="fa fa-heart text-yellow-400 ml-2"></i>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="friendship-section" class="cute-card p-8 bounce-in stagger-1 closable-section">
+            <button class="section-close" onclick="closeSection('friendship-section')">✕</button>
             <div class="flex items-center mb-8">
                     <span class="cute-section-title mr-4">
                         <i class="fa fa-star mr-2"></i>001
@@ -595,27 +980,27 @@
                         兴趣爱好
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item cursor-pointer" onclick="openHobbyModal('Playing', '🎮', '第五人格、明日方舟。我对打游戏保留一种较消极的态度，因为这会耗费我大量的精力～')">
                             <span class="cute-tag mr-3 shrink-0">Playing</span>
                             <span class="text-slate-700">第五人格、明日方舟</span>
                         </div>
-                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item cursor-pointer" onclick="openHobbyModal('Chating', '💬', '喜欢陪您聊天，这是我完善自身世界观的一种方式，也是我分散压力的一种方式。如果需要帮助的话可以告诉我，我乐于接受您的负面情绪。当然，如果多次交流后我看不到您的一丝丝的态度变化，也会逐渐失去耐心喔~')">
                             <span class="cute-tag mr-3 shrink-0">Chating</span>
                             <span class="text-slate-700">喜欢陪您聊天，完善世界观</span>
                         </div>
-                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item cursor-pointer" onclick="openHobbyModal('Coding', '💻', '我平时总被坏朋友抓去写代码啦~如果您对这方面感兴趣，欢迎和我交流~')">
                             <span class="cute-tag mr-3 shrink-0">Coding</span>
                             <span class="text-slate-700">被坏朋友抓去写代码</span>
                         </div>
-                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item cursor-pointer" onclick="openHobbyModal('Writing', '✍️', '有自己构建的原创世界观网站，见world.sch-nie.com~欢迎您提出您的建议、意见啦~（不过不要复制网页的内容哦）')">
                             <span class="cute-tag mr-3 shrink-0">Writing</span>
                             <span class="text-slate-700">原创世界观网站</span>
                         </div>
-                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-v-200 hover:border-blue-400 transition-all bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item cursor-pointer" onclick="openHobbyModal('Thinking', '🧠', '拥有书面化的三观（自然观、世界观、人生观）、方法集、认知引导测试、人生价值观问答等。SCHNIE的世界核心具有批判性、&quot;向正&quot;的特点，不过绝对能够让您感到十足的新鲜感！')">
                             <span class="cute-tag mr-3 shrink-0">Thinking</span>
                             <span class="text-slate-700">书面化三观、认知引导测试</span>
                         </div>
-                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="flex items-start p-4 bg-white rounded-xl border-2 border-blue-200 hover:border-blue-400 transition-all bounce-scale-item cursor-pointer" onclick="openHobbyModal('P_ing', '🎨', '偷偷摸摸地，喜欢找画风很有特色的劳斯~虽然没有什么钱钱（wwww）。其次喜欢的事物是无偿（厚脸皮）')">
                             <span class="cute-tag mr-3 shrink-0">P_ing</span>
                             <span class="text-slate-700">喜欢有特色的画风～</span>
                         </div>
@@ -686,7 +1071,8 @@
             </div>
         </section>
 
-        <section class="cute-card p-8 bounce-in stagger-2">
+        <section id="info-section" class="cute-card p-8 bounce-in stagger-2 closable-section">
+            <button class="section-close" onclick="closeSection('info-section')">✕</button>
             <div class="flex items-center mb-8">
                     <span class="cute-section-title-yellow mr-4">
                         <i class="fa fa-user mr-2"></i>002
@@ -725,28 +1111,28 @@
                         性格特点
                     </h3>
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item cursor-pointer" onclick="openPersonalityModal('极简', 'fa-feather', '我不会对一件事物重复说很多次，并会尽可能简要直接地表达清我的意图。')">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-white text-2xl">
                                 <i class="fa fa-feather"></i>
                             </div>
                             <h4 class="font-bold text-blue-700 mb-1">极简</h4>
                             <p class="text-sm text-slate-600">简要直接表达意图</p>
                         </div>
-                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item cursor-pointer" onclick="openPersonalityModal('精确', 'fa-crosshairs', '我会尽量避免模糊的用词和玩笑（不喜欢假装玩笑的&quot;试探&quot;），当然如果您没有get到我的意思我会解释清楚的~')">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-white text-2xl">
                                 <i class="fa fa-crosshairs"></i>
                             </div>
                             <h4 class="font-bold text-blue-700 mb-1">精确</h4>
                             <p class="text-sm text-slate-600">避免模糊用词</p>
                         </div>
-                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item cursor-pointer" onclick="openPersonalityModal('相和', 'fa-heart', '我不会和您起明显矛盾，并会尽力结合您的角度来分析问题，并&quot;认同&quot;您的观点；对于您的每一条消息我都会回复的。')">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-white text-2xl">
                                 <i class="fa fa-heart"></i>
                             </div>
                             <h4 class="font-bold text-blue-700 mb-1">相和</h4>
                             <p class="text-sm text-slate-600">尽力理解您的角度</p>
                         </div>
-                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item" onclick="this.classList.toggle('active')">
+                        <div class="bg-white rounded-2xl p-6 border-2 border-yellow-200 text-center hover:border-yellow-400 transition-all hover:-translate-y-1 bounce-scale-item cursor-pointer" onclick="openPersonalityModal('理性', 'fa-cog', '我所有建议/意见的出发点皆为维护理性。我会避开多余的情绪波动来和您交流，然而这并不意味着情绪皆为多余的：您并不需要刻意掩盖您的情绪来&quot;迎合&quot;我的聊天方式，情绪也是正常生活的一部分。')">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-white text-2xl">
                                 <i class="fa fa-cog"></i>
                             </div>
@@ -758,7 +1144,8 @@
             </div>
         </section>
 
-        <section class="cute-card p-8 bounce-in stagger-3">
+        <section id="summary-section" class="cute-card p-8 bounce-in stagger-3 closable-section">
+            <button class="section-close" onclick="closeSummary()">✕</button>
             <div class="flex items-center mb-8">
                     <span class="cute-section-title mr-4">
                         <i class="fa fa-check mr-2"></i>003
@@ -838,7 +1225,8 @@
             </div>
         </section>
 
-        <section class="info-box bounce-in stagger-4">
+        <!-- 重要提示（默认隐藏） -->
+        <section id="final-warning" class="info-box final-warning">
             <div class="flex items-start">
                 <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center mr-4 shrink-0 floating-star">
                     <i class="fa fa-info-circle text-white text-xl"></i>
@@ -1119,7 +1507,159 @@
             closeLightbox();
         }
     });
+
+    // 兴趣爱好弹窗功能
+    function openHobbyModal(title, icon, content) {
+        const modal = document.getElementById('hobby-modal');
+        const modalTitle = document.getElementById('hobby-modal-title');
+        const modalIcon = document.getElementById('hobby-modal-icon');
+        const modalContent = document.getElementById('hobby-modal-content');
+
+        modalTitle.textContent = title;
+        modalIcon.textContent = icon;
+        modalContent.innerHTML = '<p>' + content.replace(/\n/g, '</p><p>') + '</p>';
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeHobbyModal(event) {
+        if (event && event.target !== event.currentTarget && !event.target.classList.contains('hobby-modal-close')) {
+            return;
+        }
+        const modal = document.getElementById('hobby-modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeHobbyModal();
+            closePersonalityModal();
+            closeLightbox();
+        }
+    });
+
+    // 性格特点弹窗功能
+    function openPersonalityModal(title, icon, content) {
+        const modal = document.getElementById('personality-modal');
+        const modalTitle = document.getElementById('personality-modal-title');
+        const modalIcon = document.getElementById('personality-modal-icon');
+        const modalContent = document.getElementById('personality-modal-content');
+
+        modalTitle.textContent = title;
+        modalIcon.innerHTML = '<i class="fa ' + icon + '"></i>';
+        modalContent.innerHTML = '<p>' + content.replace(/\n/g, '</p><p>') + '</p>';
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePersonalityModal(event) {
+        if (event && event.target !== event.currentTarget && !event.target.classList.contains('personality-modal-close')) {
+            return;
+        }
+        const modal = document.getElementById('personality-modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // 关闭窗口功能
+    function closeSection(id) {
+        const section = document.getElementById(id);
+        section.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        section.style.opacity = '0';
+        section.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            section.style.display = 'none';
+            checkAllClosed();
+        }, 300);
+    }
+
+    // 关闭总结（带确认）
+    function closeSummary() {
+        document.getElementById('confirm-modal').classList.add('active');
+    }
+
+    // 确认关闭总结
+    function confirmCloseSummary() {
+        closeConfirmModal();
+        closeSection('summary-section');
+    }
+
+    // 关闭确认弹窗
+    function closeConfirmModal(event) {
+        if (event && event.target !== event.currentTarget) {
+            return;
+        }
+        document.getElementById('confirm-modal').classList.remove('active');
+    }
+
+    // 检查所有窗口是否已关闭
+    function checkAllClosed() {
+        const overview = document.getElementById('overview-section');
+        const friendship = document.getElementById('friendship-section');
+        const info = document.getElementById('info-section');
+        const summary = document.getElementById('summary-section');
+        const warning = document.getElementById('final-warning');
+
+        const overviewClosed = overview.style.display === 'none';
+        const friendshipClosed = friendship.style.display === 'none';
+        const infoClosed = info.style.display === 'none';
+        const summaryClosed = summary.style.display === 'none';
+
+        const allClosed = overviewClosed && friendshipClosed && infoClosed && summaryClosed;
+
+        if (allClosed) {
+            warning.classList.add('active');
+        }
+    }
+
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeHobbyModal();
+            closePersonalityModal();
+            closeConfirmModal();
+            closeLightbox();
+        }
+    });
 </script>
+
+<!-- 兴趣爱好弹窗 -->
+<div id="hobby-modal" class="hobby-modal-overlay" onclick="closeHobbyModal(event)">
+    <div class="hobby-modal" onclick="event.stopPropagation()">
+        <div class="hobby-modal-header">
+            <div class="hobby-modal-title">
+                <div class="hobby-modal-title-icon" id="hobby-modal-icon">🎮</div>
+                <span id="hobby-modal-title">Playing</span>
+            </div>
+            <div class="hobby-modal-close" onclick="closeHobbyModal(event)">✕</div>
+        </div>
+        <div class="hobby-modal-content" id="hobby-modal-content">
+            <p></p>
+        </div>
+    </div>
+</div>
+
+<!-- 性格特点弹窗 -->
+<div id="personality-modal" class="personality-modal-overlay" onclick="closePersonalityModal(event)">
+    <div class="personality-modal" onclick="event.stopPropagation()">
+        <div class="personality-modal-header">
+            <div class="personality-modal-title">
+                <div class="personality-modal-title-icon" id="personality-modal-icon">
+                    <i class="fa fa-feather"></i>
+                </div>
+                <span id="personality-modal-title">极简</span>
+            </div>
+            <div class="personality-modal-close" onclick="closePersonalityModal(event)">✕</div>
+        </div>
+        <div class="personality-modal-content" id="personality-modal-content">
+            <p></p>
+        </div>
+    </div>
+</div>
 
 <div id="lightbox" class="fixed inset-0 bg-yellow-100/95 z-50 hidden items-center justify-center p-4" onclick="closeLightbox()">
     <div class="relative max-w-4xl max-h-full">
@@ -1129,6 +1669,17 @@
         <div class="bg-white rounded-3xl p-4 border-4 border-yellow-300 shadow-2xl">
             <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain rounded-2xl">
             <p id="lightbox-caption" class="text-center text-yellow-700 mt-4 font-bold text-lg"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 确认弹窗 -->
+<div id="confirm-modal" class="confirm-modal-overlay" onclick="closeConfirmModal(event)">
+    <div class="confirm-modal" onclick="event.stopPropagation()">
+        <h3>您确定要关闭吗！！</h3>
+        <div class="confirm-modal-buttons">
+            <button class="confirm-btn confirm-btn-yes" onclick="confirmCloseSummary()">确定</button>
+            <button class="confirm-btn confirm-btn-no" onclick="closeConfirmModal()">取消</button>
         </div>
     </div>
 </div>
