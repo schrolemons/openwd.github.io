@@ -129,6 +129,22 @@
             box-shadow: 0 8px 0 #d97706, 0 12px 24px rgba(251, 191, 36, 0.4);
             animation: paw-bounce 2s ease-in-out infinite;
             background: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .moxue-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .moxue-avatar.spinning {
+            animation: spin-around 0.8s ease-in-out;
+        }
+
+        @keyframes spin-around {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .image-error {
@@ -394,7 +410,7 @@
         }
 
         /* 调整标题区域，避免与关闭按钮重合 */
-        .cute-card > .flex.items-center.mb-8 {
+        .title-with-close {
             padding-right: 60px;
         }
 
@@ -865,7 +881,7 @@
 <div class="max-w-5xl mx-auto px-4 py-12 relative z-10">
     <header class="text-center mb-12 bounce-in">
         <div class="inline-flex items-center justify-center mb-8 relative">
-            <div id="avatar-container" class="moxue-avatar">
+            <div id="avatar-container" class="moxue-avatar" onclick="spinAvatar()">
                 <img id="avatar-img" src="https://picbed.sch-nie.com/moxue/friendship_list/little_moxue.png" alt="墨薛的可爱形象" class="w-full h-full object-cover rounded-full">
             </div>
             <!-- 可爱的小装饰 -->
@@ -1151,7 +1167,7 @@
 
         <section id="summary-section" class="cute-card p-8 bounce-in stagger-3 closable-section">
             <button class="section-close" onclick="closeSummary()">✕</button>
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-8 title-with-close">
                     <span class="cute-section-title mr-4">
                         <i class="fa fa-check mr-2"></i>003
                     </span>
@@ -1488,6 +1504,14 @@
     }
 
     startTyping();
+
+    // 头像点击转动动画
+    function spinAvatar() {
+        const avatar = document.getElementById('avatar-container');
+        avatar.classList.remove('spinning');
+        void avatar.offsetWidth; // 强制重绘，让动画重新开始
+        avatar.classList.add('spinning');
+    }
 
     function openLightbox(src, alt) {
         const lightbox = document.getElementById('lightbox');
