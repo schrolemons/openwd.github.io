@@ -1244,7 +1244,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #eedd1c;
+    background: #ffff42;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2970,14 +2970,24 @@ body {
   font-size: 1.35em;
 }
 .post-body h3 {
+  position: relative;
   margin-top: 1.8em;
-  margin-bottom: 0.7em;
-  padding-bottom: 4px;
-  border-bottom: 1px dashed #cbd5e1;
+  margin-bottom: 0.8em;
+  padding-bottom: 10px;
   font-weight: 600;
-  font-size: 1.35em;
+  font-size: 1.2em;
   color: #334155;
   letter-spacing: 0.04em;
+}
+.post-body h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 2.2em;
+  background: linear-gradient(90deg, #6366f1 0%, #06b6d4 100%);
+  border-radius: 2px;
 }
 .post-body h4 {
   font-size: 1.05em;
@@ -3164,8 +3174,7 @@ body {
 .post-body .note h3 {
   margin-top: 0;
   margin-bottom: 0.4em;
-  padding-bottom: 4px;
-  border-bottom: 1px dashed #cbd5e1;
+  padding-bottom: 10px;
 }
 .post-body .note h3::before {
   display: none;
@@ -3215,10 +3224,11 @@ body {
     gap: 10px;
   }
   .post-body h3 {
-    font-size: 1.2em;
+    font-size: 1.08em;
   }
-  .post-body h3::before {
-    font-size: 0.78em;
+  .post-body h3::after {
+    height: 2px;
+    width: 1.8em;
   }
   .post-body hr {
     margin: 2.2em 0;
