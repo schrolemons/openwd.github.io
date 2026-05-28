@@ -8,6 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
+        :root {
+            --body-bg-color: initial;
+            --content-bg-color: initial;
+            --card-bg-color: initial;
+            --text-color: initial;
+            --link-color: initial;
+            --link-hover-color: initial;
+        }
+
         * {
             font-family: 'Noto Sans SC', 'Comic Neue', sans-serif;
         }
@@ -15,7 +24,20 @@
         body {
             background: linear-gradient(135deg, #fef3c7 0%, #dbeafe 50%, #fef3c7 100%);
             min-height: 100vh;
+            margin: 0 !important;
+            padding: 0 !important;
             transition: all 0.5s ease;
+            position: static !important;
+            overflow-x: hidden;
+            font-family: 'Noto Sans SC', 'Comic Neue', sans-serif !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Sans SC', 'Comic Neue', sans-serif !important;
+        }
+
+        a {
+            border-bottom: none !important;
         }
 
         body.night-mode {
@@ -206,6 +228,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: block !important;
+            text-align: center !important;
+            width: 100% !important;
         }
 
         .cute-section-title {
@@ -1906,6 +1931,7 @@
             }
         }
     </style>
+<style id="__standalone_back_btn_style__">.__standalone_back_btn__{position:fixed;bottom:2rem;left:2rem;z-index:9998;width:3.5rem;height:3.5rem;border-radius:50%;border:none;background:#1a1a2e;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 0 #000,0 8px 20px rgba(0,0,0,0.3);transition:all 0.2s ease;text-decoration:none;}.__standalone_back_btn__:hover{transform:translateY(-4px);box-shadow:0 10px 0 #000,0 12px 28px rgba(0,0,0,0.4);}.__standalone_back_btn__:active{transform:translateY(2px);box-shadow:0 4px 0 #000,0 6px 12px rgba(0,0,0,0.2);}@media(max-width:768px){.__standalone_back_btn__{width:3rem;height:3rem;font-size:1.2rem;bottom:1.5rem;left:1.5rem;}}@media(max-width:480px){.__standalone_back_btn__{width:2.5rem;height:2.5rem;font-size:1rem;bottom:1rem;left:1rem;}}</style>
 </head>
 <body class="text-slate-800">
 <div class="sparkle-bg" id="sparkle-bg"></div>
@@ -2889,5 +2915,6 @@
         });
     });
 </script>
+<a href="/" class="__standalone_back_btn__" title="返回主站">←</a>
 </body>
 </html>

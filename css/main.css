@@ -479,7 +479,6 @@ code.hljs {
 .hljs-strong {
   font-weight: bold
 }
-code,
 kbd,
 figure.highlight,
 pre {
@@ -514,9 +513,7 @@ code {
   font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
 }
 code {
-  border-radius: 3px;
   font-size: 0.875em;
-  padding: 2px 4px;
   overflow-wrap: break-word;
 }
 kbd {
@@ -1247,7 +1244,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #d4ffff;
+    background: #eedd1c;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1991,6 +1988,14 @@ pre code {
 .post-body .exturl .fa {
   font-size: 0.875em;
   margin-left: 4px;
+}
+.post-body h2 {
+  border-bottom: 2px solid var(--theme-color);
+  padding-bottom: 6px;
+}
+.post-body h3 {
+  border-bottom: 1px dashed var(--theme-color);
+  padding-bottom: 4px;
 }
 .post-body figure:not(.highlight) figcaption {
   color: #999;
@@ -2839,10 +2844,10 @@ header.header {
 }
 .post-body h1,
 .post-body h2 {
-  border-bottom: 1px solid #eee;
+  border-bottom: 2px solid var(--theme-color);
 }
 .post-body h3 {
-  border-bottom: 1px dotted #eee;
+  border-bottom: 1px dashed var(--theme-color);
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .main-inner {
@@ -2929,7 +2934,6 @@ body {
   margin-bottom: 0.9em;
   padding-bottom: 12px;
   padding-left: 0;
-  border-bottom: none;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: #1e293b;
@@ -2968,7 +2972,8 @@ body {
 .post-body h3 {
   margin-top: 1.8em;
   margin-bottom: 0.7em;
-  border-bottom: none;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed #cbd5e1;
   font-weight: 600;
   font-size: 1.35em;
   color: #334155;
@@ -3040,13 +3045,7 @@ body {
   color: #6d28d9;
 }
 .post-body code {
-  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-  color: #be185d;
-  padding: 2px 7px;
-  border-radius: 5px;
   font-size: 0.9em;
-  font-weight: 500;
-  border: 1px solid rgba(236,72,153,0.15);
 }
 .post-body pre code {
   background: none;
@@ -3158,10 +3157,15 @@ body {
   color: #991b1b;
 }
 .post-body .note h2,
-.post-body .note h3,
 .post-body .note h4 {
   margin-top: 0;
   border-bottom: none;
+}
+.post-body .note h3 {
+  margin-top: 0;
+  margin-bottom: 0.4em;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed #cbd5e1;
 }
 .post-body .note h3::before {
   display: none;
