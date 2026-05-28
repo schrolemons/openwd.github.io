@@ -2612,9 +2612,14 @@
         document.body.style.overflow = 'auto';
     }
 
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeLightbox();
+    document.addEventListener('DOMContentLoaded', function() {
+        var lb = document.getElementById('lightbox');
+        if (lb) {
+            lb.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLightbox();
+                }
+            });
         }
     });
 
