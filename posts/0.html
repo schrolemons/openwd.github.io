@@ -40,7 +40,7 @@
 <meta property="og:description" content=".raw-html-container{margin:0 auto;padding:0;max-width:100%;}.raw-html-frame{width:100%;height:calc(100vh - 100px);min-height:600px;border:none;display:block;}  var __rf&#x3D;document.querySelector(&quot;.raw-ht">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-31T10:56:26.005Z">
-<meta property="article:modified_time" content="2026-05-31T16:51:24.659Z">
+<meta property="article:modified_time" content="2026-05-31T16:58:21.090Z">
 <meta property="article:author" content="Schrolemons">
 <meta property="article:tag" content="感知 创造 记录">
 <meta name="twitter:card" content="summary">
@@ -1122,15 +1122,189 @@ body {
 /* ── Expand Hint ── */
 .expand-hint { text-align: center; margin-top: 20px; }
 
+#mobile-panel-toggle { display: none; }
+#mobile-panel-backdrop { display: none; }
+#mobile-panel-close { display: none; }
+
 @media (max-width: 768px) {
-  #content-area { padding: 24px 12px; }
-  .era-title { font-size: 22px; }
-  .nav-btn { min-width: 120px; }
-  #era-info-panel { position: fixed; right: -300px; top: 0; height: 100%; transition: right 0.3s; z-index: 50; }
-  #era-info-panel.open { right: 0; }
+  /* ── Layout ── */
+  body { overflow-y: auto; }
+  #app { flex-direction: column; }
+
+  /* ── Info Panel: fullscreen overlay ── */
+  #era-info-panel {
+    position: fixed; top: 0; right: 0; width: 100vw; height: 100dvh;
+    z-index: 100; transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    margin-right: 0; border-left: none; min-width: 0; overflow-y: auto;
+    border-radius: 0;
+  }
+  #era-info-panel:not(.collapsed) { transform: translateX(0); }
+  #era-info-panel.collapsed { transform: translateX(100%); width: 100vw; min-width: 0; margin-right: 0; }
+  #era-info-panel .panel-header { padding: 50px 16px 12px; }
+  #era-info-panel .panel-body { -webkit-overflow-scrolling: touch; }
+  #panel-collapse-btn { display: none !important; }
+  #panel-expand-tab { display: none !important; }
+
+  /* Mobile panel toggle (floating on right edge) */
+  #mobile-panel-toggle {
+    display: flex; position: fixed; top: 45%; right: 0; transform: translateY(-50%);
+    width: 26px; height: 56px; z-index: 101; cursor: pointer;
+    border: 1px solid var(--border); border-right: none;
+    background: linear-gradient(180deg, rgba(6,15,30,0.94) 0%, rgba(3,12,24,0.94) 100%);
+    color: var(--accent-dim); font-size: 10px;
+    align-items: center; justify-content: center;
+    clip-path: polygon(0 4px,100% 0,100% 100%,0 calc(100% - 4px));
+    transition: all 0.3s; backdrop-filter: blur(8px);
+  }
+  #mobile-panel-toggle:active { color: var(--accent-glow); border-color: var(--accent); }
+  #mobile-panel-toggle .mp-arrow { transition: transform 0.35s ease; display: inline-block; }
+  #era-info-panel:not(.collapsed) ~ #mobile-panel-toggle { opacity: 0; pointer-events: none; }
+
+  /* Close button inside panel */
+  #mobile-panel-close {
+    display: flex; position: absolute; top: 12px; right: 12px;
+    width: 34px; height: 34px; z-index: 102;
+    border: 1px solid var(--border); background: rgba(10,22,48,0.9);
+    color: var(--text-secondary); font-size: 16px; cursor: pointer;
+    align-items: center; justify-content: center;
+    clip-path: polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+    transition: all 0.2s;
+  }
+  #mobile-panel-close:active { border-color: var(--accent); color: var(--accent-glow); }
+
+  /* ── Panel overlay backdrop ── */
+  #mobile-panel-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 99;
+    background: rgba(0,0,0,0.5); pointer-events: none;
+  }
+  #mobile-panel-backdrop.visible { display: block; pointer-events: auto; }
+
+  /* ── Main Area ── */
+  #main { flex: none; height: 100dvh; min-height: 100dvh; }
+
+  /* ── Starfield ── */
+  #starfield { padding: 24px 8px; }
+  .star-point .star-dot { width: 7px; height: 7px; }
+  .star-point:hover .star-dot { width: 9px; height: 9px; }
+  .star-point .star-label { font-size: 11px; letter-spacing: 1px; }
+  .star-point .star-time { font-size: 9px; }
+  .star-point .star-line { height: 12px; margin: 2px 0; }
+  .star-constellation-line { height: 1px; opacity: 0.4; }
+
+  /* ── HUD Corners ── */
+  .starfield-hud .hud-corner { width: 18px; height: 18px; }
+  .starfield-hud .hud-corner.tl { top: 8px; left: 8px; }
+  .starfield-hud .hud-corner.tr { top: 8px; right: 8px; }
+  .starfield-hud .hud-corner.bl { bottom: 8px; left: 8px; }
+  .starfield-hud .hud-corner.br { bottom: 8px; right: 8px; }
+
+  /* ── HUD Info ── */
+  .starfield-hud .hud-info { font-size: 7px; letter-spacing: 1px; line-height: 1.5; }
+  .starfield-hud .hud-info.tl-info { top: 12px; left: 32px; }
+  .starfield-hud .hud-info.tr-info { top: 12px; right: 32px; }
+  .starfield-hud .hud-info.bl-info { bottom: 12px; left: 32px; }
+  .starfield-hud .hud-info.br-info { bottom: 72px; right: 32px; }
+  .starfield-hud .hud-label { font-size: 6px; letter-spacing: 1px; }
+  .starfield-hud .hud-value { font-size: 7px; }
+
+  /* ── HUD Bars (PWR/SCN/光脉) ── */
+  .starfield-hud .hud-bars { bottom: 10px; right: 32px; gap: 4px; }
+  .starfield-hud .hud-bar-label { font-size: 6px; min-width: 18px; }
+  .starfield-hud .hud-bar-track { width: 40px; height: 3px; }
+  .starfield-hud .hud-pulse-track { width: 40px; height: 3px; }
+  .starfield-hud .hud-pulse-dot { width: 4px; height: 4px; }
+  .starfield-hud .hud-pulse-ring { width: 18px; height: 18px; }
+  .starfield-hud .hud-bar-val { font-size: 6px; width: 20px; }
+  @keyframes pulseRingOut {
+    0% { transform: translate(-50%, -50%) scale(0.15); opacity: 0.55; }
+    100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+  }
+
+  /* ── Typing bar ── */
+  .starfield-hud .hud-typing-wrap {
+    bottom: 68px; left: 50%; transform: translateX(-50%);
+    font-size: 9px; max-width: 88vw; padding: 0 8px;
+  }
+  .starfield-hud .hud-typing-label { font-size: 7px; margin-right: 6px; }
+
+  /* ── Scanlines ── */
+  #starfield::before { height: 1px; }
+  #starfield::after { height: 80px; }
+
+  /* ── Buttons ── */
+  .starfield-ctrls { bottom: 14px; left: 50%; transform: translateX(-50%); gap: 8px; }
+  .ctrl-btn { padding: 8px 12px; min-width: 96px; font-size: 10px; letter-spacing: 2px; }
+  .ctrl-btn::before { top: 4px; left: 8px; width: 3px; height: 3px; }
+
+  /* ── Return button ── */
+  #return-stars-btn { top: 10px; right: 10px; width: 38px; height: 38px; font-size: 14px; }
+  #return-stars-btn span { font-size: 8px; }
+
+  /* ── Content area ── */
+  #content-area { padding: 16px 10px; }
   .era-display { max-width: 100%; }
-  #return-stars-btn { right: 12px; }
-  .star-point .star-label { font-size: 11px; }
+  .era-title { font-size: 22px; letter-spacing: 2px; }
+  .era-badge { font-size: 9px; padding: 4px 12px; letter-spacing: 2px; }
+  .era-time-large { font-size: 11px; }
+  .era-desc-line { font-size: 12px; max-width: 100%; padding: 0 6px; }
+  .era-desc-center { max-width: 100%; padding: 0 6px; }
+  .era-desc-center .desc-center-line { font-size: 11px; }
+  .view-era-btn { padding: 12px 28px; font-size: 12px; margin-top: 16px; letter-spacing: 2px; }
+  .nav-btn { min-width: 120px; padding: 12px 18px; font-size: 12px; }
+  .nav-btn .btn-era-name { font-size: 13px; }
+  .nav-section-label { font-size: 10px; }
+  #nav-area { padding-bottom: 40px; margin-top: 24px; }
+
+  /* ── Entry constellation ── */
+  .entry-constellation { gap: 14px; margin: 12px 0 8px; }
+  .entry-star .es-label { font-size: 11px; max-width: 56px; }
+  .entry-star:nth-child(even) { margin-top: 14px; }
+  .entry-star .es-dot { width: 6px; height: 6px; }
+
+  /* ── Branch options ── */
+  .branch-options { gap: 10px; margin-top: 16px; }
+  .branch-option { flex: 1 1 100%; max-width: 100%; min-width: 0; padding: 16px 14px; }
+  .branch-option .branch-article-name { font-size: 15px; }
+  .branch-option .branch-desc { font-size: 11px; }
+  .branch-hint-text { font-size: 16px; }
+  .branch-option-hint { min-height: 100px; padding: 20px 14px !important; }
+
+  /* ── Article modal ── */
+  .article-modal { width: 94%; padding: 18px 16px; max-width: 100%; max-height: 88vh; }
+  .article-modal .modal-title { font-size: 17px; }
+  .article-modal .modal-section p,
+  .article-modal .modal-section div { font-size: 12px; }
+  .article-modal .modal-close { top: 10px; right: 12px; width: 28px; height: 28px; font-size: 14px; }
+
+  /* ── Article doc panel ── */
+  .article-doc-panel { max-width: 100%; }
+  .article-doc-panel.open { max-height: 600px; }
+  .article-doc-panel .doc-header { padding: 12px 14px; }
+  .article-doc-panel .doc-header .doc-title { font-size: 13px; margin: 0 8px; }
+  .article-doc-panel .doc-body { padding: 12px 10px; max-height: 320px; }
+  .article-doc-panel .doc-section { padding: 10px 12px; }
+  .article-doc-panel .doc-section p,
+  .article-doc-panel .doc-section div { font-size: 12px; }
+  .article-doc-panel .doc-meta { padding: 10px 12px; font-size: 10px; }
+  .article-doc-panel .doc-link { font-size: 11px; padding: 8px 12px; }
+
+  /* ── Starfield list ── */
+  .starfield-list { padding: 40px 12px; gap: 4px; }
+  .starfield-list .sl-entry { padding: 10px 12px; gap: 10px; max-width: 100%; }
+  .starfield-list .sl-name { font-size: 12px; letter-spacing: 1px; }
+  .starfield-list .sl-time { font-size: 9px; }
+  .starfield-list .sl-index { font-size: 10px; min-width: 22px; }
+
+  /* ── Ending screen ── */
+  .ending-screen .ending-card { padding: 30px 20px; max-width: 94vw; }
+  .ending-screen .ending-title { font-size: 20px; }
+  .ending-card-content { font-size: 13px; padding: 16px 14px; }
+  .restart-btn { padding: 12px 30px; font-size: 13px; }
+
+  /* ── Mystery button ── */
+  .mystery-btn { width: 96px; height: 44px; }
+  .mystery-text { font-size: 24px; letter-spacing: 6px; }
 }
 &lt;/style&gt;
 &lt;/head&gt;
@@ -1148,6 +1322,7 @@ body {
     &lt;/div&gt;
   &lt;/main&gt;
   &lt;aside id=&quot;era-info-panel&quot;&gt;
+    &lt;button id=&quot;mobile-panel-close&quot; onclick=&quot;toggleInfoPanel()&quot; title=&quot;关闭面板&quot;&gt;✕&lt;/button&gt;
     &lt;div class=&quot;panel-header&quot;&gt;
       &lt;div class=&quot;panel-header-left&quot;&gt;
         &lt;div class=&quot;panel-sys-label&quot;&gt;&lt;span class=&quot;panel-rec-dot&quot;&gt;&lt;/span&gt; SYSTEM NOTE&lt;/div&gt;
@@ -1171,6 +1346,8 @@ body {
     &lt;/div&gt;
   &lt;/aside&gt;
   &lt;div id=&quot;panel-expand-tab&quot; onclick=&quot;toggleInfoPanel()&quot; title=&quot;展开面板&quot;&gt;&lt;span class=&quot;expand-arrow&quot;&gt;◀&lt;/span&gt;&lt;/div&gt;
+  &lt;div id=&quot;mobile-panel-toggle&quot; onclick=&quot;toggleMobilePanel()&quot; title=&quot;打开信息栏&quot;&gt;&lt;span class=&quot;mp-arrow&quot;&gt;◀&lt;/span&gt;&lt;/div&gt;
+  &lt;div id=&quot;mobile-panel-backdrop&quot; onclick=&quot;toggleInfoPanel()&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;script&gt;
@@ -1750,12 +1927,22 @@ function toggleInfoPanel() {
     if (expandTab) expandTab.classList.remove('visible');
     if (collapseBtn) collapseBtn.classList.remove('collapsed');
     if (hud) hud.classList.remove('hide-corners');
+    var backdrop = document.getElementById('mobile-panel-backdrop');
+    if (backdrop) backdrop.classList.remove('visible');
   } else {
     panel.classList.add('collapsed');
     if (expandTab) expandTab.classList.add('visible');
     if (collapseBtn) collapseBtn.classList.add('collapsed');
     if (hud) hud.classList.add('hide-corners');
+    var backdrop = document.getElementById('mobile-panel-backdrop');
+    if (backdrop) backdrop.classList.add('visible');
   }
+}
+
+function toggleMobilePanel() {
+  var panel = document.getElementById('era-info-panel');
+  if (!panel) return;
+  toggleInfoPanel();
 }
 
 function togglePanelDetail() {
@@ -2278,7 +2465,7 @@ function buildStarfield() {
   var mainRect = main.getBoundingClientRect();
   var padX = 60, padY = 80;
   var areaW = mainRect.width - padX * 2, areaH = mainRect.height - padY * 2;
-  var cols = 4;
+  var cols = window.innerWidth &lt;= 768 ? 2 : 4;
   var rows = Math.ceil(timelineData.length / cols);
   var cellW = areaW / cols, cellH = areaH / rows;
   var total = timelineData.length;
@@ -2620,6 +2807,12 @@ function startHudBars() {
   });
   ro.observe(mainEl);
 })();
+(function initMobile() {
+  if (window.innerWidth &lt;= 768) {
+    var panel = document.getElementById('era-info-panel');
+    if (panel) panel.classList.add('collapsed');
+  }
+})();
 buildStarfield();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -2679,8 +2872,8 @@ buildStarfield();
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/15.html" rel="next" title="越度之风：虹九重构">
-                  越度之风：虹九重构 <i class="fa fa-angle-right"></i>
+                <a href="/posts/27.html" rel="next" title="灵耀体系：阴行世界">
+                  灵耀体系：阴行世界 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
