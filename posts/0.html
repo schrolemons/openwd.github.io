@@ -40,7 +40,7 @@
 <meta property="og:description" content=".raw-html-container{margin:0 auto;padding:0;max-width:100%;}.raw-html-frame{width:100%;height:calc(100vh - 100px);min-height:600px;border:none;display:block;}  var __rf&#x3D;document.querySelector(&quot;.raw-ht">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-31T10:56:26.005Z">
-<meta property="article:modified_time" content="2026-05-31T12:52:52.972Z">
+<meta property="article:modified_time" content="2026-05-31T13:08:21.947Z">
 <meta property="article:author" content="Schrolemons">
 <meta property="article:tag" content="感知 创造 记录">
 <meta name="twitter:card" content="summary">
@@ -724,6 +724,27 @@ body {
 }
 .restart-btn:hover {
   box-shadow: 0 0 30px rgba(77,168,218,0.5); transform: translateY(-2px);
+}
+
+.mystery-btn {
+  border-color: var(--danger) !important;
+  background: rgba(224,85,106,0.08) !important;
+  min-width: 200px;
+}
+.mystery-btn:hover {
+  border-color: #ff6b7a !important;
+  box-shadow: 0 0 32px rgba(224,85,106,0.35) !important;
+  background: rgba(224,85,106,0.18) !important;
+  transform: translateY(-2px);
+}
+.mystery-text {
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--danger);
+  letter-spacing: 6px;
+  text-align: center;
+  text-shadow: 0 0 12px rgba(224,85,106,0.4);
 }
 
 .expand-hint {
@@ -1823,13 +1844,21 @@ function selectBranchOption(eraId, branchIdx) {
     html += `&lt;span class=&quot;card-type-strip ${colorClass}&quot;&gt;${art.catLabel || art.type}&lt;/span&gt;`;
     html += `&lt;span class=&quot;card-name&quot;&gt;${art.name}&lt;/span&gt;`;
     html += '&lt;span class=&quot;card-divider&quot;&gt;&lt;/span&gt;';
-    html += `&lt;span class=&quot;card-sub&quot;&gt;${art.intro}&lt;/span&gt;`;
+    html += '&lt;span class=&quot;card-sub&quot;&gt;点击查看详情&lt;/span&gt;';
     html += '&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;';
   }
 
   html += '&lt;div id=&quot;nav-area&quot;&gt;';
   if (branch.outcome !== null &amp;&amp; branch.nextEra === null) {
-    html += renderEndingInline(branch);
+    const outcomeData = encodeURIComponent(JSON.stringify({
+      outcome: branch.outcome,
+      articleName: branch.article ? branch.article.name : '',
+      hint: branch.hint || ''
+    }));
+    html += '&lt;div class=&quot;nav-section-label&quot; style=&quot;color:var(--danger)&quot;&gt;⚠ 该选择将导向结局&lt;/div&gt;';
+    html += '&lt;div class=&quot;nav-buttons&quot;&gt;';
+    html += `&lt;div class=&quot;nav-btn mystery-btn&quot; onclick=&quot;revealEnding('${outcomeData}')&quot;&gt;&lt;span class=&quot;mystery-text&quot;&gt;？？？&lt;/span&gt;&lt;/div&gt;`;
+    html += '&lt;/div&gt;';
   } else if (branch.nextEra) {
     const nextEra = getEra(branch.nextEra);
     html += '&lt;div class=&quot;nav-section-label&quot;&gt;▼ 下一时代&lt;/div&gt;';
@@ -1949,6 +1978,21 @@ function renderEndingInline(branch) {
     &lt;div class=&quot;ending-sub&quot;&gt;${subtitle}&lt;/div&gt;
     &lt;button class=&quot;restart-btn&quot; onclick=&quot;restartJourney()&quot;&gt;⟳ 回到最开始的地方&lt;/button&gt;
   &lt;/div&gt;`;
+}
+
+function revealEnding(dataStr) {
+  const data = JSON.parse(decodeURIComponent(dataStr));
+  const isContinue = data.outcome === 'CONTINUE…';
+  const icon = isContinue ? '✦' : '◈';
+  const subtitle = isContinue ? '故事尚未终结，新的篇章等待书写……' : '时间线在此处收束。';
+  contentArea.innerHTML = `&lt;div class=&quot;ending-screen&quot; style=&quot;padding:60px 20px;animation:fadeSlideIn 0.5s ease&quot;&gt;
+    &lt;div class=&quot;ending-icon&quot;&gt;${icon}&lt;/div&gt;
+    &lt;div class=&quot;ending-line-name&quot;&gt;── ${data.outcome || '结局'} ──&lt;/div&gt;
+    &lt;div class=&quot;ending-title&quot;&gt;${data.articleName}&lt;/div&gt;
+    &lt;div class=&quot;ending-sub&quot;&gt;${subtitle}&lt;/div&gt;
+    &lt;button class=&quot;restart-btn&quot; onclick=&quot;restartJourney()&quot;&gt;⟳ 回到最开始的地方&lt;/button&gt;
+  &lt;/div&gt;`;
+  scrollToTop();
 }
 
 function goNext(eraId) {
@@ -2137,13 +2181,13 @@ navigateTo(1);
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/8.html" rel="prev" title="灵耀体系：草引囚徒">
-                  <i class="fa fa-angle-left"></i> 灵耀体系：草引囚徒
+                <a href="/posts/25.html" rel="prev" title="灵耀体系：冰结明域">
+                  <i class="fa fa-angle-left"></i> 灵耀体系：冰结明域
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/27.html" rel="next" title="灵耀体系：阴行世界">
-                  灵耀体系：阴行世界 <i class="fa fa-angle-right"></i>
+                <a href="/posts/30.html" rel="next" title="跨世之雷：星源绘逢">
+                  跨世之雷：星源绘逢 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

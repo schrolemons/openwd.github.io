@@ -463,6 +463,27 @@
             box-shadow: 0 0 30px rgba(77,168,218,0.5); transform: translateY(-2px);
         }
 
+        .mystery-btn {
+            border-color: var(--danger) !important;
+            background: rgba(224,85,106,0.08) !important;
+            min-width: 200px;
+        }
+        .mystery-btn:hover {
+            border-color: #ff6b7a !important;
+            box-shadow: 0 0 32px rgba(224,85,106,0.35) !important;
+            background: rgba(224,85,106,0.18) !important;
+            transform: translateY(-2px);
+        }
+        .mystery-text {
+            display: block;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--danger);
+            letter-spacing: 6px;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(224,85,106,0.4);
+        }
+
         .expand-hint {
             text-align: center; margin-top: 20px;
         }
@@ -1560,13 +1581,21 @@
             html += `<span class="card-type-strip ${colorClass}">${art.catLabel || art.type}</span>`;
             html += `<span class="card-name">${art.name}</span>`;
             html += '<span class="card-divider"></span>';
-            html += `<span class="card-sub">${art.intro}</span>`;
+            html += '<span class="card-sub">点击查看详情</span>';
             html += '</div></div></div>';
         }
 
         html += '<div id="nav-area">';
         if (branch.outcome !== null && branch.nextEra === null) {
-            html += renderEndingInline(branch);
+            const outcomeData = encodeURIComponent(JSON.stringify({
+                outcome: branch.outcome,
+                articleName: branch.article ? branch.article.name : '',
+                hint: branch.hint || ''
+            }));
+            html += '<div class="nav-section-label" style="color:var(--danger)">⚠ 该选择将导向结局</div>';
+            html += '<div class="nav-buttons">';
+            html += `<div class="nav-btn mystery-btn" onclick="revealEnding('${outcomeData}')"><span class="mystery-text">？？？</span></div>`;
+            html += '</div>';
         } else if (branch.nextEra) {
             const nextEra = getEra(branch.nextEra);
             html += '<div class="nav-section-label">▼ 下一时代</div>';
@@ -1686,6 +1715,21 @@
     <div class="ending-sub">${subtitle}</div>
     <button class="restart-btn" onclick="restartJourney()">⟳ 回到最开始的地方</button>
   </div>`;
+    }
+
+    function revealEnding(dataStr) {
+        const data = JSON.parse(decodeURIComponent(dataStr));
+        const isContinue = data.outcome === 'CONTINUE…';
+        const icon = isContinue ? '✦' : '◈';
+        const subtitle = isContinue ? '故事尚未终结，新的篇章等待书写……' : '时间线在此处收束。';
+        contentArea.innerHTML = `<div class="ending-screen" style="padding:60px 20px;animation:fadeSlideIn 0.5s ease">
+    <div class="ending-icon">${icon}</div>
+    <div class="ending-line-name">── ${data.outcome || '结局'} ──</div>
+    <div class="ending-title">${data.articleName}</div>
+    <div class="ending-sub">${subtitle}</div>
+    <button class="restart-btn" onclick="restartJourney()">⟳ 回到最开始的地方</button>
+  </div>`;
+        scrollToTop();
     }
 
     function goNext(eraId) {
