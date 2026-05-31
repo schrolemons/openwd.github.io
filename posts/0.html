@@ -40,7 +40,7 @@
 <meta property="og:description" content=".raw-html-container{margin:0 auto;padding:0;max-width:100%;}.raw-html-frame{width:100%;height:calc(100vh - 100px);min-height:600px;border:none;display:block;}  var __rf&#x3D;document.querySelector(&quot;.raw-ht">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-31T10:56:26.005Z">
-<meta property="article:modified_time" content="2026-05-31T15:27:40.763Z">
+<meta property="article:modified_time" content="2026-05-31T16:42:38.585Z">
 <meta property="article:author" content="Schrolemons">
 <meta property="article:tag" content="感知 创造 记录">
 <meta name="twitter:card" content="summary">
@@ -261,8 +261,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><style>.raw-html-container{margin:0 auto;padding:0;max-width:100%;}.raw-html-frame{width:100%;height:calc(100vh - 100px);min-height:600px;border:none;display:block;}</style>
-<div class="raw-html-container"><iframe class="raw-html-frame" srcdoc="
-&lt;!DOCTYPE html&gt;
+<div class="raw-html-container"><iframe class="raw-html-frame" srcdoc="&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;zh-CN&quot;&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -326,7 +325,7 @@ body {
   100% { top: calc(50% + 100%); opacity: 0; }
 }
 #starfield {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  position: absolute; inset: 0;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
   align-content: center; gap: 0; padding: 60px 40px;
   z-index: 5; pointer-events: none;
@@ -372,7 +371,7 @@ body {
 .starfield-hud .hud-info.tl-info { top: 20px; left: 52px; text-align: left; }
 .starfield-hud .hud-info.tr-info { top: 20px; right: 52px; text-align: right; }
 .starfield-hud .hud-info.bl-info { bottom: 20px; left: 52px; text-align: left; }
-.starfield-hud .hud-info.br-info { bottom: 20px; right: 52px; text-align: right; }
+.starfield-hud .hud-info.br-info { bottom: 100px; right: 52px; text-align: right; }
 .starfield-hud .hud-label {
   font-size: 8px; letter-spacing: 2px; color: rgba(61,192,216,0.3);
   text-transform: uppercase; margin-bottom: 2px;
@@ -400,47 +399,56 @@ body {
 }
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .starfield-hud .hud-bars {
-  position: absolute; bottom: 22px; right: 52px;
-  display: flex; gap: 18px; align-items: flex-end;
+  position: absolute; bottom: 20px; right: 52px;
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
 }
 .starfield-hud .hud-bar-group {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  display: flex; flex-direction: row; align-items: center; gap: 8px;
 }
 .starfield-hud .hud-bar-label {
   font-size: 7px; letter-spacing: 2px; color: rgba(61,192,216,0.3);
-  font-family: &quot;Consolas&quot;,monospace;
+  font-family: &quot;Consolas&quot;,monospace; min-width: 24px; text-align: right;
 }
 .starfield-hud .hud-bar-track {
-  width: 3px; height: 50px; background: rgba(61,192,216,0.08);
+  width: 60px; height: 4px; background: rgba(61,192,216,0.08);
   position: relative; overflow: hidden;
 }
 .starfield-hud .hud-bar-fill {
-  position: absolute; bottom: 0; left: 0; width: 100%;
-  background: rgba(94,224,244,0.5); transition: height 0.5s ease;
+  position: absolute; top: 0; left: 0; height: 100%;
+  background: rgba(94,224,244,0.5); transition: width 0.5s ease;
   box-shadow: 0 0 6px rgba(94,224,244,0.4);
 }
-.starfield-hud .hud-bar-fill.pwr { height: 87%; background: rgba(94,224,244,0.5); }
-.starfield-hud .hud-bar-fill.scn { height: 42%; background: rgba(74,216,176,0.5); box-shadow: 0 0 6px rgba(74,216,176,0.4); }
+.starfield-hud .hud-bar-fill.pwr { width: 87%; background: rgba(94,224,244,0.5); }
+.starfield-hud .hud-bar-fill.scn { width: 42%; background: rgba(74,216,176,0.5); box-shadow: 0 0 6px rgba(74,216,176,0.4); }
 .starfield-hud .hud-bar-val {
   font-size: 7px; letter-spacing: 1px; color: rgba(61,192,216,0.35);
-  font-family: &quot;Consolas&quot;,monospace;
+  font-family: &quot;Consolas&quot;,monospace; width: 28px; text-align: right;
 }
-@keyframes sonarJump {
-  0%, 100% { height: 8px; }
-  25% { height: 22px; }
-  50% { height: 10px; }
-  75% { height: 30px; }
+@keyframes pulseDot {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.35; box-shadow: 0 0 3px rgba(94,224,244,0.25); }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; box-shadow: 0 0 10px rgba(94,224,244,0.7), 0 0 22px rgba(94,224,244,0.3); }
 }
-.starfield-hud .hud-sonar-track { width: 20px; display: flex; gap: 2px; align-items: flex-end; background: transparent !important; }
-.starfield-hud .hud-sonar-bar {
-  flex: 1; background: rgba(94,224,244,0.45); box-shadow: 0 0 4px rgba(94,224,244,0.3);
-  animation: sonarJump 1.2s ease-in-out infinite;
+@keyframes pulseRingOut {
+  0% { transform: translate(-50%, -50%) scale(0.15); opacity: 0.55; border-color: rgba(94,224,244,0.5); }
+  100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; border-color: rgba(94,224,244,0); }
 }
-.starfield-hud .hud-sonar-bar:nth-child(1) { animation-delay: 0s; }
-.starfield-hud .hud-sonar-bar:nth-child(2) { animation-delay: 0.15s; }
-.starfield-hud .hud-sonar-bar:nth-child(3) { animation-delay: 0.3s; }
-.starfield-hud .hud-sonar-bar:nth-child(4) { animation-delay: 0.45s; }
-.starfield-hud .hud-sonar-bar:nth-child(5) { animation-delay: 0.6s; }
+.starfield-hud .hud-pulse-track {
+  width: 60px; height: 4px; position: relative;
+  background: transparent !important; overflow: visible;
+}
+.starfield-hud .hud-pulse-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(94,224,244,0.9); position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  animation: pulseDot 1.8s ease-in-out infinite; z-index: 1;
+}
+.starfield-hud .hud-pulse-ring {
+  position: absolute; width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(94,224,244,0.5); top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.15); opacity: 0;
+}
+.starfield-hud .hud-pulse-ring:nth-child(1) { animation: pulseRingOut 1.8s ease-out infinite; }
+.starfield-hud .hud-pulse-ring:nth-child(2) { animation: pulseRingOut 1.8s ease-out 0.9s infinite; }
 
 .star-point {
   position: absolute; cursor: pointer; pointer-events: auto;
@@ -1714,24 +1722,18 @@ function toggleInfoPanel() {
   var collapseBtn = document.getElementById('panel-collapse-btn');
   if (!panel) return;
   var isCollapsed = panel.classList.contains('collapsed');
+  var hud = document.querySelector('.starfield-hud');
   if (isCollapsed) {
     panel.classList.remove('collapsed');
     if (expandTab) expandTab.classList.remove('visible');
     if (collapseBtn) collapseBtn.classList.remove('collapsed');
+    if (hud) hud.classList.add('visible');
   } else {
     panel.classList.add('collapsed');
     if (expandTab) expandTab.classList.add('visible');
     if (collapseBtn) collapseBtn.classList.add('collapsed');
+    if (hud) hud.classList.remove('visible');
   }
-  setTimeout(function() {
-    var sf = document.getElementById('starfield');
-    if (sf) {
-      var m = document.getElementById('main');
-      sf.style.width = m.offsetWidth + 'px';
-      sf.style.height = m.offsetHeight + 'px';
-      requestAnimationFrame(function() { sf.style.width = ''; sf.style.height = ''; });
-    }
-  }, 460);
 }
 
 function togglePanelDetail() {
@@ -2247,7 +2249,7 @@ function buildStarfield() {
     + '&lt;div class=&quot;hud-bars&quot;&gt;'
     + '&lt;div class=&quot;hud-bar-group&quot;&gt;&lt;span class=&quot;hud-bar-label&quot;&gt;PWR&lt;/span&gt;&lt;div class=&quot;hud-bar-track&quot;&gt;&lt;div class=&quot;hud-bar-fill pwr&quot; id=&quot;hud-pwr-bar&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;hud-bar-val&quot; id=&quot;hud-pwr-val&quot;&gt;87%&lt;/span&gt;&lt;/div&gt;'
     + '&lt;div class=&quot;hud-bar-group&quot;&gt;&lt;span class=&quot;hud-bar-label&quot;&gt;SCN&lt;/span&gt;&lt;div class=&quot;hud-bar-track&quot;&gt;&lt;div class=&quot;hud-bar-fill scn&quot; id=&quot;hud-scn-bar&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;hud-bar-val&quot; id=&quot;hud-scn-val&quot;&gt;42%&lt;/span&gt;&lt;/div&gt;'
-    + '&lt;div class=&quot;hud-bar-group&quot;&gt;&lt;span class=&quot;hud-bar-label&quot;&gt;SIG&lt;/span&gt;&lt;div class=&quot;hud-bar-track hud-sonar-track&quot;&gt;&lt;div class=&quot;hud-sonar-bar&quot; id=&quot;hud-sonar-1&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-sonar-bar&quot; id=&quot;hud-sonar-2&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-sonar-bar&quot; id=&quot;hud-sonar-3&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-sonar-bar&quot; id=&quot;hud-sonar-4&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-sonar-bar&quot; id=&quot;hud-sonar-5&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;hud-bar-val&quot;&gt;SONAR&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div class=&quot;hud-bar-group&quot;&gt;&lt;span class=&quot;hud-bar-label&quot;&gt;SIG&lt;/span&gt;&lt;div class=&quot;hud-bar-track hud-pulse-track&quot;&gt;&lt;div class=&quot;hud-pulse-ring&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-pulse-ring&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-pulse-dot&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;hud-bar-val&quot;&gt;光脉&lt;/span&gt;&lt;/div&gt;'
     + '&lt;/div&gt;';
   sf.appendChild(hud);
   hud.classList.add('visible');
@@ -2513,12 +2515,12 @@ function startHudBars() {
     var scnVal = document.getElementById('hud-scn-val');
     if (pwrBar &amp;&amp; pwrVal) {
       var pwr = 82 + Math.floor(Math.random() * 14);
-      pwrBar.style.height = pwr + '%';
+      pwrBar.style.width = pwr + '%';
       pwrVal.textContent = pwr + '%';
     }
     if (scnBar &amp;&amp; scnVal) {
       var scn = 30 + Math.floor(Math.random() * 50);
-      scnBar.style.height = scn + '%';
+      scnBar.style.width = scn + '%';
       scnVal.textContent = scn + '%';
     }
   }, 1800);
@@ -2583,6 +2585,19 @@ function startHudBars() {
   draw();
 })();
 
+(function setupMainResizeObserver() {
+  var mainEl = document.getElementById('main');
+  if (!mainEl) return;
+  var ro = new ResizeObserver(function() {
+    var sf = document.getElementById('starfield');
+    if (!sf) return;
+    sf.style.width = mainEl.clientWidth + 'px';
+    sf.style.height = mainEl.clientHeight + 'px';
+    var hud = sf.querySelector('.starfield-hud');
+    if (hud) { void hud.offsetHeight; }
+  });
+  ro.observe(mainEl);
+})();
 buildStarfield();
 &lt;/script&gt;
 &lt;/body&gt;
@@ -2637,13 +2652,13 @@ buildStarfield();
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/11.html" rel="prev" title="灵耀体系：土奏琴璃">
-                  <i class="fa fa-angle-left"></i> 灵耀体系：土奏琴璃
+                <a href="/posts/4.html" rel="prev" title="离迹之草：烬择浮影">
+                  <i class="fa fa-angle-left"></i> 离迹之草：烬择浮影
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/15.html" rel="next" title="越度之风：虹九重构">
-                  越度之风：虹九重构 <i class="fa fa-angle-right"></i>
+                <a href="/posts/27.html" rel="next" title="灵耀体系：阴行世界">
+                  灵耀体系：阴行世界 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
