@@ -1664,14 +1664,14 @@
             if (collapseBtn) collapseBtn.classList.remove('collapsed');
             if (hud) hud.classList.remove('hide-corners');
             var backdrop = document.getElementById('mobile-panel-backdrop');
-            if (backdrop) backdrop.classList.remove('visible');
+            if (backdrop) backdrop.classList.add('visible');
         } else {
             panel.classList.add('collapsed');
             if (expandTab) expandTab.classList.add('visible');
             if (collapseBtn) collapseBtn.classList.add('collapsed');
             if (hud) hud.classList.add('hide-corners');
             var backdrop = document.getElementById('mobile-panel-backdrop');
-            if (backdrop) backdrop.classList.add('visible');
+            if (backdrop) backdrop.classList.remove('visible');
         }
     }
 
