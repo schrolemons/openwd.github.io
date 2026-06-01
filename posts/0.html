@@ -40,7 +40,7 @@
 <meta property="og:description" content=".raw-html-container{margin:0 auto;padding:0;max-width:100%;}.raw-html-frame{width:100%;height:calc(100vh - 100px);min-height:600px;border:none;display:block;}  var __rf&#x3D;document.querySelector(&quot;.raw-ht">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-31T10:56:26.005Z">
-<meta property="article:modified_time" content="2026-06-01T05:53:50.697Z">
+<meta property="article:modified_time" content="2026-06-01T08:30:33.948Z">
 <meta property="article:author" content="Schrolemons">
 <meta property="article:tag" content="感知 创造 记录">
 <meta name="twitter:card" content="summary">
@@ -749,6 +749,19 @@ body {
   background: rgba(2,10,20,0.95);
   box-shadow: 0 0 20px rgba(61,192,216,0.35);
 }
+.virus-popup.mega {
+  border-color: #ff1a3d; color: #fff;
+  background: rgba(30,3,3,0.98);
+  font-size: 20px; font-weight: 700; padding: 24px 32px;
+  letter-spacing: 3px;
+  box-shadow: 0 0 60px rgba(255,20,30,0.6), 0 0 120px rgba(255,0,0,0.3);
+  border-width: 2px;
+}
+.puzzle-error {
+  color: #ff1a3d; font-family: &quot;Consolas&quot;,monospace; font-size: 13px;
+  letter-spacing: 2px; text-align: center; margin-top: 14px; min-height: 20px;
+  text-shadow: 0 0 10px rgba(255,20,50,0.6);
+}
 @keyframes virusShake { 0%,100%{transform:translate(0)} 10%{transform:translate(-6px,3px)} 20%{transform:translate(7px,-2px)} 30%{transform:translate(-4px,-5px)} 40%{transform:translate(5px,4px)} 50%{transform:translate(-8px,-1px)} 60%{transform:translate(3px,6px)} 70%{transform:translate(-6px,-3px)} 80%{transform:translate(8px,2px)} 90%{transform:translate(-3px,-4px)} }
 body.virus-shaking {
   animation: virusShake 0.25s infinite;
@@ -757,6 +770,25 @@ body.virus-shaking #app,
 body.virus-shaking #bg-canvas {
   animation: virusShake 0.18s infinite;
   animation-delay: 0.06s;
+}
+@keyframes crtCollapse {
+  0% { transform: scaleY(1); opacity: 1; filter: brightness(1); }
+  8% { transform: scaleY(0.7); opacity: 1; filter: brightness(1.3); }
+  20% { transform: scaleY(0.08); opacity: 1; filter: brightness(3); }
+  30% { transform: scaleY(0.015); opacity: 1; filter: brightness(8); }
+  45% { transform: scaleY(0.003); opacity: 0.8; filter: brightness(12); }
+  70% { transform: scaleY(0.001); opacity: 0.2; filter: brightness(20); }
+  100% { transform: scaleY(0); opacity: 0; filter: brightness(30); }
+}
+.crt-off-overlay {
+  position: fixed; inset: 0; z-index: 305; pointer-events: all;
+  background: #000; display: flex; align-items: center; justify-content: center;
+}
+.crt-off-line {
+  width: 100%; height: 100%;
+  background: #fff;
+  transform-origin: center center;
+  animation: crtCollapse 0.7s ease-in forwards;
 }
 .blackout-overlay {
   position: fixed; inset: 0; z-index: 300; pointer-events: all;
@@ -776,8 +808,9 @@ body.virus-shaking #bg-canvas {
   position: fixed; inset: 0; z-index: 310; pointer-events: all;
   background: #000; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  animation: eraFadeIn 0.5s ease;
+  animation: puzzleFadeIn 1.2s ease both;
 }
+@keyframes puzzleFadeIn { from { opacity: 0; } to { opacity: 1; } }
 .puzzle-title {
   font-family: &quot;Consolas&quot;,&quot;Courier New&quot;,monospace; font-size: 16px;
   letter-spacing: 3px; color: rgba(255,255,255,0.7);
@@ -2240,7 +2273,21 @@ function scrollNavigateTo(targetIdx, direction) {
 
     if (skipWrap) {
       ca.style.opacity = '';
-      scrollNavBusy = false;
+      ca.style.animation = 'starGlitch 0.45s ease-out';
+      var brHeader = ca.querySelector('.era-header');
+      if (brHeader) {
+        brHeader.style.animation = 'glitchText 0.38s ease-out 0.04s both';
+      }
+      var brBtns = ca.querySelectorAll('.branch-option');
+      brBtns.forEach(function(el, i) {
+        el.style.animation = 'glitchText 0.32s ease-out ' + (0.10 + i * 0.05) + 's both';
+      });
+      setTimeout(function() {
+        ca.style.animation = '';
+        if (brHeader) brHeader.style.animation = '';
+        brBtns.forEach(function(el) { el.style.animation = ''; });
+        scrollNavBusy = false;
+      }, 310);
     } else {
       var newWrap = document.createElement('div');
       newWrap.className = 'scroll-content-wrap';
@@ -2270,6 +2317,7 @@ function setupScrollNavigation() {
   if (!main) return;
   main.addEventListener('wheel', function(e) {
     if (scrollNavBusy) return;
+    if (infectedMode) return;
     if (eraExpanded) return;
     if (document.querySelector('.article-modal-overlay')) return;
     if (document.querySelector('.ending-screen')) return;
@@ -2300,6 +2348,7 @@ function setupScrollNavigation() {
 
   main.addEventListener('touchend', function(e) {
     if (scrollNavBusy) return;
+    if (infectedMode) return;
     if (eraExpanded) return;
     if (document.querySelector('.article-modal-overlay')) return;
     if (document.querySelector('.ending-screen')) return;
@@ -2332,6 +2381,8 @@ var starTimer = null;
 var starTimerSeconds = 0;
 var starTimerTriggered = false;
 var easterEggDone = false;
+var infectedMode = false;
+var infectedTimer = null;
 
 function getEra(id) { return eraMap[id]; }
 function scrollToTop() { contentArea.scrollTop = 0; }
@@ -3198,60 +3249,81 @@ function triggerVirusTakeover() {
   ];
   var vw = window.innerWidth;
   var vh = window.innerHeight;
-  var totalPops = 150;
-  var popInterval = 22;
-
-  var corners = [
-    { ox: 0, oy: 0, dx: 0.6, dy: 0.6 },
-    { ox: vw * 0.5, oy: 0, dx: -0.2, dy: 0.7 },
-    { ox: 0, oy: vh * 0.4, dx: 0.7, dy: 0.1 },
-    { ox: vw * 0.4, oy: vh * 0.4, dx: 0.1, dy: 0.1 }
-  ];
+  var totalPops = 140;
 
   for (var i = 0; i &lt; totalPops; i++) {
     (function(idx) {
-      setTimeout(function() {
-        var wave = Math.floor(idx / 38);
-        var c = corners[Math.min(wave, 3)];
-        var spread = (idx % 38) / 38;
-        var px = c.ox + c.dx * vw * spread + (Math.random() - 0.5) * 120;
-        var py = c.oy + c.dy * vh * spread + (Math.random() - 0.5) * 100;
-        px = Math.max(5, Math.min(vw - 240, px));
-        py = Math.max(5, Math.min(vh - 60, py));
+      var phase, baseScale, baseLife, stepDelay;
+      if (idx &lt; 60) {
+        phase = 'swarm'; stepDelay = 18; baseScale = 0.4; baseLife = 350;
+      } else if (idx &lt; 100) {
+        phase = 'wave'; stepDelay = 38; baseScale = 1.0; baseLife = 600;
+      } else {
+        phase = 'crush'; stepDelay = 65; baseScale = 2.2; baseLife = 1100;
+      }
+      var delay = 0;
+      for (var p = 0; p &lt; idx; p++) {
+        if (p &lt; 60) delay += 18;
+        else if (p &lt; 100) delay += 38;
+        else delay += 65;
+      }
+      delay += Math.random() * 30;
 
+      setTimeout(function() {
         var pop = document.createElement('div');
         pop.className = 'virus-popup';
-        if (idx &lt; 30) pop.classList.add('crit');
+        if (idx &lt; 25) pop.classList.add('crit');
+        else if (idx &gt;= 100) pop.classList.add('mega');
         else if (idx % 7 === 0) pop.classList.add('warn');
         else if (idx % 13 === 0) pop.classList.add('info-pop');
+
         pop.textContent = virusTexts[Math.floor(Math.random() * virusTexts.length)];
-        pop.style.left = px + 'px';
-        pop.style.top = py + 'px';
-        pop.style.zIndex = 250 + Math.floor(idx / 10);
-        var s = idx &lt; 30 ? (1.2 + Math.random() * 2.0) : (0.5 + Math.random() * 1.6);
+        pop.style.left = (Math.random() * (vw - 280) + 10) + 'px';
+        pop.style.top = (Math.random() * (vh - 80) + 10) + 'px';
+        pop.style.zIndex = 250 + Math.floor(idx / 8);
+
+        var s = baseScale + Math.random() * (phase === 'crush' ? 2.0 : phase === 'wave' ? 1.2 : 0.7);
         pop.style.transform = 'scale(' + s + ')';
-        pop.style.animationDuration = (0.08 + Math.random() * 0.2) + 's';
+        pop.style.animationDuration = (0.06 + Math.random() * 0.18) + 's';
         document.body.appendChild(pop);
 
-        var life = 400 + Math.random() * 1200;
-        if (idx &lt; 30) life = 800 + Math.random() * 1000;
+        var life = baseLife + Math.random() * (phase === 'crush' ? 1500 : phase === 'wave' ? 800 : 500);
         setTimeout(function() {
           if (pop.parentNode) {
             pop.style.opacity = '0';
-            pop.style.transition = 'opacity 0.25s';
-            setTimeout(function() { if (pop.parentNode) pop.remove(); }, 300);
+            pop.style.transition = 'opacity 0.35s';
+            setTimeout(function() { if (pop.parentNode) pop.remove(); }, 350);
           }
         }, life);
-      }, idx * popInterval + Math.random() * 15);
+      }, delay);
     })(i);
   }
+
+  var finishDelay = 60 * 18 + 40 * 38 + 40 * 65 + 1200;
 
   setTimeout(function() {
     document.body.classList.remove('virus-shaking');
     var pops = document.querySelectorAll('.virus-popup');
-    pops.forEach(function(p) { if (p.parentNode) p.remove(); });
-    showEasterEggPuzzle();
-  }, totalPops * popInterval + 1500);
+    pops.forEach(function(p) {
+      p.style.animation = 'none';
+      p.style.transition = 'opacity 1.2s ease';
+      p.style.opacity = '0';
+    });
+    setTimeout(function() {
+      pops.forEach(function(p) { if (p.parentNode) p.remove(); });
+      var crtOverlay = document.createElement('div');
+      crtOverlay.className = 'crt-off-overlay';
+      crtOverlay.id = 'crt-off-overlay';
+      var crtLine = document.createElement('div');
+      crtLine.className = 'crt-off-line';
+      crtOverlay.appendChild(crtLine);
+      document.body.appendChild(crtOverlay);
+      setTimeout(function() {
+        if (crtOverlay.parentNode) crtOverlay.remove();
+        showEasterEggPuzzle();
+      }, 800);
+    }, 1300);
+  }, finishDelay);
 }
 
 function showEasterEggPuzzle() {
@@ -3261,11 +3333,13 @@ function showEasterEggPuzzle() {
   puzzle.innerHTML = '&lt;div class=&quot;puzzle-title&quot;&gt;重构后的天上有几颗星星？&lt;/div&gt;'
     + '&lt;div class=&quot;puzzle-display&quot; id=&quot;puzzle-display&quot;&gt;&lt;/div&gt;'
     + '&lt;div class=&quot;puzzle-keypad&quot; id=&quot;puzzle-keypad&quot;&gt;&lt;/div&gt;'
-    + '&lt;div class=&quot;puzzle-row&quot;&gt;&lt;div class=&quot;puzzle-confirm&quot; id=&quot;puzzle-confirm&quot;&gt;[ 确认 ]&lt;/div&gt;&lt;/div&gt;';
+    + '&lt;div class=&quot;puzzle-row&quot;&gt;&lt;div class=&quot;puzzle-confirm&quot; id=&quot;puzzle-confirm&quot;&gt;[ 确认 ]&lt;/div&gt;&lt;/div&gt;'
+    + '&lt;div class=&quot;puzzle-error&quot; id=&quot;puzzle-error&quot;&gt;&lt;/div&gt;';
   document.body.appendChild(puzzle);
 
   var display = document.getElementById('puzzle-display');
   var inputValue = '';
+  var puzzleAttempts = 0;
 
   var keys = ['1','2','3','4','5','6','7','8','9','←','0'];
   var keypad = document.getElementById('puzzle-keypad');
@@ -3289,8 +3363,58 @@ function showEasterEggPuzzle() {
     if (inputValue === '10') {
       if (puzzle.parentNode) puzzle.remove();
       showBlackoutMorse();
+    } else {
+      puzzleAttempts++;
+      inputValue = '';
+      if (display) display.textContent = '';
+      var errEl = document.getElementById('puzzle-error');
+      if (puzzleAttempts &gt;= 5) {
+        if (errEl) errEl.textContent = '最后一次机会';
+        setTimeout(function() {
+          var errEl2 = document.getElementById('puzzle-error');
+          if (errEl2) errEl2.textContent = '';
+        }, 800);
+        puzzle.style.animation = 'starGlitch 0.8s ease-out';
+        puzzle.style.filter = 'invert(1)';
+        setTimeout(function() {
+          if (puzzle.parentNode) puzzle.remove();
+          startInfectedCycle();
+        }, 900);
+      } else {
+        if (errEl) errEl.textContent = '输入错误';
+        setTimeout(function() {
+          var errEl2 = document.getElementById('puzzle-error');
+          if (errEl2) errEl2.textContent = '';
+        }, 1500);
+      }
     }
   });
+}
+
+function startInfectedCycle() {
+  if (infectedTimer) clearInterval(infectedTimer);
+  infectedMode = true;
+
+  var sf = document.getElementById('starfield');
+  if (sf) triggerStarGlitch(sf);
+
+  returnToStars();
+
+  infectedTimer = setInterval(function() {
+    if (!infectedMode) { clearInterval(infectedTimer); infectedTimer = null; return; }
+    if (scrollNavBusy) return;
+    var targetIdx = Math.floor(Math.random() * timelineData.length);
+    if (targetIdx === scrollNavIndex) {
+      targetIdx = (targetIdx + 1 + Math.floor(Math.random() * (timelineData.length - 1))) % timelineData.length;
+    }
+    scrollNavigateTo(targetIdx, Math.random() &gt; 0.5 ? 'down' : 'up');
+  }, 500);
+
+  setTimeout(function() {
+    infectedMode = false;
+    if (infectedTimer) { clearInterval(infectedTimer); infectedTimer = null; }
+    returnToStars();
+  }, 22000);
 }
 
 function showBlackoutMorse() {
@@ -3716,8 +3840,8 @@ function eraTransitionFlash() {
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/27.html" rel="next" title="灵耀体系：阴行世界">
-                  灵耀体系：阴行世界 <i class="fa fa-angle-right"></i>
+                <a href="/posts/15.html" rel="next" title="越度之风：虹九重构">
+                  越度之风：虹九重构 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
