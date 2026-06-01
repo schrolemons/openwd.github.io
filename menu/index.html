@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -476,6 +477,16 @@
             letter-spacing: 2px;
             box-shadow: 0 0 40px rgba(255,20,30,0.5), 0 0 80px rgba(255,0,0,0.2);
         }
+        .virus-popup.warn {
+            border-color: #e69850; color: #f4b870;
+            background: rgba(20,10,2,0.96);
+            box-shadow: 0 0 25px rgba(230,152,80,0.4);
+        }
+        .virus-popup.info-pop {
+            border-color: #3dc0d8; color: #5ee0f4;
+            background: rgba(2,10,20,0.95);
+            box-shadow: 0 0 20px rgba(61,192,216,0.35);
+        }
         @keyframes virusShake { 0%,100%{transform:translate(0)} 10%{transform:translate(-6px,3px)} 20%{transform:translate(7px,-2px)} 30%{transform:translate(-4px,-5px)} 40%{transform:translate(5px,4px)} 50%{transform:translate(-8px,-1px)} 60%{transform:translate(3px,6px)} 70%{transform:translate(-6px,-3px)} 80%{transform:translate(8px,2px)} 90%{transform:translate(-3px,-4px)} }
         body.virus-shaking {
             animation: virusShake 0.25s infinite;
@@ -499,6 +510,47 @@
             font-family: "Consolas",monospace; font-size: 18px; letter-spacing: 4px;
             color: #fff; text-align: center; min-height: 60px; line-height: 1.8;
         }
+        .puzzle-overlay {
+            position: fixed; inset: 0; z-index: 310; pointer-events: all;
+            background: #000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            animation: eraFadeIn 0.5s ease;
+        }
+        .puzzle-title {
+            font-family: "Consolas","Courier New",monospace; font-size: 16px;
+            letter-spacing: 3px; color: rgba(255,255,255,0.7);
+            margin-bottom: 32px; text-align: center;
+        }
+        .puzzle-display {
+            width: 180px; height: 48px; margin-bottom: 28px;
+            background: rgba(0,20,30,0.8); border: 1px solid rgba(61,192,216,0.5);
+            font-family: "Consolas",monospace; font-size: 22px; letter-spacing: 6px;
+            color: #5ee0f4; text-align: center; line-height: 48px;
+            box-shadow: 0 0 15px rgba(61,192,216,0.2), inset 0 0 15px rgba(0,0,0,0.4);
+            min-height: 48px;
+        }
+        .puzzle-keypad {
+            display: grid; grid-template-columns: repeat(3, 56px); gap: 10px;
+            justify-content: center; margin-bottom: 20px;
+        }
+        .puzzle-key {
+            width: 56px; height: 56px; cursor: pointer;
+            background: rgba(5,15,30,0.9); border: 1px solid rgba(61,192,216,0.3);
+            color: #5ee0f4; font-family: "Consolas",monospace; font-size: 20px;
+            letter-spacing: 2px; transition: all 0.15s;
+            clip-path: polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+        }
+        .puzzle-key:hover { border-color: #5ee0f4; box-shadow:0 0 16px rgba(94,224,244,0.3); background:rgba(10,25,45,0.95); }
+        .puzzle-key:active { background:rgba(20,50,70,0.95); transform:scale(0.93); }
+        .puzzle-confirm {
+            padding: 12px 40px; cursor: pointer; font-family: "Consolas",monospace;
+            font-size: 15px; letter-spacing: 3px; background: rgba(5,15,30,0.9);
+            border: 1px solid rgba(61,192,216,0.5); color: #5ee0f4;
+            clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+            transition: all 0.2s;
+        }
+        .puzzle-confirm:hover { border-color: #5ee0f4; box-shadow:0 0 20px rgba(94,224,244,0.35); }
+        .puzzle-row { display: flex; gap: 10px; justify-content: center; }
         @keyframes eraTransFlash { 0%{opacity:0} 25%{opacity:0.6} 100%{opacity:0} }
         @keyframes rippleOut { 0%{transform:scale(0);opacity:0.8} 100%{transform:scale(2.5);opacity:0} }
         @keyframes glitchHeavy { 0%,82%,100%{transform:translate(0);filter:none} 84%{transform:translate(-10px,4px);filter:hue-rotate(120deg) brightness(1.6)} 86%{transform:translate(8px,-5px);filter:hue-rotate(-80deg) brightness(0.6)} 88%{transform:translate(-6px,-3px);filter:hue-rotate(50deg) brightness(1.3)} 90%{transform:translate(7px,2px);filter:hue-rotate(-40deg)} 92%{transform:translate(-4px,6px);filter:brightness(1.8)} 94%{transform:translate(3px,-2px);filter:hue-rotate(20deg)} 96%{transform:translate(-8px,-4px)} 98%{transform:translate(5px,3px)} }
@@ -1988,6 +2040,7 @@
     var starTimer = null;
     var starTimerSeconds = 0;
     var starTimerTriggered = false;
+    var easterEggDone = false;
 
     function getEra(id) { return eraMap[id]; }
     function scrollToTop() { contentArea.scrollTop = 0; }
@@ -2772,6 +2825,7 @@
     }
 
     function startStarTimer() {
+        if (easterEggDone) return;
         if (starTimer) clearInterval(starTimer);
         starTimerSeconds = 0;
         starTimerTriggered = false;
@@ -2823,6 +2877,9 @@
         var overlay = document.getElementById('easter-egg-overlay');
         if (overlay) overlay.remove();
 
+        easterEggDone = true;
+        history.replaceState({ view: 'stars' }, '', '#stars');
+
         var shakeBursts = [
             { start: 0, dur: 380 },
             { start: 580, dur: 320 },
@@ -2853,15 +2910,33 @@
         var totalPops = 150;
         var popInterval = 22;
 
+        var corners = [
+            { ox: 0, oy: 0, dx: 0.6, dy: 0.6 },
+            { ox: vw * 0.5, oy: 0, dx: -0.2, dy: 0.7 },
+            { ox: 0, oy: vh * 0.4, dx: 0.7, dy: 0.1 },
+            { ox: vw * 0.4, oy: vh * 0.4, dx: 0.1, dy: 0.1 }
+        ];
+
         for (var i = 0; i < totalPops; i++) {
             (function(idx) {
                 setTimeout(function() {
+                    var wave = Math.floor(idx / 38);
+                    var c = corners[Math.min(wave, 3)];
+                    var spread = (idx % 38) / 38;
+                    var px = c.ox + c.dx * vw * spread + (Math.random() - 0.5) * 120;
+                    var py = c.oy + c.dy * vh * spread + (Math.random() - 0.5) * 100;
+                    px = Math.max(5, Math.min(vw - 240, px));
+                    py = Math.max(5, Math.min(vh - 60, py));
+
                     var pop = document.createElement('div');
                     pop.className = 'virus-popup';
                     if (idx < 30) pop.classList.add('crit');
+                    else if (idx % 7 === 0) pop.classList.add('warn');
+                    else if (idx % 13 === 0) pop.classList.add('info-pop');
                     pop.textContent = virusTexts[Math.floor(Math.random() * virusTexts.length)];
-                    pop.style.left = Math.random() * (vw - 220) + 'px';
-                    pop.style.top = Math.random() * (vh - 50) + 'px';
+                    pop.style.left = px + 'px';
+                    pop.style.top = py + 'px';
+                    pop.style.zIndex = 250 + Math.floor(idx / 10);
                     var s = idx < 30 ? (1.2 + Math.random() * 2.0) : (0.5 + Math.random() * 1.6);
                     pop.style.transform = 'scale(' + s + ')';
                     pop.style.animationDuration = (0.08 + Math.random() * 0.2) + 's';
@@ -2882,8 +2957,49 @@
 
         setTimeout(function() {
             document.body.classList.remove('virus-shaking');
-            showBlackoutMorse();
+            var pops = document.querySelectorAll('.virus-popup');
+            pops.forEach(function(p) { if (p.parentNode) p.remove(); });
+            showEasterEggPuzzle();
         }, totalPops * popInterval + 1500);
+    }
+
+    function showEasterEggPuzzle() {
+        var puzzle = document.createElement('div');
+        puzzle.className = 'puzzle-overlay';
+        puzzle.id = 'puzzle-overlay';
+        puzzle.innerHTML = '<div class="puzzle-title">重构后的天上有几颗星星？</div>'
+            + '<div class="puzzle-display" id="puzzle-display"></div>'
+            + '<div class="puzzle-keypad" id="puzzle-keypad"></div>'
+            + '<div class="puzzle-row"><div class="puzzle-confirm" id="puzzle-confirm">[ 确认 ]</div></div>';
+        document.body.appendChild(puzzle);
+
+        var display = document.getElementById('puzzle-display');
+        var inputValue = '';
+
+        var keys = ['1','2','3','4','5','6','7','8','9','←','0'];
+        var keypad = document.getElementById('puzzle-keypad');
+        keys.forEach(function(k) {
+            var btn = document.createElement('div');
+            btn.className = 'puzzle-key';
+            btn.textContent = k;
+            btn.addEventListener('click', function() {
+                if (k === '←') {
+                    inputValue = inputValue.slice(0, -1);
+                } else {
+                    if (inputValue.length < 6) inputValue += k;
+                }
+                if (display) display.textContent = inputValue;
+            });
+            keypad.appendChild(btn);
+        });
+
+        var confirmBtn = document.getElementById('puzzle-confirm');
+        confirmBtn.addEventListener('click', function() {
+            if (inputValue === '10') {
+                if (puzzle.parentNode) puzzle.remove();
+                showBlackoutMorse();
+            }
+        });
     }
 
     function showBlackoutMorse() {
