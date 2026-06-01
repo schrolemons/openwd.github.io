@@ -40,7 +40,7 @@
 <meta property="og:description" content=".raw-html-container{margin:0 auto;padding:0;max-width:100%;}.raw-html-frame{width:100%;height:calc(100vh - 100px);min-height:600px;border:none;display:block;}  var __rf&#x3D;document.querySelector(&quot;.raw-ht">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-31T10:56:26.005Z">
-<meta property="article:modified_time" content="2026-06-01T02:53:38.195Z">
+<meta property="article:modified_time" content="2026-06-01T03:58:39.756Z">
 <meta property="article:author" content="Schrolemons">
 <meta property="article:tag" content="感知 创造 记录">
 <meta name="twitter:card" content="summary">
@@ -65,8 +65,8 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="第九边缘:SCHNIE" type="application/atom+xml">
-<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style><link rel="alternate" href="/atom.xml" title="第九边缘:SCHNIE" type="application/atom+xml">
+</head>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -357,6 +357,7 @@ body {
 .starfield-hud.visible { display: block; }
 .starfield-hud.hide-corners .hud-corner,
 .starfield-hud.hide-corners .hud-info,
+.starfield-hud.hide-corners .hud-bars,
 .starfield-hud.hide-corners .hud-typing-wrap { display: none; }
 .starfield-hud .hud-corner {
   position: absolute; width: 28px; height: 28px;
@@ -503,14 +504,15 @@ body {
   background: linear-gradient(180deg, #060f1e 0%, #030c18 100%);
   border-left: 1px solid var(--border);
   display: flex; flex-direction: column;
-  overflow: hidden; z-index: 2; transition: all 0.3s;
+  overflow: hidden; z-index: 2;
   position: relative;
-  transition: transform 0.42s cubic-bezier(0.4,0,0.2,1), margin-right 0.42s cubic-bezier(0.4,0,0.2,1);
+  transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
   margin-right: 0; transform: translateX(0);
 }
 #era-info-panel.collapsed {
   transform: translateX(280px);
-  margin-right: -280px;
+  visibility: hidden; pointer-events: none;
+  transition: transform 0.42s cubic-bezier(0.4,0,0.2,1), visibility 0s 0.42s;
 }
 #era-info-panel::before {
   content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 100%;
@@ -655,6 +657,146 @@ body {
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.5) 0%, rgba(94,224,244,0.35) 20%, rgba(61,192,216,0.1) 50%, transparent 75%);
   animation: transitionFlash 0.7s ease-out forwards;
 }
+@keyframes scanLineSweep { from{top:-2px;opacity:0.9} to{top:100%;opacity:0} }
+@keyframes entryScanIn { from{opacity:0;transform:translateY(8px);filter:blur(2px)} to{opacity:1;transform:translateY(0);filter:blur(0)} }
+@keyframes btnGlowPulse { 0%,100%{box-shadow:0 0 8px rgba(61,192,216,0.1)} 50%{box-shadow:0 0 22px rgba(61,192,216,0.25)} }
+@keyframes starGlitch { 0%{opacity:1;transform:translate(0);filter:none} 4%{opacity:0.2;transform:translate(12px,-4px);filter:hue-rotate(120deg) brightness(2) saturate(3)} 6%{opacity:0.8;transform:translate(-14px,6px);filter:hue-rotate(-80deg) brightness(0.3)} 8%{opacity:0.1;transform:translate(8px,2px);filter:invert(1) brightness(2.5)} 10%{opacity:0.7;transform:translate(-6px,-8px);filter:hue-rotate(200deg)} 12%{opacity:0.3;transform:translate(16px,0);filter:saturate(4) hue-rotate(-30deg)} 15%{opacity:0.9;transform:translate(0);filter:none} 42%{opacity:1;transform:translate(0);filter:none} 44%{opacity:0.15;transform:translate(-20px,8px);filter:hue-rotate(180deg) brightness(3) blur(1px)} 46%{opacity:0.6;transform:translate(18px,-10px);filter:hue-rotate(-60deg) brightness(0.4) blur(0.5px)} 48%{opacity:0.05;transform:translate(-8px,-4px);filter:invert(1) saturate(5)} 50%{opacity:0.5;transform:translate(10px,6px);filter:hue-rotate(90deg)} 53%{opacity:0.8;transform:translate(0);filter:none} 70%{opacity:1;transform:translate(0);filter:none} 72%{opacity:0.2;transform:translate(-10px,5px);filter:hue-rotate(60deg) brightness(1.6)} 74%{opacity:0.7;transform:translate(12px,-3px);filter:hue-rotate(-30deg) brightness(0.5)} 76%{opacity:0.1;transform:translate(-6px,-6px);filter:invert(1) brightness(2.2)} 78%{opacity:0.5;transform:translate(8px,3px)} 80%{opacity:0.05;transform:translate(-14px,0);filter:hue-rotate(220deg) brightness(3)} 82%{opacity:0.4;transform:translate(4px,-2px)} 85%{opacity:0.8;transform:translate(0)} 100%{opacity:1;transform:translate(0);filter:none} }
+.starfield-glitch { animation: starGlitch 1.1s ease-out; }
+@keyframes glitchBarFlash { 0%{opacity:0;transform:translateX(-100%) skewX(-15deg)} 15%{opacity:0.9} 30%{opacity:0.2} 45%{opacity:0.85} 55%{opacity:0} 100%{opacity:0;transform:translateX(120%) skewX(-15deg)} }
+@keyframes glitchBarFlashRev { 0%{opacity:0;transform:translateX(120%) skewX(15deg)} 15%{opacity:0.85} 30%{opacity:0.1} 45%{opacity:0.9} 55%{opacity:0} 100%{opacity:0;transform:translateX(-100%) skewX(15deg)} }
+.glitch-bar {
+  position: fixed; left: -5%; width: 110%; pointer-events: none; z-index: 100;
+  animation: glitchBarFlash 0.4s ease-out both;
+}
+.glitch-bar.rev { animation-name: glitchBarFlashRev; }
+@keyframes glitchErrorPop { 0%{opacity:0;transform:scale(0.3) translateY(-10px)} 25%{opacity:1;transform:scale(1.4) translateY(0)} 60%{opacity:0.7;transform:scale(0.9)} 100%{opacity:0;transform:scale(1.1) translateY(10px)} }
+.glitch-error-tag {
+  position: fixed; pointer-events: none; z-index: 101;
+  font-family: &quot;Consolas&quot;,&quot;Courier New&quot;,monospace; font-size: 12px; letter-spacing: 1px;
+  color: #ff1a3d; text-shadow: 0 0 10px rgba(255,20,50,0.9), 2px 0 rgba(0,200,255,0.5), -2px 0 rgba(255,255,0,0.4);
+  animation: glitchErrorPop 0.45s ease-out both;
+  white-space: nowrap;
+}
+@keyframes glitchScanCrush { 0%{transform:translateY(-100%)} 40%{transform:translateY(30vh)} 50%{transform:translateY(60vh);opacity:0.9} 51%{transform:translateY(10vh);opacity:0.1} 60%{transform:translateY(80vh)} 100%{transform:translateY(120%);opacity:0} }
+.glitch-scan-crush {
+  position: fixed; left: 0; width: 100%; pointer-events: none; z-index: 99;
+  height: 3px; background: rgba(255,30,50,0.8);
+  box-shadow: 0 0 20px rgba(255,0,50,0.6), 0 0 60px rgba(255,0,30,0.3), 0 -8px 12px rgba(255,0,50,0.2), 0 8px 12px rgba(0,200,255,0.2);
+  animation: glitchScanCrush 0.7s ease-in both;
+}
+.starfield-hud .hud-timer {
+  position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+  font-family: &quot;Consolas&quot;,monospace; font-size: 10px; letter-spacing: 2px;
+  color: rgba(94,224,244,0.35); pointer-events: none; opacity: 0.6;
+}
+.easter-egg-overlay {
+  position: fixed; inset: 0; z-index: 200; pointer-events: all;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.85);
+  animation: eraFadeIn 0.3s ease;
+}
+.easter-egg-modal {
+  background: linear-gradient(180deg, #060f1e 0%, #030c18 100%);
+  border: 1px solid var(--accent);
+  clip-path: polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+  padding: 40px 48px; text-align: center; max-width: 480px; width: 90%;
+  box-shadow: 0 0 60px rgba(61,192,216,0.2);
+}
+.easter-egg-modal .egg-title {
+  font-size: 22px; font-weight: 700; color: var(--text-primary);
+  letter-spacing: 3px; margin-bottom: 32px; line-height: 1.5;
+}
+.easter-egg-modal .egg-options {
+  display: flex; gap: 20px; justify-content: center;
+}
+.easter-egg-modal .egg-options .egg-btn {
+  padding: 12px 28px; font-size: 15px; font-weight: 600; cursor: pointer;
+  letter-spacing: 2px; border: 1px solid var(--border); background: rgba(8,20,44,0.7);
+  color: var(--text-primary); transition: all 0.3s;
+  clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+}
+.easter-egg-modal .egg-options .egg-btn:hover { border-color: var(--accent); box-shadow:0 0 20px rgba(61,192,216,0.2); }
+.easter-egg-modal .egg-options .egg-btn.egg-ignore {
+  border-color: var(--lantern); color: var(--lantern-glow);
+  background: linear-gradient(180deg, rgba(230,152,80,0.1) 0%, rgba(180,100,40,0.05) 100%);
+}
+.easter-egg-modal .egg-options .egg-btn.egg-ignore:hover {
+  box-shadow: 0 0 32px rgba(230,152,80,0.35);
+}
+.virus-popup {
+  position: fixed; z-index: 250; pointer-events: none;
+  background: rgba(6,15,30,0.95); border: 1px solid var(--lantern);
+  color: var(--lantern-glow); font-family: &quot;Consolas&quot;,monospace;
+  font-size: 11px; padding: 12px 16px; letter-spacing: 1px;
+  clip-path: polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px);
+  animation: virusFlash 0.15s ease-out both;
+}
+@keyframes virusFlash { from{opacity:0;transform:scale(0.5)} to{opacity:1;transform:scale(1)} }
+.virus-popup.crit {
+  border-color: #ff1a3d; color: #ff4455;
+  background: rgba(20,5,5,0.97);
+  font-size: 14px; font-weight: 700; padding: 16px 24px;
+  letter-spacing: 2px;
+  box-shadow: 0 0 40px rgba(255,20,30,0.5), 0 0 80px rgba(255,0,0,0.2);
+}
+@keyframes virusShake { 0%,100%{transform:translate(0)} 10%{transform:translate(-6px,3px)} 20%{transform:translate(7px,-2px)} 30%{transform:translate(-4px,-5px)} 40%{transform:translate(5px,4px)} 50%{transform:translate(-8px,-1px)} 60%{transform:translate(3px,6px)} 70%{transform:translate(-6px,-3px)} 80%{transform:translate(8px,2px)} 90%{transform:translate(-3px,-4px)} }
+body.virus-shaking {
+  animation: virusShake 0.25s infinite;
+}
+body.virus-shaking #app,
+body.virus-shaking #bg-canvas {
+  animation: virusShake 0.18s infinite;
+  animation-delay: 0.06s;
+}
+.blackout-overlay {
+  position: fixed; inset: 0; z-index: 300; pointer-events: all;
+  background: #000; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  animation: eraFadeIn 0.6s ease;
+}
+.blackout-overlay .morse-label {
+  font-family: &quot;Consolas&quot;,monospace; font-size: 10px; letter-spacing: 3px;
+  color: rgba(255,255,255,0.3); margin-bottom: 24px;
+}
+.blackout-overlay .morse-text {
+  font-family: &quot;Consolas&quot;,monospace; font-size: 18px; letter-spacing: 4px;
+  color: #fff; text-align: center; min-height: 60px; line-height: 1.8;
+}
+@keyframes eraTransFlash { 0%{opacity:0} 25%{opacity:0.6} 100%{opacity:0} }
+@keyframes rippleOut { 0%{transform:scale(0);opacity:0.8} 100%{transform:scale(2.5);opacity:0} }
+@keyframes glitchHeavy { 0%,82%,100%{transform:translate(0);filter:none} 84%{transform:translate(-10px,4px);filter:hue-rotate(120deg) brightness(1.6)} 86%{transform:translate(8px,-5px);filter:hue-rotate(-80deg) brightness(0.6)} 88%{transform:translate(-6px,-3px);filter:hue-rotate(50deg) brightness(1.3)} 90%{transform:translate(7px,2px);filter:hue-rotate(-40deg)} 92%{transform:translate(-4px,6px);filter:brightness(1.8)} 94%{transform:translate(3px,-2px);filter:hue-rotate(20deg)} 96%{transform:translate(-8px,-4px)} 98%{transform:translate(5px,3px)} }
+@keyframes glitchText { 0%,84%,100%{text-shadow:3px 0 rgba(255,0,30,0.7),-3px 0 rgba(0,200,255,0.7)} 86%{text-shadow:-4px 0 rgba(255,0,30,0.9),4px 0 rgba(0,200,255,0.9)} 88%{text-shadow:5px 0 rgba(255,0,30,0.5),-5px 0 rgba(0,200,255,0.5)} 90%{text-shadow:-3px 2px rgba(255,0,30,0.8),3px -2px rgba(0,200,255,0.8)} 92%{text-shadow:4px -1px rgba(255,0,30,0.9),-4px 1px rgba(0,200,255,0.9)} 94%{text-shadow:-5px 0 rgba(255,0,30,0.6),5px 0 rgba(0,200,255,0.6)} 96%{text-shadow:2px -3px rgba(255,0,30,0.7),-2px 3px rgba(0,200,255,0.7)} 98%{text-shadow:-3px 1px rgba(255,0,30,0.5)} }
+.era-transition-overlay {
+  position: fixed; inset: 0; z-index: 50; pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%,rgba(61,192,216,0.06) 40%,rgba(94,224,244,0.12) 50%,rgba(61,192,216,0.06) 60%,transparent 100%);
+  animation: eraTransFlash 0.5s ease-out forwards;
+}
+.entry-constellation { position: relative; }
+.entry-constellation.entry-scanned::after {
+  content: ''; position: absolute; left: 5%; width: 90%; height: 2px; z-index: 10; pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--accent-glow), var(--accent), var(--accent-glow), transparent);
+  animation: scanLineSweep 0.55s ease-out forwards;
+}
+.entry-star { animation: entryScanIn 0.45s ease both; opacity: 0; }
+.entry-star.entry-visible { opacity: 1; }
+.era-display.entry-focused .era-header,
+.era-display.entry-focused #nav-area,
+.era-display.entry-focused .article-doc-panel,
+.era-display.entry-focused .branch-options,
+.era-display.entry-focused .branch-option,
+.era-display.entry-focused .nav-section-label,
+.era-display.entry-focused .nav-btn,
+.era-display.entry-focused .nav-buttons,
+.era-display.entry-focused .expand-hint {
+  opacity: 0.1; transition: opacity 0.35s ease;
+}
+.era-display.entry-focused .entry-constellation .entry-star:not(.entry-focus) {
+  opacity: 0.1; filter: blur(1px); transition: all 0.35s ease;
+}
+.entry-star.entry-focus { z-index: 5; position: relative; }
+.entry-star.entry-focus .es-dot {
+  transform: scale(1.7); box-shadow: 0 0 20px var(--star-glow), 0 0 44px rgba(126,232,255,0.8), 0 0 60px rgba(61,192,216,0.4);
+}
 .era-badge {
   display: inline-block; padding: 5px 16px;
   font-size: 10px; letter-spacing: 3px; font-weight: 700;
@@ -692,13 +834,19 @@ body {
   color: var(--accent-glow); border: 1px solid var(--accent);
   transition: all 0.35s; position: relative;
   clip-path: polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  animation: btnGlowPulse 2.8s ease-in-out infinite;
 }
 .view-era-btn::after {
   content: ''; position: absolute; inset: 0; background: var(--foam);
   clip-path: inherit; transition: all 0.35s;
 }
-.view-era-btn:hover { color: #fff; border-color: var(--accent-glow); transform: translateY(-2px); }
+.view-era-btn::before {
+  content: ''; position: absolute; top: -1px; left: 10%; width: 0; height: 1px;
+  background: var(--accent-glow); transition: width 0.3s ease; z-index: 1;
+}
+.view-era-btn:hover { color: #fff; border-color: var(--accent-glow); transform: translateY(-2px); animation: none; }
 .view-era-btn:hover::after { background: rgba(61,192,216,0.2); box-shadow: 0 0 36px rgba(61,192,216,0.3); }
+.view-era-btn:hover::before { width: 80%; }
 
 #nav-area {
   width: 100%; max-width: 720px; margin: 0 auto;
@@ -728,8 +876,8 @@ body {
   pointer-events: none;
 }
 .nav-btn:hover { border-color: var(--border-bright); transform: translateY(-2px); box-shadow: 0 0 28px rgba(61,192,216,0.18); }
-.nav-btn.main-path { border-color: var(--accent); background: linear-gradient(180deg, rgba(61,192,216,0.08) 0%, rgba(61,192,216,0.03) 100%); }
-.nav-btn.main-path:hover { background: linear-gradient(180deg, rgba(61,192,216,0.14) 0%, rgba(61,192,216,0.06) 100%); box-shadow: 0 0 32px rgba(61,192,216,0.28); }
+.nav-btn.main-path { border-color: var(--accent); background: linear-gradient(180deg, rgba(61,192,216,0.08) 0%, rgba(61,192,216,0.03) 100%); animation: btnGlowPulse 2.5s ease-in-out infinite; }
+.nav-btn.main-path:hover { background: linear-gradient(180deg, rgba(61,192,216,0.14) 0%, rgba(61,192,216,0.06) 100%); box-shadow: 0 0 32px rgba(61,192,216,0.28); animation: none; }
 .nav-btn.alt-path { border-color: var(--warning); }
 .nav-btn.alt-path:hover { box-shadow: 0 0 28px rgba(201,160,80,0.22); }
 .nav-btn .btn-era-name { display: block; font-size: 15px; margin-bottom: 2px; }
@@ -965,7 +1113,7 @@ body {
   border-color: var(--lantern-glow) !important;
   box-shadow: 0 0 44px rgba(230,152,80,0.45), 0 0 80px rgba(230,152,80,0.15), inset 0 0 40px rgba(230,152,80,0.04) !important;
   background: linear-gradient(180deg, rgba(230,152,80,0.12) 0%, rgba(180,100,40,0.06) 100%) !important;
-  animation: none;
+  animation: lanternFlicker 0.4s ease-in-out infinite, glitchHeavy 0.22s steps(1) infinite;
 }
 .mystery-text {
   display: block; font-size: 34px; font-weight: 800; letter-spacing: 10px; text-align: center;
@@ -975,7 +1123,7 @@ body {
   text-shadow: none; position: relative; z-index: 1;
 }
 .mystery-btn:hover .mystery-text {
-  filter: brightness(1.2);
+  filter: brightness(1.2); animation: glitchText 0.2s steps(1) infinite;
 }
 
 /* ── Return to Stars Button ── */
@@ -1058,10 +1206,6 @@ body {
   font-size: 10px; color: var(--text-dim); font-family: &quot;Consolas&quot;,monospace;
   letter-spacing: 1px;
 }
-
-/* ── Panel Collapse ── */
-#era-info-panel.collapsed { width: 0; min-width: 0; border-left: none; overflow: hidden; }
-#era-info-panel.collapsed .panel-header, #era-info-panel.collapsed .panel-body { display: none; }
 
 /* ── Article Modal (Tech) ── */
 .article-modal-overlay {
@@ -2009,8 +2153,11 @@ function scrollNavigateTo(targetIdx, direction) {
       var era = timelineData[targetIdx];
       currentEraId = era.id;
       eraExpanded = false;
+      var skipWrap = era.type === 'branch';
       var sf = document.getElementById('starfield');
       if (sf &amp;&amp; prevIdx === -1) {
+        if (starTwinkleTimer) { clearInterval(starTwinkleTimer); starTwinkleTimer = null; }
+        if (starTimer) { clearInterval(starTimer); starTimer = null; }
         sf.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.4,0,0.15,1)';
         sf.style.opacity = '0';
         sf.style.transform = 'scale(0.25)';
@@ -2033,31 +2180,36 @@ function scrollNavigateTo(targetIdx, direction) {
       var fadeIns = document.querySelectorAll('#content-area .era-header, #content-area #nav-area');
       fadeIns.forEach(function(el) { el.style.animation = 'none'; el.style.opacity = '1'; });
       var branchOpts = document.querySelectorAll('#content-area .branch-option');
-      branchOpts.forEach(function(el) { el.style.transition = 'none'; });
+      branchOpts.forEach(function(el) { el.style.setProperty('transition', 'none', 'important'); });
       returnStarsBtn.classList.add('visible');
       ctrlsWrapper.classList.remove('visible');
       pushViewState({ view: 'era', eraId: era.id });
     }
 
-    var newWrap = document.createElement('div');
-    newWrap.className = 'scroll-content-wrap';
-    var newCa = document.getElementById('content-area');
-    while (newCa.firstChild) newWrap.appendChild(newCa.firstChild);
-    newCa.appendChild(newWrap);
-    ca.style.opacity = '';
-    var inAnim = direction === 'down' ? 'scrollSlideInDown' : 'scrollSlideInUp';
-    newWrap.style.animationName = inAnim;
-
-    setTimeout(function() {
-      var lastWrap = newCa.querySelector('.scroll-content-wrap');
-      if (lastWrap) {
-        while (lastWrap.firstChild) newCa.appendChild(lastWrap.firstChild);
-        lastWrap.remove();
-      }
-      var restoreOpts = document.querySelectorAll('#content-area .branch-option');
-      restoreOpts.forEach(function(el) { el.style.transition = ''; });
+    if (skipWrap) {
+      ca.style.opacity = '';
       scrollNavBusy = false;
-    }, 360);
+    } else {
+      var newWrap = document.createElement('div');
+      newWrap.className = 'scroll-content-wrap';
+      var newCa = document.getElementById('content-area');
+      while (newCa.firstChild) newWrap.appendChild(newCa.firstChild);
+      newCa.appendChild(newWrap);
+      var inAnim = direction === 'down' ? 'scrollSlideInDown' : 'scrollSlideInUp';
+      newWrap.style.animationName = inAnim;
+      ca.style.opacity = '';
+
+      setTimeout(function() {
+        var lastWrap = newCa.querySelector('.scroll-content-wrap');
+        if (lastWrap) {
+          while (lastWrap.firstChild) newCa.appendChild(lastWrap.firstChild);
+          lastWrap.remove();
+        }
+        var restoreOpts = document.querySelectorAll('#content-area .branch-option');
+        restoreOpts.forEach(function(el) { el.style.removeProperty('transition'); });
+        scrollNavBusy = false;
+      }, 360);
+    }
   }, 360);
 }
 
@@ -2096,6 +2248,9 @@ const returnStarsBtn = document.getElementById('return-stars-btn');
 const starfieldToggleBtn = document.getElementById('starfield-toggle');
 const ctrlsWrapper = document.getElementById('starfield-ctrls');
 var starTwinkleTimer = null;
+var starTimer = null;
+var starTimerSeconds = 0;
+var starTimerTriggered = false;
 
 function getEra(id) { return eraMap[id]; }
 function scrollToTop() { contentArea.scrollTop = 0; }
@@ -2189,6 +2344,7 @@ function navigateTo(eraId) {
   scrollNavIndex = timelineData.findIndex(function(e){ return e.id === eraId; });
   updateInfoPanel(eraId);
   renderEra(eraId);
+  eraTransitionFlash();
   scrollToTop();
   pushViewState({ view: 'era', eraId: eraId });
 }
@@ -2253,11 +2409,11 @@ function expandCurrentEra() {
 
   var html = '';
 
-  html += '&lt;div class=&quot;entry-constellation&quot; id=&quot;entry-constellation&quot;&gt;';
+  html += '&lt;div class=&quot;entry-constellation entry-scanned&quot; id=&quot;entry-constellation&quot;&gt;';
   era.articles.forEach(function(art, i) {
     var t = art.type;
     var esClass = esTypeClassMap[t] || '';
-    html += '&lt;div class=&quot;entry-star ' + esClass + '&quot; data-idx=&quot;' + i + '&quot; onclick=&quot;selectEntryStar(event,' + i + ')&quot;&gt;';
+    html += '&lt;div class=&quot;entry-star ' + esClass + '&quot; data-idx=&quot;' + i + '&quot; onclick=&quot;selectEntryStar(event,' + i + ')&quot; style=&quot;animation-delay:' + (0.08 + i * 0.06) + 's&quot;&gt;';
     html += '&lt;span class=&quot;es-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;es-line&quot;&gt;&lt;/span&gt;';
     html += '&lt;span class=&quot;es-label&quot;&gt;' + art.name + '&lt;/span&gt;';
     html += '&lt;/div&gt;';
@@ -2282,8 +2438,15 @@ function expandCurrentEra() {
   var expandHint = display.querySelector('.expand-hint');
   if (expandHint) expandHint.remove();
   display.insertAdjacentHTML('beforeend', html);
+  eraTransitionFlash();
 
   requestAnimationFrame(function() {
+    var container = document.getElementById('entry-constellation');
+    if (!container) return;
+    var stars = container.querySelectorAll('.entry-star');
+    stars.forEach(function(s, i) {
+      setTimeout(function() { s.classList.add('entry-visible'); }, 80 + i * 60);
+    });
     requestAnimationFrame(function() {
       var container = document.getElementById('entry-constellation');
       if (!container) return;
@@ -2505,8 +2668,8 @@ function selectBranchOption(eraId, branchIdx) {
   if (branch.article) {
     const art = branch.article;
     const esClass = esTypeClassMap[art.type] || '';
-    html += '&lt;div class=&quot;entry-constellation&quot; id=&quot;branch-entry-constellation&quot; style=&quot;margin:28px 0 10px&quot;&gt;';
-    html += '&lt;div class=&quot;entry-star ' + esClass + '&quot; data-idx=&quot;0&quot; onclick=&quot;selectBranchEntryStar(event,' + eraId + ',' + branchIdx + ')&quot;&gt;';
+    html += '&lt;div class=&quot;entry-constellation entry-scanned&quot; id=&quot;branch-entry-constellation&quot; style=&quot;margin:28px 0 10px&quot;&gt;';
+    html += '&lt;div class=&quot;entry-star ' + esClass + '&quot; data-idx=&quot;0&quot; onclick=&quot;selectBranchEntryStar(event,' + eraId + ',' + branchIdx + ')&quot; style=&quot;animation-delay:0.08s&quot;&gt;';
     html += '&lt;span class=&quot;es-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;es-line&quot;&gt;&lt;/span&gt;';
     html += '&lt;span class=&quot;es-label&quot;&gt;' + art.name + '&lt;/span&gt;';
     html += '&lt;/div&gt;';
@@ -2538,6 +2701,11 @@ function selectBranchOption(eraId, branchIdx) {
   html += '&lt;/div&gt;&lt;/div&gt;';
 
   contentArea.innerHTML = html;
+  eraTransitionFlash();
+  setTimeout(function() {
+    var bStars = document.querySelectorAll('#branch-entry-constellation .entry-star');
+    bStars.forEach(function(s, i) { setTimeout(function() { s.classList.add('entry-visible'); }, i * 60); });
+  }, 80);
   updateInfoPanelForBranch(era, branch);
   scrollToTop();
   pushViewState({ view: 'branch', eraId: eraId, branchIdx: branchIdx });
@@ -2615,6 +2783,7 @@ function revealEnding(dataStr) {
     &lt;div class=&quot;ending-sub&quot;&gt;${subtitle}&lt;/div&gt;
     &lt;button class=&quot;restart-btn&quot; onclick=&quot;restartJourney()&quot;&gt;⟳ 回到最开始的地方&lt;/button&gt;
   &lt;/div&gt;`;
+  eraTransitionFlash();
   const header = document.querySelector('#era-info-panel .panel-header');
   header.querySelector('.panel-sys-label').innerHTML = '&lt;span class=&quot;panel-rec-dot&quot;&gt;&lt;/span&gt; TERMINAL';
   header.querySelector('.panel-era-name').textContent = cleanOutcome;
@@ -2650,6 +2819,12 @@ function buildStarfield() {
   const main = document.getElementById('main');
   let existing = document.getElementById('starfield');
   if (existing) existing.remove();
+
+  if (starTimer) { clearInterval(starTimer); starTimer = null; }
+  starTimerSeconds = 0;
+  starTimerTriggered = false;
+  var timerEl = document.getElementById('hud-timer');
+  if (timerEl) timerEl.textContent = 'T+00:00';
   const sf = document.createElement('div');
   sf.id = 'starfield';
   var starCount = timelineData.length;
@@ -2665,6 +2840,7 @@ function buildStarfield() {
     + '&lt;div class=&quot;hud-info bl-info&quot;&gt;&lt;div class=&quot;hud-label&quot;&gt;COORD&lt;/div&gt;&lt;div class=&quot;hud-value&quot;&gt;SECTOR·7G·ALPHA&lt;/div&gt;&lt;div class=&quot;hud-label&quot; style=&quot;margin-top:6px&quot;&gt;GRID&lt;/div&gt;&lt;div class=&quot;hud-value&quot;&gt;4·COL /// ' + Math.ceil(starCount / 4) + '·ROW&lt;/div&gt;&lt;/div&gt;'
     + '&lt;div class=&quot;hud-info br-info&quot;&gt;&lt;div class=&quot;hud-label&quot;&gt;STATUS&lt;/div&gt;&lt;div class=&quot;hud-value&quot;&gt;STANDBY&lt;/div&gt;&lt;div class=&quot;hud-label&quot; style=&quot;margin-top:6px&quot;&gt;CYCLE&lt;/div&gt;&lt;div class=&quot;hud-value&quot;&gt;∞ ITER&lt;/div&gt;&lt;/div&gt;'
     + '&lt;div class=&quot;hud-scanline&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-scanline&quot;&gt;&lt;/div&gt;&lt;div class=&quot;hud-scanline&quot;&gt;&lt;/div&gt;'
+    + '&lt;div class=&quot;hud-timer&quot; id=&quot;hud-timer&quot;&gt;T+00:00&lt;/div&gt;'
     + '&lt;div class=&quot;hud-typing-wrap&quot;&gt;&lt;span class=&quot;hud-typing-label&quot;&gt;LOG·DATA&lt;/span&gt;&lt;span class=&quot;hud-typing-text&quot; id=&quot;hud-typing-text&quot;&gt;&lt;/span&gt;&lt;span class=&quot;hud-typing-cursor&quot;&gt;_&lt;/span&gt;&lt;/div&gt;'
     + '&lt;div class=&quot;hud-bars&quot;&gt;'
     + '&lt;div class=&quot;hud-bar-group&quot;&gt;&lt;span class=&quot;hud-bar-label&quot;&gt;PWR&lt;/span&gt;&lt;div class=&quot;hud-bar-track&quot;&gt;&lt;div class=&quot;hud-bar-fill pwr&quot; id=&quot;hud-pwr-bar&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;hud-bar-val&quot; id=&quot;hud-pwr-val&quot;&gt;87%&lt;/span&gt;&lt;/div&gt;'
@@ -2779,6 +2955,7 @@ function buildStarfield() {
 
   startHudTyping();
   startHudBars();
+  startStarTimer();
 
   if (starTwinkleTimer) clearInterval(starTwinkleTimer);
   starTwinkleTimer = setInterval(function() {
@@ -2796,10 +2973,231 @@ function buildStarfield() {
   }, 1800 + Math.random() * 1200);
 }
 
+function triggerStarGlitch(sf) {
+  sf.classList.add('starfield-glitch');
+
+  var errorTexts = [
+    'SIGNAL LOST', 'BUFFER OVERFLOW', 'FRAME DROP[CRIT]', 'SYNC_FAIL',
+    'DATA CORRUPT', 'SECT¥R 7G_FA!L', 'CARR1ER ≠ F0UND', '0x0F3A NULL_PTR',
+    'SCAN FAILURE', 'MEM LEAK DETECT', 'STACK OVERFLOW', 'ANCHOR LOST',
+    'FREQ MISMATCH', 'PHASE DRIFT', 'CKSUM ERR 0x7F', 'TIMEOUT 30s',
+    'TRACK LOST', 'RECURSION LIMIT', 'SIG_TERM', 'BUFFER UNDERRUN'
+  ];
+
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var barColors = [
+    'rgba(255,30,50,0.7)', 'rgba(0,220,255,0.6)', 'rgba(255,200,0,0.5)',
+    'rgba(255,0,200,0.55)', 'rgba(0,255,100,0.5)', 'rgba(255,80,0,0.6)',
+    'rgba(100,200,255,0.55)', 'rgba(200,255,0,0.45)'
+  ];
+
+  var scanLine = document.createElement('div');
+  scanLine.className = 'glitch-scan-crush';
+  document.body.appendChild(scanLine);
+  setTimeout(function() { if (scanLine.parentNode) scanLine.remove(); }, 750);
+
+  for (var i = 0; i &lt; 8; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var bar = document.createElement('div');
+        bar.className = 'glitch-bar' + (idx % 3 === 1 ? ' rev' : '');
+        bar.style.top = (5 + Math.random() * 85) + '%';
+        bar.style.height = (2 + Math.random() * 16) + 'px';
+        bar.style.background = barColors[Math.floor(Math.random() * barColors.length)];
+        bar.style.boxShadow = '0 0 ' + (8 + Math.random() * 20) + 'px ' + bar.style.background;
+        document.body.appendChild(bar);
+        setTimeout(function() { if (bar.parentNode) bar.remove(); }, 450);
+      }, idx * 50 + Math.random() * 80);
+    })(i);
+  }
+
+  for (var j = 0; j &lt; 15; j++) {
+    (function(idx) {
+      setTimeout(function() {
+        var tag = document.createElement('div');
+        tag.className = 'glitch-error-tag';
+        tag.textContent = errorTexts[Math.floor(Math.random() * errorTexts.length)];
+        tag.style.left = (2 + Math.random() * 80) + '%';
+        tag.style.top = (5 + Math.random() * 85) + '%';
+        tag.style.fontSize = (10 + Math.random() * 8) + 'px';
+        tag.style.transform = 'rotate(' + ((Math.random() - 0.5) * 30) + 'deg)';
+        if (Math.random() &gt; 0.5) tag.style.color = Math.random() &gt; 0.5 ? '#ff1a3d' : '#00ddff';
+        document.body.appendChild(tag);
+        setTimeout(function() { if (tag.parentNode) tag.remove(); }, 500);
+      }, idx * 40 + Math.random() * 120);
+    })(j);
+  }
+
+  setTimeout(function() {
+    sf.classList.remove('starfield-glitch');
+  }, 1150);
+}
+
+function startStarTimer() {
+  if (starTimer) clearInterval(starTimer);
+  starTimerSeconds = 0;
+  starTimerTriggered = false;
+  var timerEl = document.getElementById('hud-timer');
+  if (timerEl) timerEl.textContent = 'T+00:00';
+  starTimer = setInterval(function() {
+    var sf = document.getElementById('starfield');
+    if (!sf || sf.style.display === 'none') return;
+    starTimerSeconds++;
+    var m = Math.floor(starTimerSeconds / 60);
+    var s = starTimerSeconds % 60;
+    var timerEl = document.getElementById('hud-timer');
+    if (timerEl) timerEl.textContent = 'T+' + (m &lt; 10 ? '0' : '') + m + ':' + (s &lt; 10 ? '0' : '') + s;
+
+    if (starTimerSeconds === 9 &amp;&amp; !starTimerTriggered) {
+      triggerStarGlitch(sf);
+    }
+
+    if (starTimerSeconds === 30 &amp;&amp; !starTimerTriggered) {
+      starTimerTriggered = true;
+      clearInterval(starTimer);
+      starTimer = null;
+      showEasterEggModal();
+    }
+  }, 1000);
+}
+
+function showEasterEggModal() {
+  var overlay = document.createElement('div');
+  overlay.className = 'easter-egg-overlay';
+  overlay.id = 'easter-egg-overlay';
+  overlay.innerHTML = '&lt;div class=&quot;easter-egg-modal&quot;&gt;'
+    + '&lt;div class=&quot;egg-title&quot;&gt;你究竟在等待什么？&lt;/div&gt;'
+    + '&lt;div class=&quot;egg-options&quot;&gt;'
+    + '&lt;div class=&quot;egg-btn&quot; onclick=&quot;dismissEasterEgg()&quot;&gt;取消&lt;/div&gt;'
+    + '&lt;div class=&quot;egg-btn egg-ignore&quot; onclick=&quot;triggerVirusTakeover()&quot;&gt;不予理睬&lt;/div&gt;'
+    + '&lt;/div&gt;&lt;/div&gt;';
+  document.body.appendChild(overlay);
+}
+
+function dismissEasterEgg() {
+  var overlay = document.getElementById('easter-egg-overlay');
+  if (overlay) overlay.remove();
+  starTimerTriggered = false;
+  startStarTimer();
+}
+
+function triggerVirusTakeover() {
+  var overlay = document.getElementById('easter-egg-overlay');
+  if (overlay) overlay.remove();
+
+  var shakeBursts = [
+    { start: 0, dur: 380 },
+    { start: 580, dur: 320 },
+    { start: 1100, dur: 420 },
+    { start: 1720, dur: 260 },
+    { start: 2180, dur: 360 },
+    { start: 2740, dur: 300 },
+    { start: 3240, dur: 340 },
+    { start: 3780, dur: 220 }
+  ];
+  shakeBursts.forEach(function(b) {
+    setTimeout(function() { document.body.classList.add('virus-shaking'); }, b.start);
+    setTimeout(function() { document.body.classList.remove('virus-shaking'); }, b.start + b.dur);
+  });
+
+  var virusTexts = [
+    'ACCESS DENIED', 'ROOT BREACH DETECTED', 'FIREWALL BYPASSED',
+    'MEMORY DUMP IN PROGRESS', 'ENCRYPTION KEY LOST', 'SECTOR 7G COMPROMISED',
+    'DATA CORRUPTION', 'SIGNAL INTERCEPT', 'ANCHOR LOST', 'PROTOCOL FAILURE',
+    'UNKNOWN ORIGIN', 'BREACH CONFIRMED', 'CONTAINMENT FAILED',
+    'SYS OVERRIDE', 'TRACE ROUTE ERROR', 'CARRIER SIGNAL LOST',
+    'KERNEL PANIC', 'STACK OVERFLOW', 'NULL_PTR 0x0000', 'SEGFAULT',
+    'BUFFER OVERRUN', 'MEMORY LEAK', 'DEADLOCK DETECTED', 'WATCHDOG TIMEOUT',
+    'FATAL EXCEPTION', 'CORE DUMPED', 'BOOT SECTOR WIPED', 'PARTITION LOST'
+  ];
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var totalPops = 150;
+  var popInterval = 22;
+
+  for (var i = 0; i &lt; totalPops; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var pop = document.createElement('div');
+        pop.className = 'virus-popup';
+        if (idx &lt; 30) pop.classList.add('crit');
+        pop.textContent = virusTexts[Math.floor(Math.random() * virusTexts.length)];
+        pop.style.left = Math.random() * (vw - 220) + 'px';
+        pop.style.top = Math.random() * (vh - 50) + 'px';
+        var s = idx &lt; 30 ? (1.2 + Math.random() * 2.0) : (0.5 + Math.random() * 1.6);
+        pop.style.transform = 'scale(' + s + ')';
+        pop.style.animationDuration = (0.08 + Math.random() * 0.2) + 's';
+        document.body.appendChild(pop);
+
+        var life = 400 + Math.random() * 1200;
+        if (idx &lt; 30) life = 800 + Math.random() * 1000;
+        setTimeout(function() {
+          if (pop.parentNode) {
+            pop.style.opacity = '0';
+            pop.style.transition = 'opacity 0.25s';
+            setTimeout(function() { if (pop.parentNode) pop.remove(); }, 300);
+          }
+        }, life);
+      }, idx * popInterval + Math.random() * 15);
+    })(i);
+  }
+
+  setTimeout(function() {
+    document.body.classList.remove('virus-shaking');
+    showBlackoutMorse();
+  }, totalPops * popInterval + 1500);
+}
+
+function showBlackoutMorse() {
+  var blackout = document.createElement('div');
+  blackout.className = 'blackout-overlay';
+  blackout.id = 'blackout-overlay';
+  blackout.innerHTML = '&lt;div class=&quot;morse-label&quot; id=&quot;morse-label&quot;&gt;DECODING...&lt;/div&gt;'
+    + '&lt;div class=&quot;morse-text&quot; id=&quot;morse-text&quot;&gt;&lt;/div&gt;';
+  document.body.appendChild(blackout);
+
+  var morseMap = {
+    '2': '..---', '4': '....-', '3': '...--', '9': '----.',
+    '0': '-----', '6': '-....', '5': '.....'
+  };
+  var target = '2432902665';
+  var morseFull = '';
+  for (var i = 0; i &lt; target.length; i++) {
+    morseFull += (i &gt; 0 ? ' / ' : '') + morseMap[target[i]];
+  }
+
+  var labelEl = document.getElementById('morse-label');
+  var textEl = document.getElementById('morse-text');
+  if (!textEl) return;
+
+  var charIndex = 0;
+  var typeTimer = setInterval(function() {
+    if (charIndex &lt; morseFull.length) {
+      textEl.textContent += morseFull[charIndex];
+      charIndex++;
+    } else {
+      clearInterval(typeTimer);
+      if (labelEl) labelEl.textContent = 'DECODED';
+      setTimeout(function() {
+        var bo = document.getElementById('blackout-overlay');
+        if (bo) {
+          bo.style.transition = 'opacity 0.5s';
+          bo.style.opacity = '0';
+          setTimeout(function() { if (bo.parentNode) bo.remove(); }, 600);
+        }
+        starTimerTriggered = false;
+        startStarTimer();
+      }, 9000);
+    }
+  }, 80);
+}
+
 function starClick(eraId) {
   var sf = document.getElementById('starfield');
   if (!sf) return;
   if (starTwinkleTimer) { clearInterval(starTwinkleTimer); starTwinkleTimer = null; }
+  if (starTimer) { clearInterval(starTimer); starTimer = null; }
 
   var star = sf.querySelector('.star-point[data-era=&quot;' + eraId + '&quot;]');
   var otherStars = sf.querySelectorAll('.star-point:not([data-era=&quot;' + eraId + '&quot;])');
@@ -3088,6 +3486,34 @@ function startHudBars() {
 buildStarfield();
 history.replaceState({ view: 'stars' }, '', '#stars');
 setupScrollNavigation();
+
+var contentArea2 = document.getElementById('content-area');
+contentArea2.addEventListener('mouseover', function(e) {
+  var entryStar = e.target.closest('.entry-star');
+  if (!entryStar) return;
+  var display = entryStar.closest('.era-display');
+  if (!display) return;
+  display.classList.add('entry-focused');
+  display.querySelectorAll('.entry-star').forEach(function(es) { es.classList.remove('entry-focus'); });
+  entryStar.classList.add('entry-focus');
+});
+contentArea2.addEventListener('mouseout', function(e) {
+  var entryStar = e.target.closest('.entry-star');
+  if (!entryStar) return;
+  var display = entryStar.closest('.era-display');
+  if (!display) return;
+  var related = e.relatedTarget;
+  if (related &amp;&amp; related.closest('.entry-star') &amp;&amp; related.closest('.era-display') === display) return;
+  display.classList.remove('entry-focused');
+  display.querySelectorAll('.entry-star').forEach(function(es) { es.classList.remove('entry-focus'); });
+});
+
+function eraTransitionFlash() {
+  var overlay = document.createElement('div');
+  overlay.className = 'era-transition-overlay';
+  document.getElementById('main').appendChild(overlay);
+  setTimeout(function() { if (overlay.parentNode) overlay.remove(); }, 550);
+}
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;" sandbox="allow-scripts allow-same-origin"></iframe></div>
@@ -3141,13 +3567,13 @@ setupScrollNavigation();
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/11.html" rel="prev" title="灵耀体系：土奏琴璃">
-                  <i class="fa fa-angle-left"></i> 灵耀体系：土奏琴璃
+                <a href="/posts/14.html" rel="prev" title="四象之阴：昏昼合棋">
+                  <i class="fa fa-angle-left"></i> 四象之阴：昏昼合棋
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/29.html" rel="next" title="御临之木：借以神名">
-                  御临之木：借以神名 <i class="fa fa-angle-right"></i>
+                <a href="/posts/10.html" rel="next" title="灵耀体系：水渊蚀源">
+                  灵耀体系：水渊蚀源 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
