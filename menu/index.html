@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -3036,18 +3037,14 @@
             })(i);
         }
 
-        var finishDelay = 60 * 18 + 40 * 38 + 40 * 65 + 1200;
+        var finishDelay = 60 * 18 + 40 * 38 + 600;
 
         setTimeout(function() {
             document.body.classList.remove('virus-shaking');
             var pops = document.querySelectorAll('.virus-popup');
-            pops.forEach(function(p) {
-                p.style.animation = 'none';
-                p.style.transition = 'opacity 1.2s ease';
-                p.style.opacity = '0';
-            });
+            pops.forEach(function(p) { if (p.parentNode) p.remove(); });
+
             setTimeout(function() {
-                pops.forEach(function(p) { if (p.parentNode) p.remove(); });
                 var crtOverlay = document.createElement('div');
                 crtOverlay.className = 'crt-off-overlay';
                 crtOverlay.id = 'crt-off-overlay';
@@ -3059,7 +3056,7 @@
                     if (crtOverlay.parentNode) crtOverlay.remove();
                     showEasterEggPuzzle();
                 }, 800);
-            }, 1300);
+            }, 1000);
         }, finishDelay);
     }
 
