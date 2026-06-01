@@ -93,7 +93,8 @@
         }
         .starfield-hud.visible { display: block; }
         .starfield-hud.hide-corners .hud-corner,
-        .starfield-hud.hide-corners .hud-info { display: none; }
+        .starfield-hud.hide-corners .hud-info,
+        .starfield-hud.hide-corners .hud-typing-wrap { display: none; }
         .starfield-hud .hud-corner {
             position: absolute; width: 28px; height: 28px;
             border-color: rgba(61,192,216,0.35); border-style: solid;
@@ -124,10 +125,10 @@
         .starfield-hud .hud-scanline:nth-child(6) { top: 50%; }
         .starfield-hud .hud-scanline:nth-child(7) { top: 75%; }
         .starfield-hud .hud-typing-wrap {
-            position: fixed; bottom: 80px; left: calc(50% - 140px); transform: translateX(-50%);
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
             max-width: 600px; font-family: "Consolas",monospace;
             font-size: 11px; color: rgba(94,224,244,0.5); letter-spacing: 1px;
-            opacity: 0.8; text-align: center; line-height: 1.6;
+            opacity: 0.8; text-align: center; line-height: 1.6; pointer-events: none;
         }
         .starfield-hud .hud-typing-label {
             color: rgba(61,192,216,0.25); font-size: 8px; letter-spacing: 2px;
@@ -385,6 +386,12 @@
         }
         @keyframes eraFadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
         @keyframes starAppear { from{opacity:0;transform:scale(0.3) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+        @keyframes transitionFlash { 0%{opacity:0} 15%{opacity:1} 60%{opacity:0.6} 100%{opacity:0} }
+        .starfield-transition-flash {
+            position: fixed; inset: 0; z-index: 100; pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.5) 0%, rgba(94,224,244,0.35) 20%, rgba(61,192,216,0.1) 50%, transparent 75%);
+            animation: transitionFlash 0.7s ease-out forwards;
+        }
         .era-badge {
             display: inline-block; padding: 5px 16px;
             font-size: 10px; letter-spacing: 3px; font-weight: 700;
@@ -467,12 +474,12 @@
         .nav-btn .btn-outcome { display: block; font-size: 10px; margin-top: 4px; color: var(--lantern); }
 
         /* ── Branch Options ── */
-        .branch-options { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 24px; }
+        .branch-options { display: flex; flex-wrap: nowrap; gap: 16px; justify-content: center; margin-top: 24px; }
         .branch-option {
-            flex: 1 1 240px; max-width: 380px; min-width: 200px;
+            flex: 1 1 0; max-width: 380px; min-width: 160px;
             background: linear-gradient(180deg, rgba(8,20,44,0.7) 0%, rgba(3,10,24,0.7) 100%);
             border: 1px solid var(--border);
-            padding: 26px 24px; cursor: pointer;
+            padding: 20px 16px; cursor: pointer;
             transition: all 0.35s; position: relative;
             clip-path: polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
         }
@@ -503,8 +510,8 @@
         .branch-option .branch-desc-line { margin-bottom: 3px; }
         .branch-option .branch-outcome-tag { margin-top: 12px; font-size: 10px; letter-spacing: 2px; color: var(--lantern); font-weight: 600; }
         .branch-option .branch-click-hint { margin-top: 14px; font-size: 11px; color: var(--accent-dim); letter-spacing: 2px; text-align: right; }
-        .branch-option-hint { text-align: center; padding: 30px 20px !important; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px; }
-        .branch-hint-text { font-size: 20px; font-weight: 700; color: var(--text-primary); letter-spacing: 2px; margin: 8px 0 12px; line-height: 1.5; font-style: italic; }
+        .branch-option-hint { text-align: center; padding: 20px 14px !important; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px; }
+        .branch-hint-text { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: 2px; margin: 8px 0 12px; line-height: 1.4; font-style: italic; }
         .branch-option-hint .branch-click-hint { text-align: center; margin-top: 6px; }
         .branch-detail-area { width: 100%; margin-top: 24px; animation: eraFadeIn 0.4s ease; }
 
@@ -999,7 +1006,7 @@
             .entry-star .es-dot { width: 6px; height: 6px; }
 
             /* ── Branch options ── */
-            .branch-options { gap: 10px; margin-top: 16px; }
+            .branch-options { flex-wrap: wrap; gap: 10px; margin-top: 16px; }
             .branch-option { flex: 1 1 100%; max-width: 100%; min-width: 0; padding: 16px 14px; }
             .branch-option .branch-article-name { font-size: 15px; }
             .branch-option .branch-desc { font-size: 11px; }
@@ -1041,6 +1048,31 @@
             /* ── Mystery button ── */
             .mystery-btn { width: 96px; height: 44px; }
             .mystery-text { font-size: 24px; letter-spacing: 6px; }
+        }
+
+        @keyframes scrollSlideOutUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-40px); opacity: 0; }
+        }
+        @keyframes scrollSlideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes scrollSlideOutDown {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(50px); opacity: 0; }
+        }
+        @keyframes scrollSlideInDown {
+            from { transform: translateY(-40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        #content-area.scroll-transitioning {
+            pointer-events: none;
+        }
+        #content-area .scroll-content-wrap {
+            animation-duration: 0.35s;
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            animation-fill-mode: both;
         }
     </style>
 </head>
@@ -1621,6 +1653,180 @@
     let eraExpanded = false;
     let historyStack = [];
 
+    let isPopping = false;
+    function pushViewState(state) {
+        if (isPopping) return;
+        history.pushState(state, '', '#' + state.view + (state.eraId ? '/' + state.eraId : '') + (state.branchIdx != null ? '/' + state.branchIdx : ''));
+    }
+    window.addEventListener('popstate', function(e) {
+        isPopping = true;
+        if (!e.state || e.state.view === 'stars') {
+            returnToStars();
+        } else if (e.state.view === 'era') {
+            var sf = document.getElementById('starfield');
+            if (sf) { sf.style.display = 'none'; sf.style.opacity = ''; sf.style.transition = ''; }
+            currentEraId = e.state.eraId;
+            eraExpanded = false;
+            updateInfoPanel(e.state.eraId);
+            renderEra(e.state.eraId);
+            returnStarsBtn.classList.add('visible');
+            ctrlsWrapper.classList.remove('visible');
+            scrollToTop();
+        } else if (e.state.view === 'branch') {
+            selectBranchOption(e.state.eraId, e.state.branchIdx);
+        } else if (e.state.view === 'ending') {
+            revealEnding(e.state.dataStr);
+        }
+        isPopping = false;
+    });
+
+    let scrollNavIndex = -1;
+    let scrollNavBusy = false;
+
+    function scrollNavigateTo(targetIdx, direction) {
+        if (scrollNavBusy || targetIdx < -1 || targetIdx >= timelineData.length) return;
+        scrollNavBusy = true;
+
+        var ca = document.getElementById('content-area');
+        var existingWrap = ca.querySelector('.scroll-content-wrap');
+        if (existingWrap) existingWrap.remove();
+
+        var wrap = document.createElement('div');
+        wrap.className = 'scroll-content-wrap';
+        while (ca.firstChild) wrap.appendChild(ca.firstChild);
+        ca.appendChild(wrap);
+
+        var outAnim = direction === 'down' ? 'scrollSlideOutUp' : 'scrollSlideOutDown';
+        wrap.style.animationName = outAnim;
+
+        ca.classList.add('scroll-transitioning');
+
+        var prevIdx = scrollNavIndex;
+
+        setTimeout(function() {
+            ca.classList.remove('scroll-transitioning');
+            ca.innerHTML = '';
+
+            scrollNavIndex = targetIdx;
+            if (targetIdx === -1) {
+                currentEraId = null;
+                eraExpanded = false;
+                contentArea.innerHTML = '';
+                clearInfoPanel();
+                returnStarsBtn.classList.remove('visible');
+                ctrlsWrapper.classList.add('visible');
+                starfieldToggleBtn.textContent = '☰ 目录';
+                starfieldToggleBtn.setAttribute('data-mode', 'star');
+                var oldSf = document.getElementById('starfield');
+                if (oldSf) oldSf.remove();
+
+                var flashDiv2 = document.createElement('div');
+                flashDiv2.className = 'starfield-transition-flash';
+                document.getElementById('main').appendChild(flashDiv2);
+                setTimeout(function() { if (flashDiv2.parentNode) flashDiv2.remove(); }, 650);
+
+                buildStarfield();
+                var newSf = document.getElementById('starfield');
+                if (newSf) {
+                    newSf.style.transition = 'none';
+                    newSf.style.transform = 'translateY(-60px) scale(0.9)';
+                    newSf.style.opacity = '0';
+                    newSf.style.display = '';
+                    newSf.style.pointerEvents = 'auto';
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            newSf.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                            newSf.style.transform = 'translateY(0) scale(1)';
+                            newSf.style.opacity = '1';
+                        });
+                    });
+                }
+                pushViewState({ view: 'stars' });
+            } else {
+                var era = timelineData[targetIdx];
+                currentEraId = era.id;
+                eraExpanded = false;
+                var sf = document.getElementById('starfield');
+                if (sf && prevIdx === -1) {
+                    sf.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.4,0,0.15,1)';
+                    sf.style.opacity = '0';
+                    sf.style.transform = 'scale(0.25)';
+                    var flashDiv = document.createElement('div');
+                    flashDiv.className = 'starfield-transition-flash';
+                    document.getElementById('main').appendChild(flashDiv);
+                    setTimeout(function() { if (flashDiv.parentNode) flashDiv.remove(); }, 700);
+                    setTimeout(function() {
+                        sf.style.display = 'none';
+                        sf.style.transition = '';
+                        sf.style.opacity = '';
+                        sf.style.transform = '';
+                    }, 550);
+                } else if (sf) {
+                    sf.style.display = 'none'; sf.style.opacity = ''; sf.style.transition = '';
+                }
+                ca.style.opacity = '0';
+                updateInfoPanel(era.id);
+                renderEra(era.id);
+                var fadeIns = document.querySelectorAll('#content-area .era-header, #content-area #nav-area');
+                fadeIns.forEach(function(el) { el.style.animation = 'none'; el.style.opacity = '1'; });
+                var branchOpts = document.querySelectorAll('#content-area .branch-option');
+                branchOpts.forEach(function(el) { el.style.transition = 'none'; });
+                returnStarsBtn.classList.add('visible');
+                ctrlsWrapper.classList.remove('visible');
+                pushViewState({ view: 'era', eraId: era.id });
+            }
+
+            var newWrap = document.createElement('div');
+            newWrap.className = 'scroll-content-wrap';
+            var newCa = document.getElementById('content-area');
+            while (newCa.firstChild) newWrap.appendChild(newCa.firstChild);
+            newCa.appendChild(newWrap);
+            ca.style.opacity = '';
+            var inAnim = direction === 'down' ? 'scrollSlideInDown' : 'scrollSlideInUp';
+            newWrap.style.animationName = inAnim;
+
+            setTimeout(function() {
+                var lastWrap = newCa.querySelector('.scroll-content-wrap');
+                if (lastWrap) {
+                    while (lastWrap.firstChild) newCa.appendChild(lastWrap.firstChild);
+                    lastWrap.remove();
+                }
+                var restoreOpts = document.querySelectorAll('#content-area .branch-option');
+                restoreOpts.forEach(function(el) { el.style.transition = ''; });
+                scrollNavBusy = false;
+            }, 360);
+        }, 360);
+    }
+
+    function setupScrollNavigation() {
+        var main = document.getElementById('main');
+        if (!main) return;
+        main.addEventListener('wheel', function(e) {
+            if (scrollNavBusy) return;
+            if (eraExpanded) return;
+            if (document.querySelector('.article-modal-overlay')) return;
+            if (document.querySelector('.ending-screen')) return;
+            var sf = document.getElementById('starfield');
+            if (!sf) return;
+            if (sf.style.display === 'none' && (currentEraId === null || eraExpanded)) return;
+
+            var absDelta = Math.abs(e.deltaY);
+            if (absDelta < 15) return;
+
+            if (e.deltaY > 0) {
+                var target = scrollNavIndex + 1;
+                if (target >= timelineData.length) return;
+                e.preventDefault();
+                scrollNavigateTo(target, 'down');
+            } else {
+                var target = scrollNavIndex - 1;
+                if (target < -1) return;
+                e.preventDefault();
+                scrollNavigateTo(target, 'up');
+            }
+        }, { passive: false });
+    }
+
     const contentArea = document.getElementById('content-area');
     const panelBody = document.getElementById('panel-body');
     const returnStarsBtn = document.getElementById('return-stars-btn');
@@ -1717,9 +1923,11 @@
     function navigateTo(eraId) {
         currentEraId = eraId;
         eraExpanded = false;
+        scrollNavIndex = timelineData.findIndex(function(e){ return e.id === eraId; });
         updateInfoPanel(eraId);
         renderEra(eraId);
         scrollToTop();
+        pushViewState({ view: 'era', eraId: eraId });
     }
 
     function renderEra(eraId) {
@@ -2069,13 +2277,16 @@
         contentArea.innerHTML = html;
         updateInfoPanelForBranch(era, branch);
         scrollToTop();
+        pushViewState({ view: 'branch', eraId: eraId, branchIdx: branchIdx });
     }
 
     function goBackToEra(eraId) {
         eraExpanded = false;
+        scrollNavIndex = timelineData.findIndex(function(e){ return e.id === eraId; });
         renderEra(eraId);
         updateInfoPanel(eraId);
         scrollToTop();
+        pushViewState({ view: 'era', eraId: eraId });
     }
 
     function showBranchArticleModal(el) {
@@ -2147,6 +2358,7 @@
         header.querySelector('.panel-era-time').textContent = data.articleName;
         panelBody.innerHTML = '<div class="panel-summary">' + subtitle + '</div>';
         scrollToTop();
+        pushViewState({ view: 'ending', dataStr: dataStr });
     }
 
     function goNext(eraId) {
@@ -2198,23 +2410,62 @@
             + '</div>';
         sf.appendChild(hud);
         hud.classList.add('visible');
+
         var mainRect = main.getBoundingClientRect();
-        var padX = 60, padY = 80;
-        var areaW = mainRect.width - padX * 2, areaH = mainRect.height - padY * 2;
         var cols = window.innerWidth <= 768 ? 2 : 4;
         var rows = Math.ceil(timelineData.length / cols);
-        var cellW = areaW / cols, cellH = areaH / rows;
         var total = timelineData.length;
+        var isMobile = window.innerWidth <= 768;
+        var padX = isMobile ? 50 : 80, padY = isMobile ? 70 : 100;
+        var areaW = mainRect.width - padX * 2, areaH = mainRect.height - padY * 2;
+        var cellW = areaW / cols, cellH = areaH / rows;
+        var MIN_DIST = isMobile ? 100 : 140;
+
+        var placedStars = [];
+
+        function isInHudZone(px, py, mw, mh) {
+            if (py < 80 && px < 80) return true;
+            if (py < 80 && px > mw - 80) return true;
+            if (py > mh - 90 && px < 80) return true;
+            if (py > mh - 130 && px > mw - 80) return true;
+            if (py > mh - 130 && px > mw / 2 - 320 && px < mw / 2 + 320) return true;
+            return false;
+        }
 
         for (var i = 0; i < total; i++) {
             var col = i % cols, row = Math.floor(i / cols);
-            var px = padX + cellW * col + Math.random() * cellW * 0.85;
-            var py = padY + cellH * row + Math.random() * cellH * 0.8;
+            var cellLeft = padX + cellW * col;
+            var cellTop = padY + cellH * row;
+            var bestPx, bestPy;
+            var placed = false;
+
+            for (var attempt = 0; attempt < 35; attempt++) {
+                var px = cellLeft + cellW * 0.05 + Math.random() * cellW * 0.7;
+                var py = cellTop + cellH * 0.05 + Math.random() * cellH * 0.65;
+
+                if (isInHudZone(px, py, mainRect.width, mainRect.height)) continue;
+
+                var collision = false;
+                for (var j = 0; j < placedStars.length; j++) {
+                    var dx = px - placedStars[j].x;
+                    var dy = py - placedStars[j].y;
+                    if (Math.sqrt(dx * dx + dy * dy) < MIN_DIST) { collision = true; break; }
+                }
+                if (!collision) { bestPx = px; bestPy = py; placed = true; break; }
+            }
+
+            if (!placed) {
+                bestPx = cellLeft + Math.random() * cellW * 0.7;
+                bestPy = cellTop + Math.random() * cellH * 0.6;
+            }
+
+            placedStars.push({ x: bestPx, y: bestPy });
+
             var era = timelineData[i];
             var isBranch = era.type === 'branch';
             var el = document.createElement('div');
             el.className = 'star-point' + (isBranch ? ' branch-star' : '');
-            el.style.left = px + 'px'; el.style.top = py + 'px';
+            el.style.left = bestPx + 'px'; el.style.top = bestPy + 'px';
             el.style.animationDelay = (Math.random() * 0.5) + 's';
             el.style.animation = 'starAppear 0.6s ease both';
             el.setAttribute('data-era', era.id);
@@ -2320,51 +2571,73 @@
 
         var dimDelay = otherStars.length * 70 + 300;
         setTimeout(function() {
-            sf.style.transition = 'opacity 0.35s ease';
+            sf.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.4,0,0.15,1)';
             sf.style.opacity = '0';
+            sf.style.transform = 'scale(0.25)';
         }, dimDelay);
+
+        var flashDiv = document.createElement('div');
+        flashDiv.className = 'starfield-transition-flash';
+        var main = document.getElementById('main');
+
+        setTimeout(function() {
+            main.appendChild(flashDiv);
+            setTimeout(function() { if (flashDiv.parentNode) flashDiv.remove(); }, 700);
+        }, dimDelay + 50);
 
         setTimeout(function() {
             sf.style.display = 'none';
             sf.style.transition = '';
             sf.style.opacity = '';
+            sf.style.transform = '';
             if (star) { star.style.transform = ''; star.style.zIndex = ''; }
             currentEraId = eraId;
             eraExpanded = false;
+            scrollNavIndex = timelineData.findIndex(function(e){ return e.id === eraId; });
             updateInfoPanel(eraId);
             renderEra(eraId);
             returnStarsBtn.classList.add('visible');
             ctrlsWrapper.classList.remove('visible');
             scrollToTop();
-        }, dimDelay + 350);
+            pushViewState({ view: 'era', eraId: eraId });
+        }, dimDelay + 500);
     }
 
     function returnToStars() {
         eraExpanded = false;
         currentEraId = null;
+        scrollNavIndex = -1;
         contentArea.innerHTML = '';
         clearInfoPanel();
         returnStarsBtn.classList.remove('visible');
         ctrlsWrapper.classList.add('visible');
         starfieldToggleBtn.textContent = '☰ 目录';
         starfieldToggleBtn.setAttribute('data-mode', 'star');
+
+        var main = document.getElementById('main');
+        var flashDiv = document.createElement('div');
+        flashDiv.className = 'starfield-transition-flash';
+        main.appendChild(flashDiv);
+        setTimeout(function() { if (flashDiv.parentNode) flashDiv.remove(); }, 650);
+
         const oldSf = document.getElementById('starfield');
         if (oldSf) oldSf.remove();
         buildStarfield();
         const newSf = document.getElementById('starfield');
         if (newSf) {
             newSf.style.transition = 'none';
-            newSf.style.transform = 'translateY(-80vh)';
+            newSf.style.transform = 'translateY(-80vh) scale(0.8)';
             newSf.style.opacity = '0';
             requestAnimationFrame(function() {
                 requestAnimationFrame(function() {
                     newSf.style.transition = 'transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease';
-                    newSf.style.transform = 'translateY(0)';
+                    newSf.style.transform = 'translateY(0) scale(1)';
                     newSf.style.opacity = '1';
                 });
             });
         }
         scrollToTop();
+        pushViewState({ view: 'stars' });
     }
 
     function toggleStarfieldView() {
@@ -2550,6 +2823,8 @@
         }
     })();
     buildStarfield();
+    history.replaceState({ view: 'stars' }, '', '#stars');
+    setupScrollNavigation();
 </script>
 </body>
 </html>
