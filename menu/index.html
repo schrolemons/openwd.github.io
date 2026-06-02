@@ -1497,10 +1497,40 @@
         }
         .credits-stats {
             margin: 24px 0; display: inline-block; text-align: left;
+            position: relative; padding: 20px 28px 16px;
+            border: 1px solid rgba(224,208,96,0.15);
+            background: rgba(0,0,0,0.3);
+            min-width: 380px;
+        }
+        .credits-stats::before {
+            content: 'SYS/STATS ▸ DUMP';
+            position: absolute; top: -8px; left: 16px;
+            font-size: 9px; font-family: "Consolas",monospace;
+            letter-spacing: 2px; color: #5a6040; background: #000;
+            padding: 0 8px; z-index: 1;
+        }
+        .credits-stats::after {
+            content: ''; position: absolute; top: -1px; left: 28px; right: 28px; height: 1px;
+            background: rgba(224,208,96,0.2); pointer-events: none;
+        }
+        .credits-stats .cs-hud-corner {
+            position: absolute; width: 10px; height: 10px; pointer-events: none; z-index: 2;
+        }
+        .credits-stats .cs-hud-corner.c-hud-tl { top: -1px; left: -1px; border-top: 2px solid rgba(224,208,96,0.5); border-left: 2px solid rgba(224,208,96,0.5); }
+        .credits-stats .cs-hud-corner.c-hud-tr { top: -1px; right: -1px; border-top: 2px solid rgba(224,208,96,0.5); border-right: 2px solid rgba(224,208,96,0.5); }
+        .credits-stats .cs-hud-corner.c-hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid rgba(224,208,96,0.5); border-left: 2px solid rgba(224,208,96,0.5); }
+        .credits-stats .cs-hud-corner.c-hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid rgba(224,208,96,0.5); border-right: 2px solid rgba(224,208,96,0.5); }
+        @keyframes csReveal {
+            0% { opacity: 0; transform: translateX(-12px); }
+            100% { opacity: 1; transform: translateX(0); }
         }
         .credits-stats .cs-row {
             font-size: 12px; font-family: "Consolas",monospace;
             padding: 6px 0; color: #8098a8; letter-spacing: 1px;
+            opacity: 0; transform: translateX(-12px);
+        }
+        .credits-stats .cs-row.cs-reveal {
+            animation: csReveal 0.5s ease forwards;
         }
         .credits-stats .cs-row .cs-label { color: #4a6070; margin-right: 12px; }
         .credits-stats .cs-row .cs-value { color: #c0d0d8; }
@@ -1508,18 +1538,19 @@
         .credits-stats .cs-sep { height: 1px; margin: 8px 0; background: linear-gradient(90deg, transparent, rgba(224,208,96,0.2), transparent); }
         .credits-stats .cs-multiline { display: block !important; padding: 8px 0; line-height: 1.9; }
         .credits-stats .cs-multiline .cs-value-wrap { display: block; color: #8098a8; font-size: 11px; margin-top: 4px; white-space: normal; word-break: break-all; }
-        .ce-desc-list { margin-top: 14px; text-align: left; padding: 0 20px; }
+        .ce-desc-list { margin-top: 14px; text-align: center; padding: 0 20px; }
         .ce-desc-line { font-size: 11px; color: #6e8898; line-height: 1.8; font-family: "Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif; padding: 2px 0; }
         .ce-articles { margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
         .ce-article-tag { display: inline-block; padding: 3px 10px; font-size: 10px; font-family: "Consolas",monospace; letter-spacing: 1px; color: #3a6078; border: 1px solid rgba(61,192,216,0.15); border-radius: 2px; }
         .credits-ending-card .ce-desc-list { text-align: center; }
         .credits-close {
-            display: inline-block; padding: 12px 40px; margin-top: 30px;
-            font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 3px;
+            display: inline-block; padding: 8px 28px; margin: 16px 0 0;
+            font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: 2px;
             background: transparent; color: #e0d060;
             border: 1px solid #b0a040; transition: all 0.35s;
-            clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+            clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
             font-family: "Consolas",monospace;
+            float: right;
         }
         .credits-close:hover {
             color: #fff; border-color: #e0d060;
@@ -4410,6 +4441,7 @@
         var currentIdx = 0;
         var cardEl = null;
         var showedEndingCard = false;
+        var endingDescLines = [];
 
         function _doShow() {
             if (currentIdx >= eras.length) {
@@ -4464,10 +4496,21 @@
             endingCard.className = 'credits-era-card credits-ending-card';
             endingCard.style.animation = 'creditsEraIn 1s ease forwards';
             var outcomeText = endingInfo ? endingInfo.outcome.replace('【结局】：','') : '——';
+            endingDescLines = [];
+            if (endingInfo && endingInfo.eraId) {
+                var endingEra = eraMap[endingInfo.eraId];
+                if (endingEra && endingEra.branches) {
+                    for (var bi = 0; bi < endingEra.branches.length; bi++) {
+                        var bb = endingEra.branches[bi];
+                        var bo = (bb.outcome || '').replace('【结局】：','');
+                        if (bo === endingInfo.outcome) { endingDescLines = bb.desc || []; break; }
+                    }
+                }
+            }
             endingCard.innerHTML =
                 '<div class="ce-index" style="color:#e0d060">◆ END</div>' +
                 '<div class="ce-type branch-type">◈ WORLD LINE TERMINAL</div>' +
-                '<div class="ce-name" style="color:#e0d060;font-size:30px">' + (lineName ? lineName + '线 收束' : outcomeText) + '</div>' +
+                '<div class="ce-name" style="color:#e0d060;font-size:30px">' + (lineName ? lineName + ' 收束' : outcomeText) + '</div>' +
                 (endingInfo && endingInfo.articleName ? '<div class="ce-time" style="color:#c0b040;font-size:15px">收束文章：' + endingInfo.articleName + '</div>' : '') +
                 '<div class="ce-summary" style="color:#a09050">本世界线在此刻走向终局——</div>';
             stage.appendChild(endingCard);
@@ -4493,17 +4536,6 @@
             var mostVisitedEra = mostVisitedId ? eraMap[mostVisitedId] : null;
             var mostVisitedName = mostVisitedEra ? mostVisitedEra.name : '——';
 
-            var mostBranchId = null, mostBranchCount = 0;
-            for (var bk in stats.branchDecisions) {
-                if (stats.branchDecisions[bk] > mostBranchCount) { mostBranchCount = stats.branchDecisions[bk]; mostBranchId = bk; }
-            }
-            var mostBranchEraName = '——', mostBranchLabel = '——';
-            if (mostBranchId) {
-                var parts = mostBranchId.split('_');
-                var bEra = eraMap[parseInt(parts[0])];
-                if (bEra && bEra.branches[parseInt(parts[1])]) { mostBranchEraName = bEra.name; mostBranchLabel = bEra.branches[parseInt(parts[1])].label; }
-            }
-
             var visitedEraNames = [];
             for (var ek in stats.eraVisits) {
                 var e = eraMap[parseInt(ek)];
@@ -4521,9 +4553,14 @@
             var outcomeText = endingInfo ? endingInfo.outcome.replace('【结局】：','') : '——';
 
             var statsHtml =
-                '<div class="cs-row cs-row-highlight"><span class="cs-label">收束线</span><span class="cs-value" style="color:#e0d060">' + (lineName ? lineName + '线' : outcomeText) + '</span></div>' +
+                '<div class="cs-hud-corner c-hud-tl"></div>' +
+                '<div class="cs-hud-corner c-hud-tr"></div>' +
+                '<div class="cs-hud-corner c-hud-bl"></div>' +
+                '<div class="cs-hud-corner c-hud-br"></div>' +
+                '<div class="cs-row cs-row-highlight"><span class="cs-label">收束线</span><span class="cs-value" style="color:#e0d060">' + lineName + '</span></div>' +
                 (endingInfo && endingInfo.articleName ? '<div class="cs-row cs-row-highlight"><span class="cs-label">收束文章</span><span class="cs-value" style="color:#e0d060">' + endingInfo.articleName + '</span></div>' : '') +
                 '<div class="cs-row cs-row-highlight"><span class="cs-label">收束点</span><span class="cs-value" style="color:#e0d060">' + currentEraName + '</span></div>' +
+                (endingDescLines.length ? '<div class="cs-row cs-multiline" style="border-left: 2px solid rgba(224,208,96,0.2); padding-left: 12px;"><span class="cs-label" style="color:#807040">描述</span><span class="cs-value cs-value-wrap" style="color:#a09860;font-size:11px">' + endingDescLines.map(function(d){ return d.replace('【结局】',''); }).join('<br>') + '</span></div>' : '') +
                 '<div class="cs-sep"></div>' +
                 '<div class="cs-row"><span class="cs-label">浏览时长</span><span class="cs-value">' + timeStr + '</span></div>' +
                 '<div class="cs-row"><span class="cs-label">总点击数</span><span class="cs-value">' + stats.totalClicks + ' 次</span></div>' +
@@ -4531,11 +4568,11 @@
                 '<div class="cs-row"><span class="cs-label">星图闪烁</span><span class="cs-value">' + stats.starTwinkles + ' 次</span></div>' +
                 '<div class="cs-row"><span class="cs-label">滚动导航</span><span class="cs-value">' + stats.scrollNavs + ' 次</span></div>' +
                 '<div class="cs-row"><span class="cs-label">访问最多时代</span><span class="cs-value">' + mostVisitedName + '（' + mostVisitedCount + '次）</span></div>' +
-                '<div class="cs-row"><span class="cs-label">最多选择分支</span><span class="cs-value">' + mostBranchLabel + ' @ ' + mostBranchEraName + '（' + mostBranchCount + '次）</span></div>' +
                 '<div class="cs-row"><span class="cs-label">收束时刻</span><span class="cs-value">' + dateStr + ' ' + timeClock + '</span></div>' +
                 '<div class="cs-row"><span class="cs-label">遍历时代</span><span class="cs-value">' + eras.length + ' 个</span></div>' +
                 (visitedEraNames.length ? '<div class="cs-sep"></div><div class="cs-row cs-multiline"><span class="cs-label">涉足时代</span><span class="cs-value cs-value-wrap">' + visitedEraNames.join(' · ') + '</span></div>' : '') +
-                (viewedArticleNames.length ? '<div class="cs-row cs-multiline"><span class="cs-label">阅览文章</span><span class="cs-value cs-value-wrap">' + viewedArticleNames.join(' · ') + '</span></div>' : '');
+                (viewedArticleNames.length ? '<div class="cs-row cs-multiline"><span class="cs-label">阅览文章</span><span class="cs-value cs-value-wrap">' + viewedArticleNames.join(' · ') + '</span></div>' : '') +
+                '<button class="credits-close" onclick="closeCredits()">◈ 关闭</button>';
 
             var finale = document.createElement('div');
             finale.className = 'credits-era-card';
@@ -4546,9 +4583,16 @@
                 '<div class="cf-title">世 界 线 收 束</div>' +
                 '<div class="cf-sub">叙事终焉 · 收束点：' + currentEraName + '</div>' +
                 '<div class="credits-stats">' + statsHtml + '</div>' +
-                '<button class="credits-close" onclick="closeCredits()">◈ 关闭报幕</button>' +
                 '</div>';
             stage.appendChild(finale);
+            requestAnimationFrame(function() {
+                var rows = stage.querySelectorAll('.credits-stats .cs-row');
+                rows.forEach(function(row, i) {
+                    setTimeout(function() {
+                        row.classList.add('cs-reveal');
+                    }, i * 120);
+                });
+            });
         }
 
         var escHandler = function(e) {
