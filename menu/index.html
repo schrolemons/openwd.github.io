@@ -2554,17 +2554,17 @@
         var navArea = document.getElementById('nav-area');
 
         if (panel) panel.classList.remove('open');
-        if (header) { header.style.transition = 'opacity 0.45s ease'; header.style.opacity = '1'; header.style.pointerEvents = ''; }
-        if (navArea) { navArea.style.transition = 'opacity 0.45s ease'; navArea.style.opacity = '1'; navArea.style.pointerEvents = ''; }
+        if (header) { header.style.transition = ''; header.style.opacity = ''; header.style.pointerEvents = ''; }
+        if (navArea) { navArea.style.transition = ''; navArea.style.opacity = ''; navArea.style.pointerEvents = ''; }
         document.querySelectorAll('.entry-star').forEach(function(s) {
-            s.style.transition = 'opacity 0.45s ease';
-            s.style.opacity = '1';
+            s.style.transition = '';
+            s.style.opacity = '';
             s.style.pointerEvents = '';
             s.style.transform = '';
             s.style.zIndex = '';
         });
         document.querySelectorAll('.entry-zigzag-line').forEach(function(l) {
-            l.style.transition = 'opacity 0.4s ease';
+            l.style.transition = '';
             l.style.opacity = '';
         });
 
@@ -2637,20 +2637,20 @@
         var navArea = document.getElementById('nav-area');
 
         if (panel) panel.classList.remove('open');
-        if (header) { header.style.transition = 'opacity 0.45s ease'; header.style.opacity = '1'; header.style.pointerEvents = ''; }
-        if (navArea) { navArea.style.transition = 'opacity 0.45s ease'; navArea.style.opacity = '1'; navArea.style.pointerEvents = ''; }
+        if (header) { header.style.transition = ''; header.style.opacity = ''; header.style.pointerEvents = ''; }
+        if (navArea) { navArea.style.transition = ''; navArea.style.opacity = ''; navArea.style.pointerEvents = ''; }
         var constellation = document.getElementById('branch-entry-constellation');
         if (constellation) {
             constellation.querySelectorAll('.entry-star').forEach(function(s) {
-                s.style.transition = 'opacity 0.45s ease';
-                s.style.opacity = '1';
+                s.style.transition = '';
+                s.style.opacity = '';
                 s.style.pointerEvents = '';
                 s.style.transform = '';
                 s.style.zIndex = '';
             });
         }
         document.querySelectorAll('#branch-entry-constellation .entry-zigzag-line').forEach(function(l) {
-            l.style.transition = 'opacity 0.4s ease';
+            l.style.transition = '';
             l.style.opacity = '';
         });
 
@@ -3625,9 +3625,12 @@
     setupScrollNavigation();
 
     var contentArea2 = document.getElementById('content-area');
+    var entryUnfocusTimer = null;
+
     contentArea2.addEventListener('mouseover', function(e) {
         var entryStar = e.target.closest('.entry-star');
         if (!entryStar) return;
+        if (entryUnfocusTimer) { clearTimeout(entryUnfocusTimer); entryUnfocusTimer = null; }
         var display = entryStar.closest('.era-display');
         if (!display) return;
         display.classList.add('entry-focused');
@@ -3639,10 +3642,14 @@
         if (!entryStar) return;
         var display = entryStar.closest('.era-display');
         if (!display) return;
-        var related = e.relatedTarget;
-        if (related && related.closest('.entry-star') && related.closest('.era-display') === display) return;
-        display.classList.remove('entry-focused');
-        display.querySelectorAll('.entry-star').forEach(function(es) { es.classList.remove('entry-focus'); });
+        if (entryUnfocusTimer) clearTimeout(entryUnfocusTimer);
+        entryUnfocusTimer = setTimeout(function() {
+            entryUnfocusTimer = null;
+            if (!display.querySelector('.entry-star:hover')) {
+                display.classList.remove('entry-focused');
+                display.querySelectorAll('.entry-star').forEach(function(es) { es.classList.remove('entry-focus'); });
+            }
+        }, 80);
     });
 
     function eraTransitionFlash() {
@@ -3685,7 +3692,7 @@
         if (match) abbrlink = match[1];
 
         if (abbrlink) {
-            var url = 'posts/' + abbrlink + '.html';
+            var url = 'posts/' + abbrlink + '.htmlpart';
             fetch(url).then(function(res) {
                 if (!res.ok) throw new Error('Not found');
                 return res.text();
