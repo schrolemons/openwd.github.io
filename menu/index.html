@@ -905,6 +905,45 @@
             pointer-events: none; z-index: 4;
             background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px);
         }
+        .article-reader-container {
+            animation: readerGlowPulse 4s ease-in-out infinite alternate;
+        }
+        @keyframes readerGlowPulse {
+            0% { box-shadow: 0 0 50px rgba(61,192,216,0.1), 0 0 100px rgba(2,11,24,0.6); }
+            100% { box-shadow: 0 0 70px rgba(61,192,216,0.18), 0 0 120px rgba(2,11,24,0.6); }
+        }
+        .reader-corner {
+            position: absolute; width: 24px; height: 24px; z-index: 6; pointer-events: none;
+            border-color: rgba(61,192,216,0.3); border-style: solid;
+        }
+        .reader-corner.tl { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+        .reader-corner.tr { top: 8px; right: 8px; border-width: 1px 1px 0 0; }
+        .reader-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 1px 1px; }
+        .reader-corner.br { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+        .reader-scanline {
+            position: absolute; left: 0; width: 100%; height: 1px; z-index: 7; pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(61,192,216,0.08) 50%, transparent);
+            animation: readerScan 12s linear infinite;
+        }
+        @keyframes readerScan {
+            0% { top: -1px; opacity: 0; }
+            5% { opacity: 0.5; }
+            95% { opacity: 0.5; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .reader-particle {
+            position: absolute; width: 2px; height: 2px; border-radius: 50%;
+            background: var(--accent-glow); opacity: 0;
+            animation: particleDrift 7s ease-in-out infinite;
+            z-index: 3; pointer-events: none;
+            box-shadow: 0 0 5px var(--accent-glow), 0 0 10px rgba(94,224,244,0.25);
+        }
+        @keyframes particleDrift {
+            0%, 100% { opacity: 0; transform: translate(0, 0); }
+            20% { opacity: 0.5; }
+            50% { opacity: 0.3; transform: translate(8px, -16px); }
+            80% { opacity: 0.15; }
+        }
         .article-reader-header {
             padding: 18px 28px; border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: space-between;
@@ -1027,7 +1066,7 @@
         .md-note {
             margin: 18px 0; padding: 16px 20px; border-left: 3px solid;
             clip-path: polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
-            line-height: 1.85;
+            line-height: 1.85; position: relative;
         }
         .md-note > *:first-child { margin-top: 0; }
         .md-note > *:last-child { margin-bottom: 0; }
@@ -1036,16 +1075,42 @@
         .md-note h2 { font-size: 17px !important; }
         .md-note h3 { font-size: 15px !important; }
         .md-note h4 { font-size: 13px !important; }
-        .md-note-info { background: rgba(61,192,216,0.06); border-color: rgba(61,192,216,0.4); }
+
+        .md-note-info {
+            background: linear-gradient(180deg, rgba(61,192,216,0.07) 0%, rgba(61,192,216,0.015) 100%);
+            border-color: rgba(61,192,216,0.35); border-width: 0 0 0 4px;
+        }
         .md-note-info .md-note-label { color: var(--info); }
-        .md-note-primary { background: rgba(61,192,216,0.1); border-color: rgba(94,224,244,0.5); }
+        .md-note-info .md-note-label::before { content: '[i] '; font-size: 9px; opacity: 0.7; }
+
+        .md-note-primary {
+            background: linear-gradient(180deg, rgba(94,224,244,0.1) 0%, rgba(61,192,216,0.025) 100%);
+            border-color: rgba(94,224,244,0.5); border-width: 0 0 0 4px;
+            box-shadow: inset 0 0 40px rgba(94,224,244,0.02), 0 1px 8px rgba(94,224,244,0.04);
+        }
         .md-note-primary .md-note-label { color: var(--accent-glow); }
-        .md-note-success { background: rgba(60,200,160,0.06); border-color: rgba(60,200,160,0.4); }
+        .md-note-primary .md-note-label::before { content: '◆ '; font-size: 9px; }
+
+        .md-note-success {
+            background: linear-gradient(180deg, rgba(60,200,160,0.07) 0%, rgba(60,200,160,0.015) 100%);
+            border-color: rgba(60,200,160,0.35); border-width: 0 0 0 4px;
+        }
         .md-note-success .md-note-label { color: var(--success); }
-        .md-note-warning { background: rgba(201,160,80,0.06); border-color: rgba(201,160,80,0.4); }
+        .md-note-success .md-note-label::before { content: '✓ '; font-size: 10px; }
+
+        .md-note-warning {
+            background: linear-gradient(180deg, rgba(201,160,80,0.07) 0%, rgba(201,160,80,0.015) 100%);
+            border-color: rgba(201,160,80,0.35); border-width: 0 0 0 4px;
+        }
         .md-note-warning .md-note-label { color: var(--warning); }
-        .md-note-danger { background: rgba(224,85,106,0.06); border-color: rgba(224,85,106,0.4); }
+        .md-note-warning .md-note-label::before { content: '▲ '; font-size: 9px; }
+
+        .md-note-danger {
+            background: linear-gradient(180deg, rgba(224,85,106,0.07) 0%, rgba(224,85,106,0.015) 100%);
+            border-color: rgba(224,85,106,0.35); border-width: 0 0 0 4px;
+        }
         .md-note-danger .md-note-label { color: var(--danger); }
+        .md-note-danger .md-note-label::before { content: '⚠ '; font-size: 10px; }
 
         /* ── Ending Screen ── */
         .ending-screen {
@@ -3747,6 +3812,14 @@
 
         overlay.innerHTML =
             '<div class="article-reader-container">' +
+            '<div class="reader-corner tl"></div>' +
+            '<div class="reader-corner tr"></div>' +
+            '<div class="reader-corner bl"></div>' +
+            '<div class="reader-corner br"></div>' +
+            '<div class="reader-scanline"></div>' +
+            '<div class="reader-particle" style="top:12%;left:4%;animation-delay:0s"></div>' +
+            '<div class="reader-particle" style="top:78%;right:5%;animation-delay:2.3s"></div>' +
+            '<div class="reader-particle" style="top:45%;right:8%;animation-delay:4.7s"></div>' +
             '<div class="article-reader-header">' +
             '<span class="reader-title">' + (title || '阅读') + '</span>' +
             '<div class="article-reader-close" onclick="closeArticleReader()">✕</div>' +
