@@ -969,11 +969,11 @@
         }
         .reader-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .reader-mode-btn {
-            width: 30px; height: 30px; border: 1px solid var(--border);
+            width: auto; padding: 0 10px; min-width: 30px; height: 30px; border: 1px solid var(--border);
             background: rgba(10,22,48,0.6); color: var(--text-dim);
-            font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;
             clip-path: polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px);
-            transition: all 0.2s; flex-shrink: 0; line-height: 1;
+            transition: all 0.2s; flex-shrink: 0; line-height: 1; letter-spacing: 1px;
         }
         .reader-mode-btn:hover { border-color: var(--accent); color: var(--accent-glow); background: rgba(61,192,216,0.1); }
         .reader-mode-btn.active { border-color: var(--accent-glow); color: var(--accent-glow); background: rgba(61,192,216,0.15); }
@@ -4016,7 +4016,7 @@
             '<span class="reader-title">' + (title || '阅读') + '</span>' +
             '<div class="reader-header-actions">' +
             '<button class="reader-toc-toggle" title="目录" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)toggleMobileTOC(c);">☰</button>' +
-            '<button class="reader-mode-btn" title="切换分页阅读模式" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)toggleReaderMode(c);">⊞</button>' +
+            '<button class="reader-mode-btn" title="切换分页阅读模式" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)toggleReaderMode(c);">⊞ 分页</button>' +
             '<div class="article-reader-close" onclick="closeArticleReader()">✕</div>' +
             '</div>' +
             '</div>' +
@@ -4174,9 +4174,15 @@
         container._pageMode = false;
         container._currentPage = 0;
         container._pages = Array.from(body.querySelectorAll('.reader-page-section'));
-        if (container._pages.length <= 1) {
-            var modeBtn = container.querySelector('.reader-mode-btn');
-            if (modeBtn) modeBtn.style.display = 'none';
+        var modeBtn = container.querySelector('.reader-mode-btn');
+        if (modeBtn) {
+            if (container._pages.length <= 1) {
+                modeBtn.style.opacity = '0.4';
+                modeBtn.title = '本文无分节标记，无法启用分页模式';
+            } else {
+                modeBtn.style.opacity = '';
+                modeBtn.title = '切换分页阅读模式';
+            }
         }
     }
 
@@ -4188,12 +4194,12 @@
         var body = container.querySelector('.article-reader-body');
 
         if (container._pageMode) {
-            if (modeBtn) { modeBtn.classList.add('active'); modeBtn.textContent = '⊟'; }
+            if (modeBtn) { modeBtn.classList.add('active'); modeBtn.textContent = '⊟ 连续'; }
             if (pageNav) pageNav.classList.add('visible');
             if (body) body.style.overflow = 'hidden';
             showReaderPage(container, container._currentPage || 0);
         } else {
-            if (modeBtn) { modeBtn.classList.remove('active'); modeBtn.textContent = '⊞'; }
+            if (modeBtn) { modeBtn.classList.remove('active'); modeBtn.textContent = '⊞ 分页'; }
             if (pageNav) pageNav.classList.remove('visible');
             if (body) {
                 body.style.overflow = '';
