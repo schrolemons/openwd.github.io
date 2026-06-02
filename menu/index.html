@@ -967,6 +967,11 @@
             text-shadow: 0 0 14px rgba(94,224,244,0.15);
             padding-bottom: 16px; border-bottom: 1px solid var(--border);
         }
+        .menu-article-body h1 {
+            font-size: 20px; font-weight: 700; color: var(--accent-glow);
+            margin: 28px 0 14px; letter-spacing: 2px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--border);
+        }
         .menu-article-body h2 {
             font-size: 18px; font-weight: 700; color: var(--accent-glow);
             margin: 24px 0 12px; letter-spacing: 1px;
@@ -980,22 +985,57 @@
             font-size: 14px; font-weight: 600; color: var(--accent);
             margin: 16px 0 8px; letter-spacing: 1px;
         }
-        .menu-article-body p { margin: 8px 0; line-height: 1.9; color: var(--text-primary); }
+        .menu-article-body p { margin: 10px 0; line-height: 1.95; color: var(--text-primary); text-indent: 0; }
+        .menu-article-body p+p { text-indent: 0; }
         .menu-article-body hr {
-            border: none; height: 1px; margin: 24px 0;
+            border: none; height: 1px; margin: 28px 0;
             background: linear-gradient(90deg, transparent, var(--border), transparent);
         }
         .menu-article-body strong { color: #fff; font-weight: 700; }
-        .menu-article-body a { color: var(--accent-glow); text-decoration: none; }
-        .menu-article-body a:hover { text-decoration: underline; }
+        .menu-article-body em { color: var(--accent); font-style: italic; }
+        .menu-article-body a { color: var(--accent-glow); text-decoration: none; border-bottom: 1px dotted rgba(94,224,244,0.3); }
+        .menu-article-body a:hover { text-decoration: none; border-bottom-color: var(--accent-glow); }
+        .menu-article-body blockquote {
+            margin: 16px 0; padding: 12px 20px;
+            border-left: 3px solid var(--accent-dim);
+            background: rgba(61,192,216,0.04);
+            color: var(--text-secondary); font-style: italic; line-height: 1.85;
+        }
+        .menu-article-body blockquote p { margin: 6px 0; color: inherit; }
+        .menu-article-body ul, .menu-article-body ol { margin: 12px 0; padding-left: 24px; color: var(--text-primary); }
+        .menu-article-body li { margin: 4px 0; line-height: 1.8; }
+        .menu-article-body li::marker { color: var(--accent-dim); }
+        .menu-article-body code {
+            font-family: "Consolas","Courier New",monospace;
+            background: rgba(61,192,216,0.1); color: var(--accent-glow);
+            padding: 2px 6px; border-radius: 3px; font-size: 0.9em;
+        }
+        .menu-article-body pre {
+            margin: 16px 0; padding: 16px 20px;
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+            border-radius: 6px; overflow-x: auto; line-height: 1.7;
+        }
+        .menu-article-body pre code {
+            background: none; color: var(--text-primary); padding: 0; font-size: 0.85em;
+        }
+        .menu-article-body img {
+            max-width: 100%; height: auto; display: block; margin: 16px auto;
+            border-radius: 6px; border: 1px solid var(--border);
+        }
 
         /* ── Note Blocks ── */
         .md-note {
-            margin: 16px 0; padding: 14px 18px; border-left: 3px solid;
+            margin: 18px 0; padding: 16px 20px; border-left: 3px solid;
             clip-path: polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
-            font-size: 13px; line-height: 1.8;
+            line-height: 1.85;
         }
-        .md-note-label { font-size: 10px; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; font-family: "Consolas",monospace; }
+        .md-note > *:first-child { margin-top: 0; }
+        .md-note > *:last-child { margin-bottom: 0; }
+        .md-note-label { font-size: 10px; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; font-family: "Consolas",monospace; }
+        .md-note p, .md-note li { font-size: 13px; }
+        .md-note h2 { font-size: 17px !important; }
+        .md-note h3 { font-size: 15px !important; }
+        .md-note h4 { font-size: 13px !important; }
         .md-note-info { background: rgba(61,192,216,0.06); border-color: rgba(61,192,216,0.4); }
         .md-note-info .md-note-label { color: var(--info); }
         .md-note-primary { background: rgba(61,192,216,0.1); border-color: rgba(94,224,244,0.5); }
