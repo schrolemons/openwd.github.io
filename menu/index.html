@@ -994,17 +994,17 @@
         @keyframes tocSlideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
         .reader-toc-panel .reader-toc-title { font-size: 11px; margin-bottom: 16px; }
         .reader-toc-panel a {
-            display: block; padding: 4px 10px; margin: 1px 0; font-size: 11px;
-            color: var(--text-dim); text-decoration: none; cursor: pointer;
+            display: block; padding: 4px 10px; margin: 1px 0; font-size: 12px;
+            color: var(--text-secondary); text-decoration: none; cursor: pointer;
             font-family: "Consolas","Courier New",monospace;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.7;
             border-left: 2px solid transparent; transition: all 0.2s;
         }
         .reader-toc-panel a:hover { color: var(--accent-glow); border-left-color: var(--accent-dim); background: rgba(61,192,216,0.04); }
-        .reader-toc-panel .toc-h1 { font-size: 12px; font-weight: 700; }
-        .reader-toc-panel .toc-h2 { padding-left: 14px; }
-        .reader-toc-panel .toc-h3 { padding-left: 24px; }
-        .reader-toc-panel .toc-h4 { padding-left: 34px; font-size: 10px; opacity: 0.8; }
+        .reader-toc-panel .toc-h1 { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+        .reader-toc-panel .toc-h2 { padding-left: 14px; color: var(--text-primary); }
+        .reader-toc-panel .toc-h3 { padding-left: 24px; color: var(--text-secondary); }
+        .reader-toc-panel .toc-h4 { padding-left: 34px; font-size: 11px; color: var(--text-dim); }
         .article-reader-close {
             width: 34px; height: 34px; border: 1px solid var(--border);
             background: rgba(10,22,48,0.6); color: var(--text-dim);
@@ -1048,17 +1048,17 @@
             padding-bottom: 8px; border-bottom: 1px solid var(--border);
         }
         .reader-toc a {
-            display: block; padding: 3px 8px; margin: 1px 0; color: var(--text-dim);
+            display: block; padding: 3px 8px; margin: 1px 0; color: var(--text-secondary);
             text-decoration: none; border-left: 2px solid transparent;
             transition: all 0.2s; cursor: pointer; font-family: "Consolas","Courier New",monospace;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.6;
         }
         .reader-toc a:hover { color: var(--accent-glow); border-left-color: var(--accent-dim); background: rgba(61,192,216,0.04); }
         .reader-toc a.active { color: var(--accent-glow); border-left-color: var(--accent-glow); background: rgba(61,192,216,0.08); }
-        .reader-toc .toc-h1 { font-size: 11px; font-weight: 700; }
-        .reader-toc .toc-h2 { font-size: 10px; padding-left: 14px; }
-        .reader-toc .toc-h3 { font-size: 10px; padding-left: 22px; }
-        .reader-toc .toc-h4 { font-size: 9px; padding-left: 30px; opacity: 0.8; }
+        .reader-toc .toc-h1 { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+        .reader-toc .toc-h2 { font-size: 11px; padding-left: 14px; color: var(--text-primary); }
+        .reader-toc .toc-h3 { font-size: 10px; padding-left: 22px; color: var(--text-secondary); }
+        .reader-toc .toc-h4 { font-size: 10px; padding-left: 30px; color: var(--text-dim); }
 
         @media (max-width: 880px) {
             .article-reader-container { max-width: 100%; width: 96%; height: 92vh; max-height: 95vh; }
@@ -1139,6 +1139,23 @@
         .menu-article-body h6::before { content: '· '; color: var(--accent-dim); font-size: 10px; }
         .menu-article-body p { font-size: 13px; margin: 10px 0; line-height: 1.95; color: var(--text-primary); text-indent: 0; }
         .menu-article-body p+p { text-indent: 0; }
+        .menu-article-body table {
+            width: 100%; border-collapse: collapse; margin: 20px 0;
+            font-size: 12px; line-height: 1.7;
+            border: 1px solid var(--border);
+        }
+        .menu-article-body thead { background: rgba(61,192,216,0.08); }
+        .menu-article-body th {
+            padding: 10px 12px; text-align: left; font-weight: 700;
+            color: var(--accent-glow); font-family: "Consolas",monospace;
+            font-size: 11px; letter-spacing: 1px; border-bottom: 2px solid var(--accent-dim);
+        }
+        .menu-article-body td {
+            padding: 8px 12px; border-bottom: 1px solid var(--border);
+            color: var(--text-primary); vertical-align: top;
+        }
+        .menu-article-body tr:last-child td { border-bottom: none; }
+        .menu-article-body tr:hover td { background: rgba(61,192,216,0.04); }
         .menu-article-body hr {
             border: none; height: 1px; margin: 32px 0;
             background: linear-gradient(90deg, transparent 15%, var(--accent-dim) 35%, var(--accent-glow) 50%, var(--accent-dim) 65%, transparent 85%);
