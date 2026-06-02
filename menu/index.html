@@ -1064,7 +1064,6 @@
             .article-reader-container { max-width: 100%; width: 96%; height: 92vh; max-height: 95vh; }
             .article-reader-header { padding: 12px 16px; }
             .article-reader-header .reader-title { font-size: 14px; }
-            .reader-mode-btn { width: 26px; height: 26px; font-size: 11px; }
             .article-reader-close { width: 28px; height: 28px; font-size: 14px; }
             .article-reader-main { flex-direction: column; }
             .article-reader-body { padding: 16px 14px 24px; }
@@ -1080,10 +1079,6 @@
             .reader-corner.tr { top: 4px; right: 4px; }
             .reader-corner.bl { bottom: 4px; left: 4px; }
             .reader-corner.br { bottom: 4px; right: 4px; }
-            .reader-page-nav { gap: 6px; padding: 8px 10px; }
-            .reader-page-btn { padding: 4px 8px; font-size: 10px; }
-            .reader-page-indicator { font-size: 10px; min-width: 40px; }
-            .reader-page-jump { width: 28px; padding: 4px 0; font-size: 10px; }
             .reader-scanline { display: none; }
             .reader-particle { display: none; }
         }
@@ -3973,19 +3968,12 @@
             '<span class="reader-title">' + (title || '阅读') + '</span>' +
             '<div class="reader-header-actions">' +
             '<button class="reader-toc-toggle" title="目录" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)toggleMobileTOC(c);">☰</button>' +
-            '<button class="reader-mode-btn" title="切换分页阅读模式" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)toggleReaderMode(c);">⊞ 分页</button>' +
             '<div class="article-reader-close" onclick="closeArticleReader()">✕</div>' +
             '</div>' +
             '</div>' +
             '<div class="article-reader-main">' +
             '<div class="article-reader-body">' +
             '<div class="article-reader-loading"><div class="loading-dot"></div><span>正在加载文章内容...</span></div>' +
-            '</div>' +
-            '<div class="reader-page-nav">' +
-            '<button class="reader-page-btn prev" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)navigateReaderPage(c,-1);">◀ 上一页</button>' +
-            '<span class="reader-page-indicator">1 / 1</span>' +
-            '<button class="reader-page-btn next" onclick="event.stopPropagation();var c=this.closest(\'.article-reader-container\');if(c)navigateReaderPage(c,1);">下一页 ▶</button>' +
-            '<input type="number" class="reader-page-jump" min="1" value="1" onkeydown="if(event.key===\'Enter\'){var c=this.closest(\'.article-reader-container\');if(c)goReaderPage(c,parseInt(this.value)-1);}" onclick="event.stopPropagation()">' +
             '</div>' +
             '<aside class="reader-toc">' +
             '<div class="reader-toc-title">◆ 目录</div>' +
@@ -4028,7 +4016,6 @@
         var body = container.querySelector('.article-reader-body');
         if (!body) return;
         buildTOC(container);
-        initPageMode(container);
         setupReaderScrollTracking(container);
     }
 
@@ -4060,19 +4047,7 @@
             a.addEventListener('click', function() {
                 var target = document.getElementById(a.dataset.target);
                 if (!target) return;
-                if (container._pageMode) {
-                    var sections = container.querySelectorAll('.reader-page-section');
-                    var pageIdx = -1;
-                    sections.forEach(function(s, i) {
-                        if (s.contains(target)) pageIdx = i;
-                    });
-                    if (pageIdx >= 0) showReaderPage(container, pageIdx);
-                    setTimeout(function() {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
-                } else {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
     }
@@ -4107,135 +4082,6 @@
         scrollHandler();
         body.addEventListener('scroll', scrollHandler);
         container._readerScrollHandler = scrollHandler;
-    }
-
-    /* ── Page Mode ── */
-    function initPageMode(container) {
-        var body = container.querySelector('.article-reader-body');
-        if (!body) return;
-
-        var contentBody = body.querySelector('.menu-article-body') || body;
-        var section = document.createElement('div');
-        section.className = 'reader-page-section';
-        var children = Array.from(contentBody.childNodes);
-
-        children.forEach(function(node) {
-            if (node.nodeType === 1 && node.tagName === 'HR') {
-                if (section.childNodes.length > 0 || (section.textContent || '').trim()) {
-                    contentBody.insertBefore(section, node);
-                } else {
-                    var placeholder = document.createComment('empty section');
-                    node.parentNode.insertBefore(placeholder, node);
-                    node.parentNode.insertBefore(section, node);
-                    placeholder.remove();
-                }
-                section = document.createElement('div');
-                section.className = 'reader-page-section';
-                node.remove();
-            } else {
-                section.appendChild(node);
-            }
-        });
-        if (section.childNodes.length > 0 || (section.textContent || '').trim()) {
-            contentBody.appendChild(section);
-        }
-
-        container._pageMode = false;
-        container._currentPage = 0;
-        container._pages = Array.from(body.querySelectorAll('.reader-page-section'));
-        var modeBtn = container.querySelector('.reader-mode-btn');
-        if (modeBtn) {
-            if (container._pages.length <= 1) {
-                modeBtn.style.opacity = '0.4';
-                modeBtn.title = '本文无分节标记，无法启用分页模式';
-            } else {
-                modeBtn.style.opacity = '';
-                modeBtn.title = '切换分页阅读模式';
-            }
-        }
-    }
-
-    function toggleReaderMode(container) {
-        if (!container._pages || container._pages.length <= 1) return;
-        container._pageMode = !container._pageMode;
-        var modeBtn = container.querySelector('.reader-mode-btn');
-        var pageNav = container.querySelector('.reader-page-nav');
-        var body = container.querySelector('.article-reader-body');
-
-        if (container._pageMode) {
-            if (modeBtn) { modeBtn.classList.add('active'); modeBtn.textContent = '⊟ 连续'; }
-            if (pageNav) pageNav.classList.add('visible');
-            if (body) body.style.overflow = 'hidden';
-            showReaderPage(container, container._currentPage || 0);
-        } else {
-            if (modeBtn) { modeBtn.classList.remove('active'); modeBtn.textContent = '⊞ 分页'; }
-            if (pageNav) pageNav.classList.remove('visible');
-            if (body) {
-                body.style.overflow = '';
-                body.scrollTop = 0;
-                container._pages.forEach(function(s) { s.style.display = ''; });
-            }
-            updateTocFromPage(container);
-        }
-    }
-
-    function showReaderPage(container, idx) {
-        if (!container._pages) return;
-        container._currentPage = Math.max(0, Math.min(idx, container._pages.length - 1));
-        container._pages.forEach(function(s, i) {
-            s.style.display = (i === container._currentPage) ? '' : 'none';
-        });
-        var body = container.querySelector('.article-reader-body');
-        if (body) body.scrollTop = 0;
-        updatePageIndicator(container);
-        updateTocFromPage(container);
-    }
-
-    function navigateReaderPage(container, delta) {
-        if (!container._pageMode) return;
-        showReaderPage(container, (container._currentPage || 0) + delta);
-    }
-
-    function goReaderPage(container, idx) {
-        if (!container._pageMode) return;
-        showReaderPage(container, idx);
-    }
-
-    function updatePageIndicator(container) {
-        var indicator = container.querySelector('.reader-page-indicator');
-        var jumpInput = container.querySelector('.reader-page-jump');
-        if (!container._pages) return;
-        var cur = container._currentPage || 0;
-        var total = container._pages.length;
-        if (indicator) indicator.textContent = (cur + 1) + ' / ' + total;
-        if (jumpInput) { jumpInput.value = cur + 1; jumpInput.max = total; }
-        var prevBtn = container.querySelector('.reader-page-btn.prev');
-        var nextBtn = container.querySelector('.reader-page-btn.next');
-        if (prevBtn) prevBtn.disabled = cur <= 0;
-        if (nextBtn) nextBtn.disabled = cur >= total - 1;
-    }
-
-    function updateTocFromPage(container) {
-        var toc = container.querySelector('.reader-toc');
-        if (!toc) return;
-        var tocLinks = toc.querySelectorAll('a');
-        if (!tocLinks.length) return;
-        var cur = container._currentPage || 0;
-        var curSection = container._pages && container._pages[cur];
-        var activeId = null;
-        if (curSection) {
-            var headings = curSection.querySelectorAll('[id^="reader-h-"]');
-            if (headings.length > 0) activeId = headings[0].id;
-        }
-        if (!activeId && container._pages && container._pages.length > 0) {
-            var allHeadings = container.querySelectorAll('[id^="reader-h-"]');
-            allHeadings.forEach(function(h, i) {
-                if (i <= cur) activeId = h.id;
-            });
-        }
-        tocLinks.forEach(function(link) {
-            link.classList.toggle('active', link.dataset.target === activeId);
-        });
     }
 
     function toggleMobileTOC(container) {
@@ -4280,15 +4126,7 @@
             a.addEventListener('click', function() {
                 var target = document.getElementById(targetId);
                 if (!target) return;
-                if (container._pageMode) {
-                    var sections = container.querySelectorAll('.reader-page-section');
-                    var pageIdx = -1;
-                    sections.forEach(function(s, i) { if (s.contains(target)) pageIdx = i; });
-                    if (pageIdx >= 0) showReaderPage(container, pageIdx);
-                    setTimeout(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
-                } else {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
