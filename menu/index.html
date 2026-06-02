@@ -3319,7 +3319,7 @@
     <div class="ending-title">${branch.article ? branch.article.name : ''}</div>
     <div class="ending-sub">${subtitle}</div>
     <button class="restart-btn" onclick="restartJourney()">⟳ 回到最开始的地方</button>
-    <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：收束</button>
+    <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：${isContinue ? '继续' : '收束'}</button>
   </div>`;
     }
 
@@ -3336,7 +3336,7 @@
     <div class="ending-title">${data.articleName}</div>
     <div class="ending-sub">${subtitle}</div>
     <button class="restart-btn" onclick="restartJourney()">⟳ 回到最开始的地方</button>
-    <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：收束</button>
+    <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：${isContinue ? '继续' : '收束'}</button>
   </div>`;
         eraTransitionFlash();
         const header = document.querySelector('#era-info-panel .panel-header');
@@ -3361,7 +3361,7 @@
       <div class="ending-line-name">── CONTINUE… ──</div>
       <div class="ending-sub">故事尚未终结，新的篇章等待书写……</div>
       <button class="restart-btn" onclick="restartJourney()">⟳ 回到最开始的地方</button>
-      <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：收束</button>
+      <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：继续</button>
     </div>
   </div>`;
     }
@@ -4471,6 +4471,7 @@
             if (rawOutcome === 'CONTINUE…') { lineName = 'CONTINUE'; }
             else { lineName = rawOutcome.replace('结束','').trim() || rawOutcome; }
         }
+        var isContinue = endingInfo && endingInfo.outcome.replace('【结局】：','') === 'CONTINUE…';
 
         var currentIdx = 0;
         var cardEl = null;
@@ -4542,11 +4543,11 @@
                 }
             }
             endingCard.innerHTML =
-                '<div class="ce-index" style="color:#e0d060">◆ END</div>' +
-                '<div class="ce-type branch-type">◈ WORLD LINE TERMINAL</div>' +
-                '<div class="ce-name" style="color:#e0d060;font-size:30px">' + (lineName ? lineName + ' 收束' : outcomeText) + '</div>' +
-                (endingInfo && endingInfo.articleName ? '<div class="ce-time" style="color:#c0b040;font-size:15px">收束文章：' + endingInfo.articleName + '</div>' : '') +
-                '<div class="ce-summary" style="color:#a09050">本世界线在此刻走向终局——</div>';
+                '<div class="ce-index" style="color:#e0d060">◆ ' + (isContinue ? 'CONTINUE' : 'END') + '</div>' +
+                '<div class="ce-type branch-type">◈ ' + (isContinue ? 'WORLD LINE CONTINUATION' : 'WORLD LINE TERMINAL') + '</div>' +
+                '<div class="ce-name" style="color:#e0d060;font-size:30px">' + (lineName ? isContinue ? lineName : lineName + ' 收束' : outcomeText) + '</div>' +
+                (endingInfo && endingInfo.articleName ? '<div class="ce-time" style="color:#c0b040;font-size:15px">' + (isContinue ? '未定文章：' : '收束文章：') + endingInfo.articleName + '</div>' : '') +
+                '<div class="ce-summary" style="color:#a09050">' + (isContinue ? '世界线仍在延续，前方未定——' : '本世界线在此刻走向终局——') + '</div>';
             stage.appendChild(endingCard);
             setTimeout(function() {
                 endingCard.style.animation = 'creditsEraOut 0.8s ease forwards';
@@ -4591,9 +4592,9 @@
                 '<div class="cs-hud-corner c-hud-tr"></div>' +
                 '<div class="cs-hud-corner c-hud-bl"></div>' +
                 '<div class="cs-hud-corner c-hud-br"></div>' +
-                '<div class="cs-row cs-row-highlight"><span class="cs-label">收束线</span><span class="cs-value" style="color:#e0d060">' + lineName + '</span></div>' +
-                (endingInfo && endingInfo.articleName ? '<div class="cs-row cs-row-highlight"><span class="cs-label">收束文章</span><span class="cs-value" style="color:#e0d060">' + endingInfo.articleName + '</span></div>' : '') +
-                '<div class="cs-row cs-row-highlight"><span class="cs-label">收束点</span><span class="cs-value" style="color:#e0d060">' + currentEraName + '</span></div>' +
+                '<div class="cs-row cs-row-highlight"><span class="cs-label">' + (isContinue ? '未定线' : '收束线') + '</span><span class="cs-value" style="color:#e0d060">' + lineName + '</span></div>' +
+                (endingInfo && endingInfo.articleName ? '<div class="cs-row cs-row-highlight"><span class="cs-label">' + (isContinue ? '未定文章' : '收束文章') + '</span><span class="cs-value" style="color:#e0d060">' + endingInfo.articleName + '</span></div>' : '') +
+                '<div class="cs-row cs-row-highlight"><span class="cs-label">' + (isContinue ? '未定点' : '收束点') + '</span><span class="cs-value" style="color:#e0d060">' + currentEraName + '</span></div>' +
                 (endingDescLines.length ? '<div class="cs-row cs-multiline" style="border-left: 2px solid rgba(224,208,96,0.2); padding-left: 12px;"><span class="cs-label" style="color:#807040">描述</span><span class="cs-value cs-value-wrap" style="color:#a09860;font-size:11px">' + endingDescLines.filter(function(d){ return d.indexOf('结局') === -1 && d.indexOf('内容') === -1 && d.indexOf('线') === -1; }).join('<br>') + '</span></div>' : '') +
                 '<div class="cs-sep"></div>' +
                 '<div class="cs-row"><span class="cs-label">浏览时长</span><span class="cs-value">' + timeStr + '</span></div>' +
@@ -4602,7 +4603,7 @@
                 '<div class="cs-row"><span class="cs-label">星图闪烁</span><span class="cs-value">' + stats.starTwinkles + ' 次</span></div>' +
                 '<div class="cs-row"><span class="cs-label">滚动导航</span><span class="cs-value">' + stats.scrollNavs + ' 次</span></div>' +
                 '<div class="cs-row"><span class="cs-label">访问最多时代</span><span class="cs-value">' + mostVisitedName + '（' + mostVisitedCount + '次）</span></div>' +
-                '<div class="cs-row"><span class="cs-label">收束时刻</span><span class="cs-value">' + dateStr + ' ' + timeClock + '</span></div>' +
+                '<div class="cs-row"><span class="cs-label">' + (isContinue ? '继续时刻' : '收束时刻') + '</span><span class="cs-value">' + dateStr + ' ' + timeClock + '</span></div>' +
                 '<div class="cs-row"><span class="cs-label">遍历时代</span><span class="cs-value">' + eras.length + ' 个</span></div>' +
                 (visitedEraNames.length ? '<div class="cs-sep"></div><div class="cs-row cs-multiline"><span class="cs-label">驻留时代</span><span class="cs-value cs-value-wrap">' + visitedEraNames.join(' · ') + '</span></div>' : '') +
                 (viewedArticleNames.length ? '<div class="cs-row cs-multiline"><span class="cs-label">阅览文章</span><span class="cs-value cs-value-wrap">' + viewedArticleNames.join(' · ') + '</span></div>' : '') +
@@ -4613,9 +4614,9 @@
             finale.style.animation = 'creditsEraIn 1s ease forwards';
             finale.innerHTML =
                 '<div class="credits-finale">' +
-                '<div class="cf-line">▸ WORLD LINE CONVERGENCE ◂</div>' +
-                '<div class="cf-title">世 界 线 收 束</div>' +
-                '<div class="cf-sub">叙事终焉 · 收束点：' + currentEraName + '</div>' +
+                '<div class="cf-line">▸ ' + (isContinue ? 'WORLD LINE CONTINUATION' : 'WORLD LINE CONVERGENCE') + ' ◂</div>' +
+                '<div class="cf-title">' + (isContinue ? '世 界 线 继 续' : '世 界 线 收 束') + '</div>' +
+                '<div class="cf-sub">' + (isContinue ? '叙事继续 · 未定点：' : '叙事终焉 · 收束点：') + currentEraName + '</div>' +
                 '<div class="credits-stats">' + statsHtml + '</div>' +
                 '</div>';
             stage.appendChild(finale);
@@ -4679,7 +4680,7 @@
             hud.className = 'starfield-hud visible';
             hud.innerHTML =
                 '<div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>' +
-                '<div class="hud-info tl-info"><div class="hud-label">SYSTEM</div><div class="hud-value">CONVERGENCE DONE</div><div class="hud-label" style="margin-top:6px">LINE</div><div class="hud-value">WORLD LINE TERMINATED</div></div>' +
+                '<div class="hud-info tl-info"><div class="hud-label">SYSTEM</div><div class="hud-value">' + (isContinue ? 'CONTINUATION' : 'CONVERGENCE DONE') + '</div><div class="hud-label" style="margin-top:6px">LINE</div><div class="hud-value">' + (isContinue ? 'WORLD LINE CONTINUES' : 'WORLD LINE TERMINATED') + '</div></div>' +
                 '<div class="hud-info tr-info"><div class="hud-label">SCAN·MODE</div><div class="hud-value">CLOSE·FIELD</div><div class="hud-label" style="margin-top:6px">TRACKING</div><div class="hud-value">9 ELEMENTS / 1 CORE</div></div>' +
                 '<div class="hud-info bl-info"><div class="hud-label">COORD</div><div class="hud-value">虹九·RECONSTRUCT</div><div class="hud-label" style="margin-top:6px">ORBIT</div><div class="hud-value">金木水火土阳雷草风</div></div>' +
                 '<div class="hud-info br-info"><div class="hud-label">STATUS</div><div class="hud-value">SHUTTING DOWN</div><div class="hud-label" style="margin-top:6px">COUNTDOWN</div><div class="hud-value" id="csf-countdown">5.0s</div></div>' +
