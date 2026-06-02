@@ -1028,18 +1028,40 @@
             padding-left: 12px; border-left: 3px solid var(--accent);
         }
         .menu-article-body h3 {
-            font-size: 16px; font-weight: 700; color: var(--text-primary);
+            font-size: 17px; font-weight: 700; color: var(--accent);
             margin: 20px 0 10px; letter-spacing: 1px;
+            padding-left: 10px; border-left: 2px solid var(--accent-dim);
         }
         .menu-article-body h4 {
-            font-size: 14px; font-weight: 600; color: var(--accent);
+            font-size: 14px; font-weight: 600; color: var(--accent-dim);
             margin: 16px 0 8px; letter-spacing: 1px;
         }
+        .menu-article-body h5 {
+            font-size: 13px; font-weight: 600; color: var(--text-primary);
+            margin: 12px 0 6px; letter-spacing: 0.5px;
+        }
+        .menu-article-body h5::before { content: '▸ '; color: var(--accent-dim); font-size: 10px; }
+        .menu-article-body h6 {
+            font-size: 12px; font-weight: 600; color: var(--text-secondary);
+            margin: 10px 0 6px; letter-spacing: 0.5px;
+        }
+        .menu-article-body h6::before { content: '· '; color: var(--accent-dim); font-size: 10px; }
         .menu-article-body p { margin: 10px 0; line-height: 1.95; color: var(--text-primary); text-indent: 0; }
         .menu-article-body p+p { text-indent: 0; }
         .menu-article-body hr {
-            border: none; height: 1px; margin: 28px 0;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            border: none; height: 1px; margin: 32px 0;
+            background: linear-gradient(90deg, transparent 15%, var(--accent-dim) 35%, var(--accent-glow) 50%, var(--accent-dim) 65%, transparent 85%);
+            position: relative;
+        }
+        .menu-article-body hr::after {
+            content: '◆ ◆ ◆';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 9px; letter-spacing: 6px;
+            color: var(--accent);
+            background: #060f1e;
+            padding: 0 14px; white-space: nowrap;
+            text-shadow: 0 0 8px rgba(94,224,244,0.25);
         }
         .menu-article-body strong { color: #fff; font-weight: 700; }
         .menu-article-body em { color: var(--accent); font-style: italic; }
