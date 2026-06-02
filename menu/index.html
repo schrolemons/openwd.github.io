@@ -1002,10 +1002,18 @@
         }
         @keyframes tocSlideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
         .reader-toc-panel .reader-toc-title { font-size: 11px; margin-bottom: 16px; }
-        .reader-toc-panel a { font-size: 11px; padding: 4px 10px; }
+        .reader-toc-panel a {
+            display: block; padding: 4px 10px; margin: 1px 0; font-size: 11px;
+            color: var(--text-dim); text-decoration: none; cursor: pointer;
+            font-family: "Consolas","Courier New",monospace;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.7;
+            border-left: 2px solid transparent; transition: all 0.2s;
+        }
+        .reader-toc-panel a:hover { color: var(--accent-glow); border-left-color: var(--accent-dim); background: rgba(61,192,216,0.04); }
+        .reader-toc-panel .toc-h1 { font-size: 12px; font-weight: 700; }
         .reader-toc-panel .toc-h2 { padding-left: 14px; }
         .reader-toc-panel .toc-h3 { padding-left: 24px; }
-        .reader-toc-panel .toc-h4 { padding-left: 34px; font-size: 10px; }
+        .reader-toc-panel .toc-h4 { padding-left: 34px; font-size: 10px; opacity: 0.8; }
         .article-reader-close {
             width: 34px; height: 34px; border: 1px solid var(--border);
             background: rgba(10,22,48,0.6); color: var(--text-dim);
@@ -4122,16 +4130,19 @@
 
         var scrollHandler = function() {
             if (container._pageMode) return;
-            var scrollPos = body.scrollTop + 80;
+            var bodyRect = body.getBoundingClientRect();
+            var threshold = 80;
             var activeId = null;
             body.querySelectorAll('[id^="reader-h-"]').forEach(function(h) {
-                if (h.offsetTop <= scrollPos) activeId = h.id;
+                var hRect = h.getBoundingClientRect();
+                if (hRect.top - bodyRect.top <= threshold) activeId = h.id;
             });
             tocLinks.forEach(function(link) {
                 link.classList.toggle('active', link.dataset.target === activeId);
             });
         };
 
+        scrollHandler();
         body.addEventListener('scroll', scrollHandler);
         container._readerScrollHandler = scrollHandler;
     }
