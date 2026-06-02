@@ -4152,13 +4152,20 @@
         var body = container.querySelector('.article-reader-body');
         if (!body) return;
 
+        var contentBody = body.querySelector('.menu-article-body') || body;
         var section = document.createElement('div');
         section.className = 'reader-page-section';
-        var children = Array.from(body.childNodes);
+        var children = Array.from(contentBody.childNodes);
+
         children.forEach(function(node) {
             if (node.nodeType === 1 && node.tagName === 'HR') {
                 if (section.childNodes.length > 0 || (section.textContent || '').trim()) {
-                    body.insertBefore(section, node);
+                    contentBody.insertBefore(section, node);
+                } else {
+                    var placeholder = document.createComment('empty section');
+                    node.parentNode.insertBefore(placeholder, node);
+                    node.parentNode.insertBefore(section, node);
+                    placeholder.remove();
                 }
                 section = document.createElement('div');
                 section.className = 'reader-page-section';
@@ -4168,7 +4175,7 @@
             }
         });
         if (section.childNodes.length > 0 || (section.textContent || '').trim()) {
-            body.appendChild(section);
+            contentBody.appendChild(section);
         }
 
         container._pageMode = false;
@@ -4289,6 +4296,14 @@
         overlay.className = 'reader-toc-overlay visible';
         overlay.innerHTML = '<div class="reader-toc-panel">' + toc.innerHTML + '</div>';
         document.body.appendChild(overlay);
+
+        var activeLink = toc.querySelector('a.active');
+        if (activeLink) {
+            var activeId = activeLink.dataset.target;
+            overlay.querySelectorAll('a').forEach(function(a) {
+                if (a.dataset.target === activeId) a.classList.add('active');
+            });
+        }
 
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay || e.target.closest('.reader-toc-panel a')) {
