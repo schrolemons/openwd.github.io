@@ -968,15 +968,6 @@
             overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
         .reader-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .reader-mode-btn {
-            width: auto; padding: 0 10px; min-width: 30px; height: 30px; border: 1px solid var(--border);
-            background: rgba(10,22,48,0.6); color: var(--text-dim);
-            font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;
-            clip-path: polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px);
-            transition: all 0.2s; flex-shrink: 0; line-height: 1; letter-spacing: 1px;
-        }
-        .reader-mode-btn:hover { border-color: var(--accent); color: var(--accent-glow); background: rgba(61,192,216,0.1); }
-        .reader-mode-btn.active { border-color: var(--accent-glow); color: var(--accent-glow); background: rgba(61,192,216,0.15); }
         .reader-toc-toggle {
             display: none; width: 30px; height: 30px; border: 1px solid var(--border);
             background: rgba(10,22,48,0.6); color: var(--text-dim);
@@ -1068,40 +1059,6 @@
         .reader-toc .toc-h2 { font-size: 10px; padding-left: 14px; }
         .reader-toc .toc-h3 { font-size: 10px; padding-left: 22px; }
         .reader-toc .toc-h4 { font-size: 9px; padding-left: 30px; opacity: 0.8; }
-
-        /* ── Reader Page Navigation ── */
-        .reader-page-section { display: block; }
-        .reader-page-nav {
-            display: none; align-items: center; justify-content: center; gap: 12px;
-            padding: 10px 20px; border-top: 1px solid var(--border);
-            background: linear-gradient(0deg, rgba(6,15,30,0.98) 0%, rgba(6,15,30,0.88) 100%);
-            position: sticky; bottom: 0; z-index: 10; flex-shrink: 0;
-        }
-        .reader-page-nav.visible { display: flex; }
-        .reader-page-btn {
-            padding: 5px 14px; border: 1px solid var(--border);
-            background: rgba(10,22,48,0.6); color: var(--text-dim);
-            cursor: pointer; font-family: "Consolas",monospace;
-            font-size: 11px; letter-spacing: 1px; transition: all 0.2s;
-            clip-path: polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px);
-            user-select: none;
-        }
-        .reader-page-btn:hover { border-color: var(--accent); color: var(--accent-glow); background: rgba(61,192,216,0.1); }
-        .reader-page-btn:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
-        .reader-page-indicator {
-            font-family: "Consolas",monospace; font-size: 11px;
-            color: var(--text-secondary); letter-spacing: 1px; min-width: 56px; text-align: center;
-        }
-        .reader-page-jump {
-            width: 36px; padding: 5px 0; border: 1px solid var(--border);
-            background: rgba(10,22,48,0.6); color: var(--text-dim);
-            text-align: center; font-family: "Consolas",monospace;
-            font-size: 11px; letter-spacing: 1px;
-            clip-path: polygon(3px 0,100% 0,100% calc(100% - 3px),calc(100% - 3px) 100%,0 100%,0 3px);
-            outline: none;
-        }
-        .reader-page-jump:focus { border-color: var(--accent); color: var(--accent-glow); }
-        .reader-page-jump::-webkit-inner-spin-button { opacity: 1; }
 
         @media (max-width: 880px) {
             .article-reader-container { max-width: 100%; width: 96%; height: 92vh; max-height: 95vh; }
@@ -4129,7 +4086,6 @@
         if (!tocLinks.length) return;
 
         var scrollHandler = function() {
-            if (container._pageMode) return;
             var bodyRect = body.getBoundingClientRect();
             var threshold = 80;
             var activeId = null;
@@ -4140,6 +4096,12 @@
             tocLinks.forEach(function(link) {
                 link.classList.toggle('active', link.dataset.target === activeId);
             });
+            var overlay = document.querySelector('.reader-toc-overlay');
+            if (overlay) {
+                overlay.querySelectorAll('a').forEach(function(a) {
+                    a.classList.toggle('active', a.dataset.target === activeId);
+                });
+            }
         };
 
         scrollHandler();
