@@ -2128,7 +2128,7 @@
                 updateInfoPanel(era.id);
                 renderEra(era.id);
                 var fadeIns = document.querySelectorAll('#content-area .era-header, #content-area #nav-area');
-                fadeIns.forEach(function(el) { el.style.animation = 'none'; el.style.opacity = '1'; });
+                fadeIns.forEach(function(el) { el.style.animation = 'none'; });
                 var branchOpts = document.querySelectorAll('#content-area .branch-option');
                 branchOpts.forEach(function(el) { el.style.setProperty('transition', 'none', 'important'); });
                 returnStarsBtn.classList.add('visible');
@@ -2244,6 +2244,7 @@
     const starfieldToggleBtn = document.getElementById('starfield-toggle');
     const ctrlsWrapper = document.getElementById('starfield-ctrls');
     var starTwinkleTimer = null;
+    var starTwinkleTimeouts = [];
     var starTimer = null;
     var starTimerSeconds = 0;
     var starTimerTriggered = false;
@@ -2476,6 +2477,12 @@
 
     function selectEntryStar(e, idx) {
         e.stopPropagation();
+        var display = document.querySelector('.era-display');
+        if (display) {
+            display.classList.remove('entry-focused');
+            display.querySelectorAll('.entry-star').forEach(function(es) { es.classList.remove('entry-focus'); });
+        }
+        if (entryUnfocusTimer) { clearTimeout(entryUnfocusTimer); entryUnfocusTimer = null; }
         var era = getEra(currentEraId);
         if (!era || !era.articles) return;
         var art = era.articles[idx];
@@ -2509,6 +2516,9 @@
 
         if (clicked) {
             clicked.style.zIndex = '10';
+            clicked.style.transition = 'none';
+            clicked.style.animation = 'none';
+            void clicked.offsetHeight;
             setTimeout(function() {
                 clicked.style.transition = 'transform 0.35s ease';
                 clicked.style.transform = 'scale(1.45)';
@@ -2562,6 +2572,7 @@
             s.style.pointerEvents = '';
             s.style.transform = '';
             s.style.zIndex = '';
+            s.style.animation = '';
         });
         document.querySelectorAll('.entry-zigzag-line').forEach(function(l) {
             l.style.transition = '';
@@ -2575,6 +2586,12 @@
 
     function selectBranchEntryStar(e, eraId, branchIdx) {
         e.stopPropagation();
+        var display = document.querySelector('.era-display');
+        if (display) {
+            display.classList.remove('entry-focused');
+            display.querySelectorAll('.entry-star').forEach(function(es) { es.classList.remove('entry-focus'); });
+        }
+        if (entryUnfocusTimer) { clearTimeout(entryUnfocusTimer); entryUnfocusTimer = null; }
         var era = getEra(eraId);
         if (!era) return;
         var branch = era.branches[branchIdx];
@@ -2600,6 +2617,9 @@
 
         if (clicked) {
             clicked.style.zIndex = '10';
+            clicked.style.transition = 'none';
+            clicked.style.animation = 'none';
+            void clicked.offsetHeight;
             setTimeout(function() { clicked.style.transition = 'transform 0.35s ease'; clicked.style.transform = 'scale(1.45)'; }, 350);
             setTimeout(function() { clicked.style.transition = 'transform 0.3s ease, opacity 0.35s ease'; clicked.style.transform = 'scale(1.15)'; clicked.style.opacity = '0.12'; clicked.style.pointerEvents = 'none'; }, 750);
         }
@@ -2647,6 +2667,7 @@
                 s.style.pointerEvents = '';
                 s.style.transform = '';
                 s.style.zIndex = '';
+                s.style.animation = '';
             });
         }
         document.querySelectorAll('#branch-entry-constellation .entry-zigzag-line').forEach(function(l) {
@@ -2963,6 +2984,8 @@
         startStarTimer();
 
         if (starTwinkleTimer) clearInterval(starTwinkleTimer);
+        starTwinkleTimeouts.forEach(function(t) { clearTimeout(t); });
+        starTwinkleTimeouts = [];
         starTwinkleTimer = setInterval(function() {
             var stars = document.querySelectorAll('#starfield .star-point');
             if (!stars || stars.length === 0) return;
@@ -2971,10 +2994,11 @@
             star.style.animation = 'none';
             star.style.transition = 'opacity 0.3s ease';
             star.style.opacity = '0';
-            setTimeout(function() {
+            var tid = setTimeout(function() {
                 star.style.transition = 'opacity 0.5s ease';
                 star.style.opacity = '1';
             }, 400);
+            starTwinkleTimeouts.push(tid);
         }, 1800 + Math.random() * 1200);
     }
 
@@ -3334,6 +3358,8 @@
         var sf = document.getElementById('starfield');
         if (!sf) return;
         if (starTwinkleTimer) { clearInterval(starTwinkleTimer); starTwinkleTimer = null; }
+        starTwinkleTimeouts.forEach(function(t) { clearTimeout(t); });
+        starTwinkleTimeouts = [];
         if (starTimer) { clearInterval(starTimer); starTimer = null; }
 
         var star = sf.querySelector('.star-point[data-era="' + eraId + '"]');
@@ -3357,14 +3383,23 @@
 
         if (star) {
             star.style.zIndex = '10';
+            star.style.transition = 'none';
+            star.style.animation = 'none';
+            star.style.willChange = 'transform';
+            void star.offsetHeight;
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    star.style.transition = 'transform 0.2s ease';
+                    star.style.transform = 'scale(1.5)';
+                });
+            });
             setTimeout(function() {
-                star.style.transition = 'transform 0.3s ease';
-                star.style.transform = 'scale(1.5)';
-            }, 100);
-            setTimeout(function() {
-                star.style.transition = 'transform 0.35s ease';
+                star.style.transition = 'transform 0.25s ease';
                 star.style.transform = 'scale(1)';
-            }, 400);
+            }, 280);
+            setTimeout(function() {
+                star.style.willChange = '';
+            }, 600);
         }
 
         var dimDelay = otherStars.length * 70 + 300;
