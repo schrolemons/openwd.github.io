@@ -3727,7 +3727,7 @@
         if (match) abbrlink = match[1];
 
         if (abbrlink) {
-            var url = 'posts/' + abbrlink + '.htmlpart';
+            var url = '/menu/posts/' + abbrlink + '.htmlpart';
             fetch(url).then(function(res) {
                 if (!res.ok) throw new Error('Not found');
                 return res.text();
