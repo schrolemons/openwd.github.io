@@ -2476,7 +2476,7 @@
             desc: [],
             branches: [
                 {
-                    label: '发展一', outcome: 'CONTINUE…', nextEra: null, hint: '赋予一切崇高的意义？',
+                    label: '发展一', outcome: 'SCHNIE：生涅', nextEra: null, hint: '赋予一切崇高的意义？',
                     article: {
                         name: '木缘桑庭', type: 'THOUGHTS_COLLIDE', link: 'https://world.sch-nie.com/posts/24.html',
                         catLabel: '思维碰撞',
@@ -2495,7 +2495,7 @@
                         '{人造生命}回到了理想之地',
                         '一切，将会被赋予崇高的意义',
                         '【内容】思维碰撞：<木缘桑庭>',
-                        '【结局】：CONTINUE…'
+                        '【结局】：SCHNIE：生涅'
                     ]
                 },
                 {
@@ -3308,7 +3308,7 @@
     function renderEndingInline(branch) {
         currentEndingInfo = { outcome: branch.outcome || '——', articleName: branch.article ? branch.article.name : '', eraId: currentEraId };
         let icon, subtitle;
-        if (branch.outcome === 'CONTINUE…') {
+        if (branch.outcome === 'SCHNIE：生涅') {
             icon = '✦'; subtitle = '故事尚未终结，新的篇章等待书写……';
         } else {
             icon = '◈'; subtitle = '时间线在此处收束。';
@@ -3326,7 +3326,7 @@
     function revealEnding(dataStr) {
         const data = JSON.parse(decodeURIComponent(dataStr));
         currentEndingInfo = { outcome: data.outcome || '——', articleName: data.articleName || '', eraId: currentEraId };
-        const isContinue = data.outcome === 'CONTINUE…';
+        const isContinue = data.outcome === 'SCHNIE：生涅';
         const icon = isContinue ? '✦' : '◈';
         const subtitle = isContinue ? '故事尚未终结，新的篇章等待书写……' : '时间线在此处收束。';
         const cleanOutcome = (data.outcome || '——').replace('【结局】：','');
@@ -3354,11 +3354,11 @@
     }
 
     function renderContinuEnd() {
-        currentEndingInfo = { outcome: 'CONTINUE…', articleName: '', eraId: currentEraId };
+        currentEndingInfo = { outcome: 'SCHNIE：生涅', articleName: '', eraId: currentEraId };
         return `<div id="nav-area">
     <div class="ending-screen" style="padding:30px 0">
       <div class="ending-icon">✦</div>
-      <div class="ending-line-name">── CONTINUE… ──</div>
+      <div class="ending-line-name">── SCHNIE：生涅 ──</div>
       <div class="ending-sub">故事尚未终结，新的篇章等待书写……</div>
       <button class="restart-btn" onclick="restartJourney()">⟳ 回到最开始的地方</button>
       <br><button class="convergence-btn" onclick="triggerWorldLineConvergence()">◈ 世界线：继续</button>
@@ -4468,10 +4468,10 @@
         var lineName = '';
         if (endingInfo) {
             var rawOutcome = endingInfo.outcome.replace('【结局】：','');
-            if (rawOutcome === 'CONTINUE…') { lineName = 'CONTINUE'; }
+            if (rawOutcome === 'SCHNIE：生涅') { lineName = 'SCHNIE：生涅'; }
             else { lineName = rawOutcome.replace('结束','').trim() || rawOutcome; }
         }
-        var isContinue = endingInfo && endingInfo.outcome.replace('【结局】：','') === 'CONTINUE…';
+        var isContinue = endingInfo && endingInfo.outcome.replace('【结局】：','') === 'SCHNIE：生涅';
 
         var currentIdx = 0;
         var cardEl = null;
@@ -4543,7 +4543,7 @@
                 }
             }
             endingCard.innerHTML =
-                '<div class="ce-index" style="color:#e0d060">◆ ' + (isContinue ? 'CONTINUE' : 'END') + '</div>' +
+                '<div class="ce-index" style="color:#e0d060">◆ ' + (isContinue ? 'SCHNIE：生涅' : 'END') + '</div>' +
                 '<div class="ce-type branch-type">◈ ' + (isContinue ? 'WORLD LINE CONTINUATION' : 'WORLD LINE TERMINAL') + '</div>' +
                 '<div class="ce-name" style="color:#e0d060;font-size:30px">' + (lineName ? isContinue ? lineName : lineName + ' 收束' : outcomeText) + '</div>' +
                 (endingInfo && endingInfo.articleName ? '<div class="ce-time" style="color:#c0b040;font-size:15px">' + (isContinue ? '未定文章：' : '收束文章：') + endingInfo.articleName + '</div>' : '') +
@@ -4680,7 +4680,7 @@
             hud.className = 'starfield-hud visible';
             hud.innerHTML =
                 '<div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>' +
-                '<div class="hud-info tl-info"><div class="hud-label">SYSTEM</div><div class="hud-value">' + (isContinue ? 'CONTINUATION' : 'CONVERGENCE DONE') + '</div><div class="hud-label" style="margin-top:6px">LINE</div><div class="hud-value">' + (isContinue ? 'WORLD LINE CONTINUES' : 'WORLD LINE TERMINATED') + '</div></div>' +
+                '<div class="hud-info tl-info"><div class="hud-label">SYSTEM</div><div class="hud-value">' + (isContinue ? 'SCHNIE：生涅' : 'CONVERGENCE DONE') + '</div><div class="hud-label" style="margin-top:6px">LINE</div><div class="hud-value">' + (isContinue ? 'WORLD LINE CONTINUES' : 'WORLD LINE TERMINATED') + '</div></div>' +
                 '<div class="hud-info tr-info"><div class="hud-label">SCAN·MODE</div><div class="hud-value">CLOSE·FIELD</div><div class="hud-label" style="margin-top:6px">TRACKING</div><div class="hud-value">9 ELEMENTS / 1 CORE</div></div>' +
                 '<div class="hud-info bl-info"><div class="hud-label">COORD</div><div class="hud-value">虹九·RECONSTRUCT</div><div class="hud-label" style="margin-top:6px">ORBIT</div><div class="hud-value">金木水火土阳雷草风</div></div>' +
                 '<div class="hud-info br-info"><div class="hud-label">STATUS</div><div class="hud-value">SHUTTING DOWN</div><div class="hud-label" style="margin-top:6px">COUNTDOWN</div><div class="hud-value" id="csf-countdown">5.0s</div></div>' +
