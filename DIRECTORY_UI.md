@@ -35,3 +35,7 @@ npm.cmd run server
 浏览器检查脚本为 `tests/directory-browser.cjs`，需可用的 Playwright 与 Chrome；可通过 `NODE_PATH` 指向已有 Playwright 环境，通过 `CHROME_PATH` 指定浏览器路径。检查桌面、平板、手机布局、封面间距、导航、标签交互与二维码。截图保存在忽略提交的 `.repair-backups/20261001/directory-ui-v2/`。
 
 图标来源：`https://picbed.sch-nie.com/social/world.jpg`、`https://picbed.sch-nie.com/social/zero.jpg`、`https://blog.sch-nie.com/img/blog.png`、`https://ark.sch-nie.com/favicon.svg`、`https://launcher.sch-nie.com/favicon.svg`。
+
+## 分支与部署
+
+`source` 保存 Hexo 源码，`main` 是现有 Hexo 发布配置指定的生成站点分支。根目录 `vercel.json` 使用 `git.deploymentEnabled.source: false` 排除源码分支的 Git 自动部署。提交源码使用 `git push origin source`；正式站点发布沿用 `_config.yml` 的部署设置。
