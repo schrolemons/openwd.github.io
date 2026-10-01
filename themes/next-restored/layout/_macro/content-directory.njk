@@ -1,0 +1,60 @@
+{% macro entries(items, excerpts=false) %}
+  <div class="directory-entries{% if excerpts %} directory-entries-rich{% endif %}">
+    {% for entry in items %}
+      <article class="directory-entry"><div class="directory-entry-main">
+        {% if entry.qr %}
+          <button type="button" class="directory-entry-link directory-qr-trigger" data-qr-src="{{ entry.path | escape }}" data-qr-title="{{ entry.title | escape }}"><span>{{ entry.title | escape }}</span><i class="fa fa-qrcode directory-entry-arrow" aria-hidden="true"></i></button>
+        {% else %}
+          <a class="directory-entry-link" href="{{ url_for(entry.path) }}"{% if entry.external %} target="_blank" rel="noopener"{% endif %}><span>{{ entry.title | escape }}</span><span class="directory-entry-arrow" aria-hidden="true">{{ '↗' if entry.external else '→' }}</span></a>
+        {% endif %}
+        {% if entry.date or entry.author or entry.tags.length or entry.kind %}<div class="directory-entry-meta">
+          {% if entry.kind %}<span class="directory-entry-kind">{{ entry.kind | escape }}</span>{% endif %}
+          {% if entry.date %}<time datetime="{{ entry.date }}">{{ entry.date }}</time>{% endif %}
+          {% if entry.author %}<span>{{ entry.author | escape }}</span>{% endif %}
+          {% for tag in entry.tags %}<span class="directory-tag">{{ tag | escape }}</span>{% endfor %}
+        </div>{% endif %}
+        {% if excerpts and entry.excerpt %}<p class="directory-excerpt">{{ entry.excerpt | escape }}</p>{% endif %}
+      </div></article>
+    {% endfor %}
+  </div>
+{% endmacro %}
+{% macro category(node, depth=0, catalog=false) %}
+  {% if node.count %}
+    <section class="directory-section" data-depth="{{ depth }}" data-tone="{{ node.tone }}"{% if catalog %} data-catalog="true"{% endif %} id="{{ node.anchor }}">
+      <div class="directory-section-heading">
+        {% if depth === 0 %}<h2><span class="directory-section-symbol" aria-hidden="true">{{ node.symbol }}</span>{% elif depth === 1 %}<h3>{% else %}<h4>{% endif %}
+          {% if node.path %}<a href="{{ url_for(node.path) }}">{{ node.name | escape }}</a>{% else %}{{ node.name | escape }}{% endif %}
+        {% if depth === 0 %}</h2>{% elif depth === 1 %}</h3>{% else %}</h4>{% endif %}
+        <span class="directory-count">{{ node.count }} 篇</span>
+      </div>
+      {% if catalog %}
+        {% if node.children.length %}<div class="directory-category-links">{% for child in node.children %}{% if child.count %}<a href="{{ url_for(child.path) }}"><span class="directory-category-name">{{ child.name | escape }}</span><span>{{ child.count }} <span aria-hidden="true">→</span></span></a>{% endif %}{% endfor %}</div>{% endif %}
+        <a class="directory-section-action" href="{{ url_for(node.path) }}">进入文明 <span aria-hidden="true">→</span></a>
+      {% else %}
+        {% if node.entries.length %}{{ entries(node.entries) }}{% endif %}
+        {% if node.children.length %}<div class="directory-children">{% for child in node.children %}{{ category(child, depth + 1) }}{% endfor %}</div>{% endif %}
+      {% endif %}
+    </section>
+  {% endif %}
+{% endmacro %}
+{% macro folders(tree) %}
+  <div class="directory-folder-grid">{% for folder in tree.roots %}
+    <a class="directory-folder-card" data-tone="{{ folder.tone }}" href="{{ url_for(folder.path) }}"><span class="directory-folder-icon"><i class="fa fa-{{ folder.icon }}" aria-hidden="true"></i></span><span class="directory-folder-copy"><span class="directory-folder-title">{{ folder.name | escape }}</span><span class="directory-folder-description">{{ folder.description | escape }}</span><span class="directory-count">{{ folder.count }} {{ tree.unit }}</span></span><span class="directory-folder-arrow" aria-hidden="true">→</span></a>
+  {% endfor %}</div>
+{% endmacro %}
+{% macro resources(folder) %}
+  <div class="directory-resource-grid">{% for entry in folder.entries %}
+    {% if entry.qr %}<button type="button" class="directory-resource-card directory-entry-link directory-qr-trigger" data-qr-src="{{ entry.path | escape }}" data-qr-title="{{ entry.title | escape }}"{% else %}<a class="directory-resource-card directory-entry-link" href="{{ url_for(entry.path) }}" target="_blank" rel="noopener"{% endif %} data-tone="{{ entry.tone }}">
+      <span class="directory-resource-top"><span class="directory-resource-icon">{% if entry.image %}<img src="{{ url_for(entry.image) }}" alt="" width="32" height="32" decoding="async">{% else %}<i class="fa fa-{{ entry.icon }}" aria-hidden="true"></i>{% endif %}</span><span class="directory-resource-arrow" aria-hidden="true">{% if entry.qr %}<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M15 15h3v3h3v3h-6v-3m6-3v-3m-9 3v6"/></svg>{% else %}↗{% endif %}</span></span>
+      <span class="directory-resource-title"{% if entry.source_id %} id="{{ entry.source_id | escape }}"{% endif %}>{{ entry.title | escape }}</span><span class="directory-resource-description">{{ entry.excerpt | escape }}</span><span class="directory-resource-address">{{ '点击查看二维码' if entry.qr else entry.host | escape }}</span>
+    {% if entry.qr %}</button>{% else %}</a>{% endif %}
+  {% endfor %}</div>
+{% endmacro %}
+{% macro folderSection(folder, unit='篇内容', resource=false) %}
+  <section class="directory-section directory-folder-section{% if resource %} directory-resource-section{% endif %}" data-tone="{{ folder.tone }}"><div class="directory-section-heading"><h2{% if folder.heading_id %} id="{{ folder.heading_id | escape }}"{% endif %}><span class="directory-section-symbol"><i class="fa fa-{{ folder.icon }}" aria-hidden="true"></i></span><a href="{{ url_for(folder.path) }}">{{ folder.name | escape }}</a></h2><span class="directory-count">{{ folder.count }} {{ unit }}</span></div>{% if resource %}{{ resources(folder) }}{% else %}{{ entries(folder.entries, true) }}{% endif %}{% for child in folder.children %}{{ folderSection(child, unit, resource) }}{% endfor %}</section>
+{% endmacro %}
+{% macro collections(trees) %}
+  <div class="directory-collections">{% for tree in trees %}
+    <a class="directory-collection-card" data-tone="{{ tree.tone }}" href="{{ url_for(tree.path) }}"><span class="directory-collection-icon"><i class="fa fa-{{ tree.icon }}" aria-hidden="true"></i></span><span class="directory-collection-copy"><span class="directory-collection-name">{{ tree.title | escape }}</span><span class="directory-collection-description">{{ tree.description | escape }}</span></span><span class="directory-collection-footer">{{ tree.count }} {{ tree.unit }}<span aria-hidden="true">→</span></span></a>
+  {% endfor %}</div>
+{% endmacro %}

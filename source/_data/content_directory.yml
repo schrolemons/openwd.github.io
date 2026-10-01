@@ -1,0 +1,140 @@
+civilization_order:
+  - 逝痕文明
+  - 终末文明
+  - 九虹文明
+civilizations:
+  逝痕文明:
+    tone: violet
+    symbol: I
+  终末文明:
+    tone: blue
+    symbol: II
+  九虹文明:
+    tone: rose
+    symbol: III
+category_order:
+  - 基础
+  - 策略
+  - 神系
+  - 哲学条目
+  - 哲学杂谈
+  - 额外事件
+  - 外世拓展
+  - 文明历程
+collections:
+  yinxing_world:
+    title: 阴行世界
+    source_post: 27
+    tone: violet
+    icon: moon
+    description: 人物、赠稿、现世记录与世界区域
+    folders:
+      character:
+        title: 众生回廊
+        icon: user
+        tone: violet
+        description: 人物展示与人物信息
+      commission:
+        title: 合作赠稿
+        icon: feather-pointed
+        tone: rose
+        description: 来自协作者的异世之篇
+      nowadays:
+        title: 现世之篇
+        icon: leaf
+        tone: green
+        description: 关于成长、相遇与现实生活的记录
+      resion:
+        title: 世界区域
+        icon: globe
+        tone: blue
+        description: 世界中的区域与文明设定
+  light_withme:
+    title: 光与流辰
+    source_post: 28
+    tone: amber
+    icon: sun
+    description: 发行计划、协作者档案、测试题部分与个人扩列内容
+    unit: 项内容
+    folders:
+      key_part:
+        title: 发行计划
+        icon: compass
+        tone: amber
+        description: 第九边缘的发行与协作计划
+      operator:
+        title: 协作者档案
+        icon: users
+        tone: rose
+        description: 协作者介绍与协作方式
+      tests:
+        title: 测试题部分
+        icon: clipboard-check
+        tone: blue
+        description: 价值判断与人生观点、生命级手账本九问、OC设定与世界观
+        direct_links: true
+        headings: ["第九边缘：协作者测试"]
+      friend_lists:
+        title: 扩列内容
+        icon: address-card
+        tone: violet
+        description: 协作者放置的个人扩列条
+        flatten: true
+        exclude_index: true
+  bingjie_domain:
+    title: 冰结明域
+    source_post: 25
+    tone: cyan
+    icon: snowflake
+    description: 世界、元点、博客、方舟、启动器与微信公众号
+    unit: 个入口
+    folders:
+      websites:
+        title: 网站
+        icon: globe
+        tone: cyan
+        description: 第九边缘的各个站点
+        direct_links: true
+        headings: [世界, 元点, 博客, 方舟, 启动器]
+        heading_id: 网站
+        cards:
+          世界: {image: /images/directory/world.jpg, tone: violet, description: 世界档案与文明叙事}
+          元点: {image: /images/directory/zero.jpg, tone: amber, description: 体系核心、构建介绍与协作者测试}
+          博客: {image: /images/directory/blog.png, tone: blue, description: 经验分享与技术博客}
+          方舟: {image: /images/directory/ark.svg, tone: rose, description: 世界档案总览与沉浸式入口}
+          启动器: {image: /images/directory/launcher.svg, tone: cyan, description: 第九边缘项目的一站式导航}
+      channels:
+        title: 微信公众号
+        icon: qrcode
+        tone: green
+        description: 扫码查看微信公众号
+        direct_links: true
+        qr: true
+        headings: [微信公众号]
+  yanghui_days:
+    title: 阳汇彼日
+    source_post: 26
+    tone: rose
+    icon: book-open
+    description: 发展历程、世界导读与设定集
+    unit: 个栏目
+    folders:
+      history:
+        title: 发展历程
+        icon: clock-rotate-left
+        tone: amber
+        description: 从构想萌生到内容重构
+        headings: [发展历程]
+      world_guide:
+        title: 世界导读
+        icon: book-open
+        tone: rose
+        description: 欢迎访问、世界观特征与文章属性划分
+        headings: [欢迎访问, 世界观特征, 文章属性划分]
+      publications:
+        title: 设定集
+        icon: book
+        tone: violet
+        description: 设定集说明与下载入口
+        headings: [设定集说明]
+        direct_links: true

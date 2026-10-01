@@ -1,0 +1,6 @@
+{% import '_macro/content-directory.njk' as directory with context %}
+{% set collection = collection_navigation() %}
+<div class="content-directory directory-resource-article" data-tone="{{ collection.tone }}">
+  <p class="directory-resource-intro">{{ collection.intro }}</p>
+  {% for folder in collection.roots %}{{ directory.folderSection(folder, collection.unit, true) }}{% endfor %}
+</div>

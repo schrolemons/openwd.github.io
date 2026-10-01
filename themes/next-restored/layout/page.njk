@@ -15,7 +15,7 @@ import swal from 'sweetalert';
   {%- endif %}
 {% endblock %}
 
-{% block class %}page posts-expand{% endblock %}
+{% block class %}page posts-expand{% if page.type === 'categories' or page.type === 'tags' %} directory-page{% endif %}{% if folder_navigation() %} directory-article-page{% endif %}{% endblock %}
 
 {% block content %}
 
@@ -23,12 +23,13 @@ import swal from 'sweetalert';
     {### PAGE BLOCK ###}
     {##################}
     <div class="post-block" lang="{{ page.lang }}">
-      {%- if page.header !== false %}
+      {%- if page.header !== false and page.type !== 'categories' and page.type !== 'tags' %}
         {%- include '_partials/page/page-header.njk' -%}
       {%- endif %}
       {#################}
       {### PAGE BODY ###}
       {#################}
+      {% include '_partials/page/folder-navigation.njk' %}
       <div class="post-body{% if page.direction and page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
         {%- if page.type === 'tags' %}
           {%- include '_partials/page/tags.njk' -%}
@@ -54,4 +55,3 @@ import swal from 'sweetalert';
 {% block sidebar %}
   {{ sidebar_template.render(page.toc.enable) }}
 {% endblock %}
-

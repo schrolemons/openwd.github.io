@@ -73,6 +73,8 @@ archive_generator:
 
 # Category & Tag
 default_category: uncategorized
+category_generator:
+  per_page: 0
 category_map:
 tag_map:
 

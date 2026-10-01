@@ -1,8 +1,7 @@
-<div class="category-all-page">
-  <div class="category-all-title">
-    {{ _p('counter.categories', site.categories.length) }}
-  </div>
-  <div class="category-all">
-    {{ list_categories() }}
-  </div>
+{% import '_macro/content-directory.njk' as directory with context %}
+{% set tree = content_directory('overview') %}
+<div class="content-directory directory-catalog">
+  <header class="directory-header"><span class="directory-eyebrow">第九边缘 · 阅读路径</span><h1>分类导航</h1><p>先选择文明，再从主题进入文章。</p><div class="directory-stats"><span><b>{{ site.posts.length }}</b> 篇文章</span><span><b>{{ site.categories.length }}</b> 个分类</span><a href="{{ url_for('archives/') }}">展开全部文章 <span aria-hidden="true">↗</span></a></div></header>
+  <div class="directory-tree">{% for node in tree.roots %}{{ directory.category(node, 0, true) }}{% endfor %}</div>
+  <section class="directory-addendum"><div class="directory-section-heading"><h2>外世延伸</h2></div>{{ directory.collections(world_collections()) }}</section>
 </div>

@@ -1,0 +1,1164 @@
+// Directory typography follows the site's note colours and heading rhythm.
+.content-directory, .sidebar-tag-cluster
+  --directory-accent: #7652a8
+  --directory-soft: #f4effb
+  --directory-edge: #ded0ef
+  --directory-ink: #29354a
+  --directory-muted: #737d8e
+
+[data-tone='violet']
+  --directory-accent: #7652a8
+  --directory-soft: #f4effb
+  --directory-edge: #ded0ef
+[data-tone='blue']
+  --directory-accent: #4771b5
+  --directory-soft: #edf3fd
+  --directory-edge: #ceddf3
+[data-tone='rose']
+  --directory-accent: #b85c7b
+  --directory-soft: #fdf0f4
+  --directory-edge: #f0d0dc
+[data-tone='cyan']
+  --directory-accent: #168ba0
+  --directory-soft: #eaf7fa
+  --directory-edge: #c4e8ef
+[data-tone='amber']
+  --directory-accent: #a57625
+  --directory-soft: #fcf5e7
+  --directory-edge: #ebdcbc
+[data-tone='green']
+  --directory-accent: #468572
+  --directory-soft: #edf7f1
+  --directory-edge: #cbe6d9
+
+.main-inner.directory-page
+  opacity: .97
+
+.directory-page .post-block
+  background: rgba(255, 255, 255, .94)
+
+.content-directory
+  color: var(--directory-ink)
+  font-size: 15px
+  line-height: 1.8
+  text-align: left
+
+  *, *::before, *::after
+    box-sizing: border-box
+
+  &.content-directory h1, &.content-directory h2, &.content-directory h3, &.content-directory h4
+    display: block
+    padding: 0
+    margin: 0
+    border: 0
+    color: var(--directory-ink)
+    font-weight: 600
+    letter-spacing: .04em
+    line-height: 1.45
+
+  h1::before, h1::after, h2::before, h2::after, h3::before, h3::after, h4::before, h4::after
+    display: none
+
+  a, button
+    color: inherit
+    border: 0
+    text-decoration: none
+    overflow-wrap: anywhere
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease
+
+  a:hover, button:hover
+    color: var(--directory-accent)
+
+  a:focus-visible, button:focus-visible
+    outline: 2px solid var(--directory-accent)
+    outline-offset: 4px
+    border-radius: 4px
+
+  p
+    text-align: left
+    margin: 0
+
+  .directory-header
+    position: relative
+    margin-bottom: 26px
+    padding-bottom: 26px
+    border-bottom: 1px solid #e2e5ec
+
+  .directory-header::after
+    content: ''
+    position: absolute
+    bottom: -1px
+    left: 0
+    width: 84px
+    height: 3px
+    border-radius: 2px
+    background: linear-gradient(90deg, #8b66be, #69bccc)
+
+  .directory-eyebrow
+    display: block
+    color: var(--directory-accent)
+    font-size: 11px
+    letter-spacing: .18em
+    margin-bottom: 10px
+
+  .directory-header h1
+    display: flex
+    align-items: baseline
+    gap: 12px
+    font-size: 30px
+    margin-bottom: 12px
+
+  .directory-header h1::before
+    display: inline-block
+    content: '//'
+    color: #63aebf
+    font: 21px/1.4 Consolas, monospace
+    letter-spacing: -.08em
+
+  .directory-header p
+    color: var(--directory-muted)
+    font-size: 14px
+    line-height: 1.85
+
+  .directory-stats
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 10px 22px
+    align-items: baseline
+    color: var(--directory-muted)
+    font-size: 12px
+    margin-top: 20px
+
+  .directory-stats b
+    color: var(--directory-accent)
+    font-size: 21px
+    font-weight: 600
+    margin-right: 5px
+    font-variant-numeric: tabular-nums
+
+  .directory-stats a
+    color: var(--directory-accent)
+    margin-left: auto
+
+  .directory-breadcrumb
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 6px 10px
+    font-size: 12px
+    color: var(--directory-muted)
+    margin-bottom: 24px
+
+  .directory-breadcrumb [aria-current]
+    color: var(--directory-accent)
+
+  .directory-jump
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 10px
+    margin: 0 0 32px
+
+  .directory-jump a
+    display: inline-flex
+    align-items: center
+    gap: 14px
+    padding: 7px 16px
+    color: var(--directory-accent)
+    background: var(--directory-soft)
+    border: 1px solid var(--directory-edge)
+    border-radius: 20px
+    font-size: 13px
+
+  .directory-jump a:hover, .directory-jump [aria-current]
+    background: var(--directory-accent)
+    border-color: var(--directory-accent)
+    color: white
+
+  .directory-jump a > span
+    font-size: 11px
+    opacity: .8
+
+  .directory-section
+    min-width: 0
+    scroll-margin-top: 24px
+
+  .directory-tree > .directory-section
+    margin-bottom: 34px
+    padding: 24px 26px
+    border: 1px solid var(--directory-edge)
+    border-top: 3px solid var(--directory-accent)
+    border-radius: 12px
+    background: linear-gradient(115deg, var(--directory-soft), rgba(255, 255, 255, .96) 65%)
+    box-shadow: 0 5px 18px rgba(69, 56, 94, .025)
+
+  .directory-section-heading
+    display: flex
+    align-items: baseline
+    justify-content: space-between
+    gap: 12px
+    margin-bottom: 20px
+
+  .directory-section-heading h2
+    display: flex
+    align-items: center
+    gap: 14px
+    color: var(--directory-accent)
+    font-size: 23px
+
+  .directory-section-symbol
+    display: inline-flex
+    flex-shrink: 0
+    align-items: center
+    justify-content: center
+    width: 38px
+    height: 38px
+    border-radius: 10px
+    color: white
+    background: var(--directory-accent)
+    font-family: Georgia, serif
+    font-size: 20px
+    font-weight: 400
+    letter-spacing: -.03em
+    box-shadow: 0 3px 9px var(--directory-edge)
+
+  .directory-section-symbol .fa
+    font-size: 16px
+
+  .directory-count
+    flex-shrink: 0
+    font-size: 11px
+    font-weight: 400
+    color: var(--directory-accent)
+    opacity: .8
+    letter-spacing: .02em
+
+  .directory-children
+    display: block
+
+  .directory-section[data-depth='1']
+    display: grid
+    grid-template-columns: 122px minmax(0, 1fr)
+    gap: 18px
+    padding: 19px 0
+    border-top: 1px solid var(--directory-edge)
+
+  .directory-section[data-depth='1'] > .directory-section-heading
+    display: block
+    margin: 0
+
+  .directory-section[data-depth='1'] h3
+    color: var(--directory-accent)
+    font-size: 16px
+    margin-bottom: 7px
+
+  .directory-section[data-depth='1'] h3::before
+    display: inline-block
+    content: ''
+    width: 5px
+    height: 5px
+    border-radius: 50%
+    background: var(--directory-accent)
+    vertical-align: middle
+    margin: 0 8px 3px 0
+
+  .directory-section[data-depth='1']:last-child
+    padding-bottom: 0
+
+  .directory-section[data-depth='2']
+    padding-left: 13px
+    border-left: 2px solid var(--directory-edge)
+    margin-bottom: 16px
+
+  .directory-section[data-depth='2']:last-child
+    margin-bottom: 0
+
+  .directory-section[data-depth='2'] h4
+    font-size: 12px
+    color: var(--directory-accent)
+
+  .directory-section[data-depth='2'] .directory-section-heading
+    margin-bottom: 9px
+
+  .directory-entry
+    padding: 11px 0
+    border-bottom: 1px solid #e8e8f0
+
+  .directory-entry:first-child
+    padding-top: 0
+
+  .directory-entry:last-child
+    border: 0
+    padding-bottom: 0
+
+  .directory-entry-link
+    display: flex
+    align-items: baseline
+    justify-content: space-between
+    gap: 12px
+    font-size: 15px
+    font-weight: 500
+    line-height: 1.75
+
+  button.directory-entry-link
+    width: 100%
+    padding: 0
+    margin: 0
+    background: transparent
+    font-family: inherit
+    text-align: left
+    cursor: pointer
+
+  .directory-entry-arrow
+    flex-shrink: 0
+    color: var(--directory-accent)
+    opacity: .55
+    font-size: 13px
+
+  .directory-entry-link:hover .directory-entry-arrow
+    opacity: 1
+
+  .directory-entry-meta
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 5px 12px
+    color: var(--directory-muted)
+    font-size: 11px
+    margin-top: 5px
+
+  .directory-tag
+    opacity: .75
+
+  .directory-tag::before
+    content: '·'
+    margin-right: 4px
+    color: var(--directory-accent)
+
+  .directory-entry-kind
+    color: var(--directory-accent)
+
+  .directory-entries-rich .directory-entry
+    padding: 20px 0
+
+  .directory-entries-rich .directory-entry:first-child
+    padding-top: 0
+
+  .directory-entries-rich .directory-entry-link
+    font-size: 17px
+    font-weight: 600
+
+  .directory-excerpt
+    margin-top: 10px
+    color: var(--directory-muted)
+    font-size: 13px
+    line-height: 1.9
+
+  .directory-category-grid
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 18px
+
+  .directory-category-grid > .directory-section
+    padding: 20px
+    border: 1px solid var(--directory-edge)
+    border-radius: 10px
+    background: linear-gradient(125deg, var(--directory-soft), rgba(255, 255, 255, .9))
+
+  .directory-category-grid > .directory-section .directory-section-symbol
+    display: none
+
+  .directory-category-grid > .directory-section h2
+    font-size: 18px
+
+  .directory-category-grid .directory-section[data-depth='1']
+    display: block
+    border-top: 0
+    border-left: 2px solid var(--directory-edge)
+    padding: 0 0 0 12px
+    margin-bottom: 18px
+
+  .directory-category-grid .directory-section[data-depth='1'] .directory-section-heading
+    display: flex
+    margin-bottom: 8px
+
+  .directory-category-grid .directory-section[data-depth='1'] h3
+    font-size: 13px
+    margin: 0
+
+  &.directory-catalog .directory-tree
+    display: grid
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    gap: 18px
+
+  &.directory-catalog .directory-tree > .directory-section
+    display: flex
+    flex-direction: column
+    padding: 22px 20px
+    margin: 0
+
+  &.directory-catalog .directory-section-heading
+    flex-direction: column
+    align-items: flex-start
+    gap: 12px
+
+  &.directory-catalog .directory-section-heading h2
+    font-size: 20px
+    gap: 10px
+
+  &.directory-catalog .directory-section-symbol
+    width: 30px
+    height: 30px
+    border-radius: 8px
+    font-size: 17px
+
+  .directory-category-links
+    display: grid
+    gap: 0
+    flex: 1
+    align-content: start
+    margin-bottom: 22px
+
+  .directory-category-links a
+    display: flex
+    justify-content: space-between
+    align-items: baseline
+    gap: 10px
+    font-size: 13px
+    padding: 9px 0
+    border-bottom: 1px solid var(--directory-edge)
+
+  .directory-category-links a:last-child
+    border-bottom: 0
+
+  .directory-category-links a > span:last-child
+    color: var(--directory-accent)
+    font-size: 11px
+
+  .directory-section-action
+    display: inline-flex
+    gap: 18px
+    color: var(--directory-accent)
+    font-size: 12px
+
+  .directory-addendum
+    padding-top: 4px
+    margin-top: 38px
+
+  .directory-addendum > .directory-section-heading
+    padding-bottom: 12px
+    border-bottom: 1px solid #e2e5ec
+
+  .directory-addendum > .directory-section-heading h2
+    color: var(--directory-ink)
+    font-size: 20px
+
+  .directory-collections
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 16px
+
+  .directory-collection-card
+    display: grid
+    grid-template-columns: 46px minmax(0, 1fr)
+    column-gap: 14px
+    padding: 22px
+    border: 1px solid var(--directory-edge)
+    border-radius: 12px
+    background: linear-gradient(120deg, var(--directory-soft), rgba(255, 255, 255, .8))
+
+  .directory-collection-card:hover, .directory-folder-card:hover
+    border-color: var(--directory-accent)
+
+  .directory-collection-icon, .directory-folder-icon
+    display: flex
+    justify-content: center
+    align-items: center
+    color: var(--directory-accent)
+    background: white
+    border: 1px solid var(--directory-edge)
+    width: 46px
+    height: 46px
+    border-radius: 13px
+    font-size: 20px
+
+  .directory-collection-copy, .directory-folder-copy
+    min-width: 0
+
+  .directory-collection-name, .directory-folder-title
+    display: block
+    color: var(--directory-accent)
+    font-size: 18px
+    font-weight: 600
+    letter-spacing: .03em
+    line-height: 1.5
+    margin-bottom: 6px
+
+  .directory-collection-description, .directory-folder-description
+    display: block
+    color: var(--directory-muted)
+    font-size: 12px
+    line-height: 1.8
+
+  .directory-collection-footer
+    display: flex
+    justify-content: space-between
+    grid-column: 2
+    color: var(--directory-accent)
+    font-size: 11px
+    margin-top: 14px
+
+  .directory-folder-grid
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 16px
+    margin: 28px 0 34px
+
+  .directory-folder-card
+    display: flex
+    align-items: flex-start
+    gap: 14px
+    padding: 21px
+    border: 1px solid var(--directory-edge)
+    border-radius: 12px
+    background: var(--directory-soft)
+
+  .directory-folder-icon
+    flex-shrink: 0
+    width: 38px
+    height: 38px
+    border-radius: 11px
+    font-size: 17px
+
+  .directory-folder-copy
+    flex: 1
+
+  .directory-folder-title
+    font-size: 16px
+
+  .directory-folder-copy .directory-count
+    display: block
+    margin-top: 10px
+
+  .directory-folder-arrow
+    color: var(--directory-accent)
+    flex-shrink: 0
+    font-size: 13px
+
+  .directory-folder-tree > .directory-section
+    margin-bottom: 24px
+
+// Full-page topic index uses aligned rows, distinct from sidebar chips.
+.content-directory
+  .directory-tag-group
+    display: grid
+    grid-template-columns: minmax(0, 1fr)
+    gap: 22px
+    padding: 24px
+    margin-bottom: 20px
+    border: 1px solid var(--directory-edge)
+    border-left: 3px solid var(--directory-accent)
+    border-radius: 12px
+    background: linear-gradient(110deg, var(--directory-soft), rgba(255, 255, 255, .9) 45%)
+
+  .directory-tag-group:first-child
+    margin-top: 0
+
+  .directory-tag-group > header
+    position: relative
+    padding-right: 145px
+
+  .directory-tag-type
+    display: block
+    font: 10px/1.5 Consolas, monospace
+    color: var(--directory-accent)
+    margin-bottom: 10px
+
+  .directory-tag-group-count
+    display: block
+    position: absolute
+    top: 0
+    right: 0
+    margin-top: 0
+    font-size: 11px
+    color: var(--directory-accent)
+
+  .directory-tag-coverage
+    position: absolute
+    top: 26px
+    right: 0
+    font-size: 11px
+    color: var(--directory-muted)
+
+  .directory-tag-group h2
+    font-size: 19px
+    margin-bottom: 8px
+    color: var(--directory-accent)
+
+  .directory-tag-group header p
+    font-size: 12px
+    color: var(--directory-muted)
+
+  .directory-tag-rows
+    display: grid
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    gap: 16px
+
+  .directory-tag-card
+    display: flex
+    flex-direction: column
+    min-width: 0
+    padding: 17px
+    border: 1px solid var(--directory-edge)
+    border-radius: 10px
+    background: rgba(255, 255, 255, .88)
+
+  .directory-tag-row
+    display: flex
+    align-items: center
+    gap: 9px
+    padding: 0 0 13px
+    border-bottom: 1px solid var(--directory-edge)
+    font-size: 16px
+
+  .directory-tag-distribution
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 4px 8px
+    margin-top: 12px
+
+  .directory-tag-distribution > span
+    font-size: 10px
+    color: var(--directory-accent)
+
+  .directory-tag-distribution b
+    font: 11px Consolas, monospace
+
+  .directory-tag-previews
+    margin-top: 16px
+    margin-bottom: 18px
+
+  .directory-tag-preview-label
+    display: block
+    color: var(--directory-muted)
+    font-size: 10px
+    letter-spacing: .08em
+    margin-bottom: 7px
+
+  .directory-tag-preview-link
+    display: block
+    padding: 7px 0
+    font-size: 12px
+    line-height: 1.65
+
+  .directory-tag-preview-link > span
+    display: -webkit-box
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+  .directory-tag-preview-link small
+    display: block
+    margin-top: 3px
+    color: var(--directory-muted)
+    font-size: 9px
+
+  .directory-tag-all
+    display: flex
+    justify-content: space-between
+    align-items: baseline
+    padding-top: 11px
+    margin-top: auto
+    border-top: 1px solid var(--directory-edge)
+    font-size: 11px
+    color: var(--directory-accent)
+
+  .directory-tag-footnote
+    margin-top: 24px
+    font-size: 11px
+    color: var(--directory-muted)
+
+  .directory-tag-dot
+    width: 6px
+    height: 6px
+    flex-shrink: 0
+    border-radius: 50%
+    background: var(--directory-accent)
+
+  .directory-tag-total
+    font-size: 10px
+    color: var(--directory-muted)
+    margin-left: auto
+    white-space: nowrap
+
+  .directory-tag-total b
+    font: 12px Consolas, monospace
+    color: var(--directory-accent)
+
+  .directory-tag-row > span:last-child
+    color: var(--directory-accent)
+    font-size: 12px
+
+  .directory-tag-article
+    display: grid
+    grid-template-columns: 28px minmax(0, 1fr) auto
+    align-items: baseline
+    gap: 15px
+    padding: 23px 0
+    border-bottom: 1px solid var(--directory-edge)
+
+  .directory-tag-article:first-child
+    padding-top: 0
+
+  .directory-tag-article:last-child
+    border-bottom: 0
+
+  .directory-tag-number
+    font: 13px/1.8 Consolas, monospace
+    color: var(--directory-accent)
+    opacity: .7
+
+  .directory-tag-article .directory-entry-link
+    font-size: 17px
+
+  .directory-tag-article-meta
+    display: flex
+    align-items: baseline
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 7px
+    margin-top: 9px
+    font-size: 11px
+    color: var(--directory-muted)
+
+  .directory-tag-article time
+    font: 11px/1.8 Consolas, monospace
+    color: var(--directory-muted)
+
+// Resource destinations are full clickable cards, including the QR action.
+.content-directory
+  .directory-resource-grid
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 16px
+
+  .directory-resource-card
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    min-width: 0
+    padding: 23px
+    border: 1px solid var(--directory-edge)
+    border-radius: 12px
+    background: linear-gradient(135deg, var(--directory-soft), #fff 85%)
+    color: var(--directory-ink)
+    text-align: left
+    font-family: inherit
+    line-height: 1.6
+    cursor: pointer
+
+  .directory-resource-card:hover, .directory-resource-card:focus-visible
+    border-color: var(--directory-accent)
+    background: var(--directory-soft)
+
+  .directory-resource-top
+    display: flex
+    align-items: center
+    gap: 10px
+    margin-bottom: 16px
+    color: var(--directory-accent)
+
+  .directory-resource-icon
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    width: 44px
+    height: 44px
+    border-radius: 10px
+    background: #fff
+    border: 1px solid var(--directory-edge)
+    font-size: 17px
+
+  .directory-resource-icon img
+    display: block
+    width: 32px
+    height: 32px
+    margin: 0
+    padding: 0
+    border: 0
+    border-radius: 5px
+    object-fit: contain
+
+  button.directory-resource-card
+    appearance: none
+    width: 100%
+    font-size: inherit
+    padding: 23px
+
+  .directory-resource-arrow svg
+    display: block
+
+  .directory-resource-arrow
+    margin-left: auto
+    font-size: 18px
+
+  .directory-resource-title
+    display: block
+    font-size: 20px
+    font-weight: 600
+    letter-spacing: .06em
+    margin-bottom: 7px
+    color: var(--directory-ink)
+
+  .directory-resource-description
+    display: block
+    color: var(--directory-muted)
+    font-size: 13px
+    margin-bottom: 17px
+
+  .directory-resource-address
+    display: block
+    padding-top: 13px
+    margin-top: auto
+    border-top: 1px solid var(--directory-edge)
+    color: var(--directory-accent)
+    font: 11px/1.5 Consolas, monospace
+
+  .directory-resource-section
+    margin-bottom: 32px
+
+  .directory-resource-intro
+    margin-bottom: 30px
+
+  .directory-resource-section > .directory-section-heading
+    margin-bottom: 18px
+
+  .directory-resource-section .directory-section-heading h2
+    display: flex
+    align-items: center
+    gap: 12px
+
+// The original album uses negative margins; keep it in normal flow after navigation.
+.directory-article-page
+  .content-directory.folder-navigation
+    background: rgba(255, 255, 255, .96)
+    border-top: 3px solid var(--directory-accent)
+    border-left-width: 1px
+    margin-bottom: 32px
+
+  .post-body > .photos-page
+    margin-top: 0
+
+  .post-body > .photos-page .photos-list
+    display: block
+
+  .post-body > .photos-page .photos-item
+    margin: 0
+
+  .post-body > .photos-page .photos-item > a
+    display: block
+    overflow: hidden
+    border-radius: 12px
+    background: #171720
+    pointer-events: none
+
+  .post-body > .photos-page .photos-column a img
+    display: block
+    width: 100% !important
+    height: auto !important
+    max-height: 320px
+    object-fit: contain
+    margin: 0 auto
+
+  .post-body > .photos-page .photos-item > br
+    display: none
+
+  .post-body > .photos-page .photos-item p
+    margin: 14px 0 0
+    max-width: none
+    border: 0
+    border-radius: 0
+    box-shadow: none
+    background: transparent
+    color: #737d8e
+    font-size: 14px
+
+.content-directory.folder-navigation, .content-directory.collection-navigation
+  padding: 18px 20px
+  margin: 0 0 28px
+  border: 1px solid var(--directory-edge)
+  border-left: 3px solid var(--directory-accent)
+  border-radius: 10px
+  background: var(--directory-soft)
+
+  .folder-navigation-heading
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 8px
+    align-items: center
+    font-size: 13px
+    color: var(--directory-accent)
+    margin-bottom: 12px
+
+  .folder-navigation-heading .directory-count
+    margin-left: auto
+
+  .folder-navigation-links
+    display: flex
+    flex-wrap: wrap
+    justify-content: flex-start
+    gap: 8px
+
+  .folder-article-link
+    display: inline-flex
+    align-items: baseline
+    gap: 8px
+    padding: 6px 11px
+    font-size: 12px
+    border: 1px solid var(--directory-edge)
+    border-radius: 7px
+    background: rgba(255, 255, 255, .8)
+
+  .folder-article-link .fa
+    color: var(--directory-accent)
+    font-size: 11px
+
+  .folder-article-link > span
+    color: var(--directory-accent)
+    font-size: 10px
+
+  .folder-article-link[aria-current]
+    color: var(--directory-accent)
+    border-color: var(--directory-accent)
+
+// Stable tag groups retain links and counts without intercepting scrolling.
+.sidebar-tag-cluster
+  padding-top: 22px
+  margin-top: 22px
+  border-top: 1px solid rgba(124, 94, 163, .15)
+  text-align: left
+
+  .sidebar-tag-heading
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 18px
+
+  .sidebar-tag-heading h3
+    margin: 0
+    font-size: 16px
+    font-weight: 600
+    letter-spacing: .04em
+    color: #555069
+
+  .sidebar-tag-heading > a
+    position: absolute
+    right: 0
+    font-size: 14px
+    border: 0
+    color: #967eb7
+    padding: 2px 5px
+
+  .sidebar-tag-group
+    margin-bottom: 16px
+
+  .sidebar-tag-group:last-child
+    margin-bottom: 0
+
+  .sidebar-tag-group h4
+    margin: 0 0 8px
+    color: #8a8297
+    font-size: 10px
+    font-weight: 400
+    letter-spacing: .12em
+    text-align: center
+
+  .sidebar-tag-links
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    gap: 7px
+
+  .sidebar-tag-link
+    display: inline-flex
+    align-items: baseline
+    justify-content: space-between
+    gap: 7px
+    padding: 5px 8px
+    border: 1px solid var(--directory-edge)
+    border-radius: 7px
+    background: var(--directory-soft)
+    color: var(--directory-accent)
+    font-size: 12px
+    line-height: 1.5
+    transition: background-color .18s, border-color .18s
+
+  .sidebar-tag-link:hover, .sidebar-tag-link:focus-visible
+    color: white
+    background: var(--directory-accent)
+    border-color: var(--directory-accent)
+    outline: none
+
+  .sidebar-tag-count
+    font: 10px/1.5 Consolas, monospace
+    opacity: .75
+
+.directory-qr-dialog
+  width: 380px
+  max-width: calc(100vw - 40px)
+  max-height: calc(100vh - 40px)
+  padding: 32px
+  border: 1px solid #cce4e8
+  border-radius: 18px
+  background: #fff
+  box-shadow: 0 15px 70px rgba(27, 45, 60, .2)
+  color: #29354a
+  text-align: center
+  overflow: auto
+
+  &::backdrop
+    background: rgba(30, 36, 51, .5)
+    backdrop-filter: blur(5px)
+
+  h2
+    margin: 0 0 22px
+    font-size: 20px
+    line-height: 1.5
+
+  img
+    display: block
+    width: 100%
+    height: auto
+    border-radius: 8px
+    margin-bottom: 16px
+
+  p
+    margin: 0 0 12px
+    color: #737d8e
+    font-size: 13px
+
+  a
+    color: #168ba0
+    font-size: 12px
+    border: 0
+
+  .directory-qr-close
+    position: absolute
+    right: 12px
+    top: 8px
+    font-size: 25px
+    line-height: 1
+    padding: 5px
+    border: 0
+    background: transparent
+    color: #737d8e
+    cursor: pointer
+
+@media (max-width: 1100px)
+  .content-directory.directory-catalog .directory-tree
+    grid-template-columns: minmax(0, 1fr)
+  .content-directory .directory-tag-rows
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+
+@media (max-width: 767px)
+  .directory-page .post-block
+    padding: 24px 20px
+  .content-directory
+    .directory-header h1
+      font-size: 27px
+    .directory-header h1::before
+      font-size: 18px
+    .directory-stats
+      gap: 8px 16px
+    .directory-stats a
+      margin-left: 0
+    .directory-tree > .directory-section
+      padding: 20px 18px
+      margin-bottom: 24px
+    .directory-section-heading h2
+      font-size: 21px
+      gap: 10px
+    .directory-section-symbol
+      width: 32px
+      height: 32px
+      border-radius: 9px
+      font-size: 18px
+    .directory-section[data-depth='1']
+      display: block
+      padding: 17px 0
+    .directory-section[data-depth='1'] > .directory-section-heading
+      display: flex
+      align-items: baseline
+      margin-bottom: 13px
+    .directory-section[data-depth='1'] h3
+      margin-bottom: 0
+    .directory-entry-link
+      font-size: 14px
+    .directory-jump
+      gap: 8px
+      margin-bottom: 26px
+    .directory-jump a
+      padding: 6px 12px
+      gap: 10px
+      font-size: 12px
+    .directory-category-grid, .directory-folder-grid, .directory-collections
+      grid-template-columns: minmax(0, 1fr)
+    &.directory-catalog .directory-tree
+      grid-template-columns: minmax(0, 1fr)
+    &.directory-catalog .directory-tree > .directory-section
+      padding: 20px
+    .directory-category-links
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+      gap: 0 18px
+    .directory-entries-rich .directory-entry-link
+      font-size: 16px
+    .directory-collection-card
+      padding: 20px
+    .directory-folder-card
+      padding: 18px
+    .directory-resource-grid
+      grid-template-columns: minmax(0, 1fr)
+      gap: 12px
+    .directory-resource-card
+      padding: 20px
+    button.directory-resource-card
+      padding: 20px
+    .directory-tag-group
+      grid-template-columns: minmax(0, 1fr)
+      gap: 15px
+      padding: 20px 18px
+    .directory-tag-group header
+      position: relative
+      padding-right: 0
+    .directory-tag-group h2
+      margin-bottom: 6px
+    .directory-tag-group-count
+      position: absolute
+      top: 0
+      right: 0
+      margin-top: 0
+    .directory-tag-coverage
+      position: static
+      display: block
+      margin-top: 8px
+    .directory-tag-rows
+      grid-template-columns: minmax(0, 1fr)
+      gap: 12px
+    .directory-tag-article
+      grid-template-columns: 24px minmax(0, 1fr)
+      gap: 6px 10px
+      padding: 18px 0
+    .directory-tag-article time
+      grid-column: 2
+    .directory-tag-article .directory-entry-link
+      font-size: 16px
+  .directory-article-page .post-body > .photos-page .photos-column a img
+    max-height: 210px
+
+@media (prefers-reduced-motion: reduce)
+  .content-directory a, .content-directory button, .sidebar-tag-link
+    transition: none

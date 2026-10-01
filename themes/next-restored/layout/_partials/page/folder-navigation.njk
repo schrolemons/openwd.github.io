@@ -1,0 +1,13 @@
+{% set folder = folder_navigation() %}
+{% set collection = collection_navigation() %}
+{% if collection %}
+  <nav class="content-directory collection-navigation" data-tone="{{ collection.tone }}" aria-label="相关内容入口">
+    <div class="folder-navigation-heading"><i class="fa fa-{{ collection.icon }}" aria-hidden="true"></i><a href="{{ url_for(collection.path) }}">{{ collection.title | escape }} · 内容导航</a><span class="directory-count">{{ collection.count }} {{ collection.unit }}</span></div>
+    <div class="folder-navigation-links">{% for group in collection.roots %}<a class="folder-article-link" data-tone="{{ group.tone }}" href="{{ url_for(group.path) }}"><i class="fa fa-{{ group.icon }}" aria-hidden="true"></i>{{ group.name | escape }}<span>{{ group.count }}</span></a>{% endfor %}</div>
+  </nav>
+{% elif folder %}
+  <nav class="content-directory folder-navigation" data-tone="{{ folder.tone }}" aria-label="同目录内容">
+    <div class="folder-navigation-heading"><a href="{{ url_for(folder.collection.path) }}">{{ folder.collection.title | escape }}</a><span aria-hidden="true">/</span><a href="{{ url_for(folder.path) }}">{{ folder.name | escape }}</a><span class="directory-count">{{ folder.count }} {{ folder.collection.unit }}</span></div>
+    <div class="folder-navigation-links">{% for entry in folder.entries %}<a class="folder-article-link" href="{{ url_for(entry.path) }}"{% if url_for(entry.path) === url_for(page.path) or entry.path + 'index.html' === page.path %} aria-current="page"{% endif %}>{{ entry.title | escape }}</a>{% endfor %}</div>
+  </nav>
+{% endif %}

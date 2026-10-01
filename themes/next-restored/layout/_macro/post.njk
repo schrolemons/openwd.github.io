@@ -63,6 +63,7 @@
     {#################}
     {### POST BODY ###}
     {#################}
+    {% if not is_index %}{{ partial('_partials/page/folder-navigation.njk') }}{% endif %}
     <div class="post-body{% if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="articleBody">
       {%- if is_index %}
         {%- if post.description and theme.excerpt_description %}
@@ -92,7 +93,7 @@
         {%- endif %}
       {% else %}
         {{- next_inject('postBodyStart') }}
-        {{- post.content }}
+        {% if post.path === 'posts/25.html' %}{{ partial('resource-entrances.njk') }}{% else %}{{- post.content }}{% endif %}
       {%- endif %}
     </div>
 

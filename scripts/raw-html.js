@@ -41,6 +41,11 @@ function processRawHtml(html, config) {
 
 hexo.extend.filter.register('before_post_render', function(data) {
   if (data.content && data.content.trimStart().toLowerCase().startsWith('<!doctype html>')) {
+    // Standalone HTML has no frontmatter; retain its own document title.
+    if (!data.title) {
+      const $ = require('cheerio').load(data.content);
+      data.title = $('title').first().text().trim() || $('h1').first().text().trim();
+    }
     data._rawHtmlContent = data.content;
     data._rawHtmlConfig = {
       width: data.raw_html_width,

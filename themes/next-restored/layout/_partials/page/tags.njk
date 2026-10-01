@@ -1,16 +1,11 @@
-<div class="tag-cloud">
-  <div class="tag-cloud-title">
-    {{ _p('counter.tag_cloud', site.tags.length) }}
+<div class="content-directory directory-tags-index">
+  <header class="directory-header"><span class="directory-eyebrow">第九边缘 · 主题阅读</span><h1>标签阅读地图</h1><p>从三种标签类型出发，查看文明分布与最近的相关文章。</p><div class="directory-stats"><span><b>3</b> 种类型</span><span><b>{{ site.tags.length }}</b> 个标签</span><span><b>{{ site.posts.length }}</b> 篇文章</span></div></header>
+  <div class="directory-tag-index">
+    {% for group in tag_index_groups() %}
+      <section class="directory-tag-group" data-tone="{{ group.tone }}"><header><span class="directory-tag-type">0{{ loop.index }} · 标签类型</span><h2>{{ group.label | escape }}</h2><p>{{ group.description | escape }}</p><span class="directory-tag-group-count">{{ group.tags.length }} 个标签</span><span class="directory-tag-coverage">{{ group.post_count }} 篇相关内容</span></header><div class="directory-tag-rows">
+        {% for tag in group.tags %}<article class="directory-tag-card" data-tone="{{ tag.tone }}"><h3><a class="directory-tag-row" href="{{ url_for(tag.path) }}"><span class="directory-tag-dot" aria-hidden="true"></span><span class="directory-tag-name">{{ tag.name | escape }}</span><span class="directory-tag-total"><b>{{ tag.count }}</b> 篇</span></a></h3><div class="directory-tag-distribution" aria-label="文明分布">{% for civilization in tag.civilizations %}<span data-tone="{{ civilization.tone }}">{{ civilization.name | escape }} <b>{{ civilization.count }}</b></span>{% endfor %}</div><div class="directory-tag-previews"><span class="directory-tag-preview-label">最近文章</span>{% for article in tag.previews %}<a class="directory-tag-preview-link" href="{{ url_for(article.path) }}"><span>{{ article.title | escape }}</span><small>{{ article.category | escape }}</small></a>{% endfor %}</div><a class="directory-tag-all" href="{{ url_for(tag.path) }}">查看全部 {{ tag.count }} 篇 <span aria-hidden="true">→</span></a></article>{% endfor %}
+      </div></section>
+    {% endfor %}
   </div>
-  <div class="tag-cloud-tags">
-    {{ tagcloud({
-      min_font: theme.tagcloud.min,
-      max_font: theme.tagcloud.max,
-      amount  : theme.tagcloud.amount,
-      orderby : theme.tagcloud.orderby,
-      order   : theme.tagcloud.order,
-      class   : 'tag-cloud'
-      })
-    }}
-  </div>
+  <p class="directory-tag-footnote">同一篇文章可以对应多个标签。</p>
 </div>

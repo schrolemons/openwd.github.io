@@ -1,16 +1,10 @@
-
-
-
-{% if site.tags.length > 1 %}
-<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
-<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
-<div class="widget-wrap">
-    <h3 class="widget-title">元素构建</h3>
-    <div id="myCanvasContainer" class="widget tagcloud">
-        <canvas width="250" height="250" id="resCanvas" style="width=100%">
-            {{ list_tags() }}
-        </canvas>
-    </div>
-</div>
+{% if site.tags.length %}
+<section class="sidebar-tag-cluster" aria-labelledby="sidebar-tag-heading">
+  <div class="sidebar-tag-heading"><h3 id="sidebar-tag-heading">元素构建</h3><a href="{{ url_for('tags/') }}" aria-label="查看全部标签"><span aria-hidden="true">↗</span></a></div>
+  {% for group in sidebar_tag_groups() %}
+    <div class="sidebar-tag-group"><h4>{{ group.title | escape }}</h4><div class="sidebar-tag-links">
+      {% for tag in group.tags %}<a class="sidebar-tag-link" data-tone="{{ tag.tone }}" href="{{ url_for(tag.path) }}" aria-label="{{ tag.name | escape }}，{{ tag.count }} 篇文章"><span class="sidebar-tag-name">{{ tag.name | escape }}</span><span class="sidebar-tag-count">{{ tag.count }}</span></a>{% endfor %}
+    </div></div>
+  {% endfor %}
+</section>
 {% endif %}
-

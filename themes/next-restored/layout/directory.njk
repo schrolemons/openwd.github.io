@@ -1,0 +1,18 @@
+{% extends '_layout.njk' %}
+{% import '_macro/sidebar.njk' as sidebar_template with context %}
+{% import '_macro/content-directory.njk' as directory with context %}
+{% block title %}{{ page.title | escape }} | {{ title }}{% endblock %}
+{% block class %}directory-page{% endblock %}
+{% block content %}
+  {% set tree = content_directory('folders') %}
+  {% set current = tree.nodes.get(page.directory_key) %}
+  <div class="post-block"><div class="content-directory" data-tone="{{ current.tone if current else tree.tone }}">
+    <nav class="directory-breadcrumb" aria-label="目录路径"><a href="{{ url_for('archives/') }}">总览</a><span aria-hidden="true">/</span>{% if current %}<a href="{{ url_for(tree.path) }}">{{ tree.title | escape }}</a><span aria-hidden="true">/</span><span aria-current="page">{{ current.name | escape }}</span>{% else %}<span aria-current="page">{{ tree.title | escape }}</span>{% endif %}</nav>
+    <header class="directory-header"><span class="directory-eyebrow">第九边缘 · 内容索引</span><h1>{{ page.title | escape }}</h1><p>{{ current.description | escape if current else tree.description | escape }}</p><div class="directory-stats"><span><b>{{ current.count if current else tree.count }}</b> {{ tree.unit }}</span>{% if not current %}<span><b>{{ tree.roots.length }}</b> 个分区</span>{% endif %}{% if tree.owner %}<a href="{{ url_for(tree.owner) }}">阅读原文 <span aria-hidden="true">↗</span></a>{% endif %}</div></header>
+    {% if current %}
+      <nav class="directory-jump" aria-label="内容分区导航">{% for folder in tree.roots %}<a data-tone="{{ folder.tone }}" href="{{ url_for(folder.path) }}"{% if folder.key === current.key %} aria-current="page"{% endif %}>{{ folder.name | escape }}<span>{{ folder.count }}</span></a>{% endfor %}</nav>
+      {% if tree.key === 'bingjie_domain' %}{{ directory.resources(current) }}{% else %}{{ directory.entries(current.entries, true) }}{% endif %}{% for child in current.children %}{{ directory.folderSection(child, tree.unit) }}{% endfor %}
+    {% else %}{% if tree.key !== 'bingjie_domain' %}{{ directory.folders(tree) }}{% endif %}<div class="directory-tree directory-folder-tree">{% for folder in tree.roots %}{{ directory.folderSection(folder, tree.unit, tree.key === 'bingjie_domain') }}{% endfor %}</div>{% endif %}
+  </div></div>
+{% endblock %}
+{% block sidebar %}{{ sidebar_template.render(false) }}{% endblock %}
