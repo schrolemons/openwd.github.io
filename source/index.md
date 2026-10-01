@@ -1,7 +1,8 @@
 ---
-layout: pages
+layout: home
 title: 第九边缘：WORLD
 comments: false
+reading_style: home
 ---
 
 <script>

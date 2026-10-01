@@ -1,6 +1,8 @@
 ---
 title: 协作者档案
 date: 2025-02-22 19:28:51
+reading_style: profile
+reading_tone: amber
 ---
 {% note primary %}
 ### 协作者介绍

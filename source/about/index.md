@@ -5,6 +5,8 @@ abbrlink: 2147483647
 date: 2025-02-21 16:57:09
 top: 999999
 comments: false
+reading_style: info
+reading_tone: cyan
 ---
 
 {% note primary %}

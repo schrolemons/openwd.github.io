@@ -1,6 +1,8 @@
 ---
 title: 测试页 - 原生HTML渲染
 layout: pages
+reading_style: info
+reading_tone: cyan
 ---
 
 本页面展示了 ` rawhtml ` 容器的用法。你可以在 Markdown 文件的**任意位置、任意数量**地插入 HTML 容器，它们与周围的 Markdown 内容无缝共存。

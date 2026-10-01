@@ -30,8 +30,13 @@ const output = path.resolve(__dirname, '../.repair-backups/20261001/directory-ui
         } else {
           assert.equal(await page.locator('.directory-folder-section .directory-folder-section').count(), 0, 'profiles are not nested folders');
           const profile = page.locator('.directory-entry-link[href="/light_withme/friend_lists/mosae/"]');
-          assert.match(await profile.innerText(), /墨薛的个人扩列条/);
-          if (route.endsWith('friend_lists/')) assert.equal(await page.locator('.directory-entry-link').count(), 1);
+          if (route.endsWith('friend_lists/')) {
+            assert.match(await profile.innerText(), /墨薛的个人扩列条/);
+            assert.equal(await page.locator('.directory-entry-link').count(), 1);
+          } else {
+            assert.equal(await profile.count(), 0);
+            assert.equal(await page.locator('.directory-folder-card').count(), 3);
+          }
         }
         if (width === 1440 || width === 390) await page.screenshot({ path: path.join(output, `${width}-final-${route.replaceAll('/', '-')}.png`), fullPage: true, animations: 'disabled' });
         console.log(`PASS: ${width} ${route}`);

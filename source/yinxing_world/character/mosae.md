@@ -1,6 +1,8 @@
 ---
 title: 众生回廊：墨薛
 date: 2025-02-21 17:47:27
+reading_style: profile
+reading_tone: amber
 ---
 {%note info%}
 ### 人物展示 CHARACTER PICTURES

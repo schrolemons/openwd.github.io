@@ -18,12 +18,14 @@ import swal from 'sweetalert';
 {% block class %}page posts-expand{% if page.type === 'categories' or page.type === 'tags' %} directory-page{% endif %}{% if folder_navigation() %} directory-article-page{% endif %}{% endblock %}
 
 {% block content %}
+    {% set reading = reading_profile(page) %}
 
     {##################}
     {### PAGE BLOCK ###}
     {##################}
-    <div class="post-block" lang="{{ page.lang }}">
+    <div class="post-block{% if reading %} reading-document{% endif %}"{% if reading %} data-reading-style="{{ reading.style }}" data-tone="{{ reading.tone }}"{% endif %} lang="{{ page.lang }}">
       {%- if page.header !== false and page.type !== 'categories' and page.type !== 'tags' %}
+        {% if reading %}<div class="reading-kicker"><span>{{ reading.label }}</span><span>{{ reading.description }}</span></div>{% endif %}
         {%- include '_partials/page/page-header.njk' -%}
       {%- endif %}
       {#################}
@@ -38,7 +40,7 @@ import swal from 'sweetalert';
         {% elif page.type === 'schedule' %}
           {%- include '_partials/page/schedule.njk' -%}
         {% else %}
-          {{ page.content }}
+          {% if reading %}<div class="reading-prose">{{ reading_content(page.content) }}</div>{% else %}{{ page.content }}{% endif %}
         {%- endif %}
       </div>
       {#####################}

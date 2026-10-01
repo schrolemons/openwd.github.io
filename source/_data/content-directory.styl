@@ -848,23 +848,23 @@
     border-left-width: 1px
     margin-bottom: 32px
 
-  .post-body > .photos-page
+  .post-body .photos-page
     margin-top: 0
 
-  .post-body > .photos-page .photos-list
+  .post-body .photos-page .photos-list
     display: block
 
-  .post-body > .photos-page .photos-item
+  .post-body .photos-page .photos-item
     margin: 0
 
-  .post-body > .photos-page .photos-item > a
+  .post-body .photos-page .photos-item > a
     display: block
     overflow: hidden
     border-radius: 12px
     background: #171720
     pointer-events: none
 
-  .post-body > .photos-page .photos-column a img
+  .post-body .photos-page .photos-column a img
     display: block
     width: 100% !important
     height: auto !important
@@ -872,10 +872,10 @@
     object-fit: contain
     margin: 0 auto
 
-  .post-body > .photos-page .photos-item > br
+  .post-body .photos-page .photos-item > br
     display: none
 
-  .post-body > .photos-page .photos-item p
+  .post-body .photos-page .photos-item p
     margin: 14px 0 0
     max-width: none
     border: 0
@@ -884,6 +884,14 @@
     background: transparent
     color: #737d8e
     font-size: 14px
+    text-align: center
+
+  // Keep the source's line breaks, but do not turn them into empty cover rows.
+  .post-body .photos-page + br, .post-body .photos-page + br + br
+    display: none
+
+  .post-body .photos-page + br + br + hr
+    margin: 24px 0
 
 .content-directory.folder-navigation, .content-directory.collection-navigation
   padding: 18px 20px
@@ -1156,7 +1164,7 @@
       grid-column: 2
     .directory-tag-article .directory-entry-link
       font-size: 16px
-  .directory-article-page .post-body > .photos-page .photos-column a img
+  .directory-article-page .post-body .photos-page .photos-column a img
     max-height: 210px
 
 @media (prefers-reduced-motion: reduce)

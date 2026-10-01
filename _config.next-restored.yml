@@ -179,7 +179,7 @@ reading_progress:
   color: '#37c6c0'
   height: 6px
 bookmark:
-  enable: true
+  enable: false
   color: '#222'
   save: auto
 github_banner:

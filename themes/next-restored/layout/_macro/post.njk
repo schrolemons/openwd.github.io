@@ -3,10 +3,11 @@
 {##################}
 
 <div class="post-block">
+  {% set reading = reading_profile(post) %}
   {# Gallery support #}
   {{ post_gallery(post.photos) }}
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="{{ post.lang }}">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content{% if reading %} reading-document{% endif %}"{% if reading %} data-reading-style="{{ reading.style }}" data-tone="{{ reading.tone }}"{% endif %} lang="{{ post.lang }}">
     <link itemprop="mainEntityOfPage" href="{{ post.permalink }}">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -26,6 +27,7 @@
 
     {%- if post.header !== false %}
       <header class="post-header">
+        {% if reading and not is_index %}<div class="reading-kicker"><span>{{ reading.label }}</span><span>{{ reading.description }}</span></div>{% endif %}
         <{% if is_index %}h2{% else %}h1{% endif %} class="post-title{% if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="name headline">
           {# Link posts #}
           {%- if post.link %}
@@ -64,7 +66,7 @@
     {### POST BODY ###}
     {#################}
     {% if not is_index %}{{ partial('_partials/page/folder-navigation.njk') }}{% endif %}
-    <div class="post-body{% if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="articleBody">
+    <div class="post-body{% if post.path === 'posts/24.html' %} reading-guide-body{% endif %}{% if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="articleBody">
       {%- if is_index %}
         {%- if post.description and theme.excerpt_description %}
           <p>{{ post.description }}</p>
@@ -93,7 +95,7 @@
         {%- endif %}
       {% else %}
         {{- next_inject('postBodyStart') }}
-        {% if post.path === 'posts/25.html' %}{{ partial('resource-entrances.njk') }}{% else %}{{- post.content }}{% endif %}
+        {% if post.path === 'posts/25.html' %}{{ partial('resource-entrances.njk') }}{% elif post.path === 'posts/24.html' %}{{ world_reading_guide(post.content) }}{% elif reading %}<div class="reading-prose">{{ reading_content(post.content) }}</div>{% else %}{{- post.content }}{% endif %}
       {%- endif %}
     </div>
 

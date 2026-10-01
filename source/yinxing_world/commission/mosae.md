@@ -5,6 +5,8 @@ abbrlink: 20041117
 author: SCHNIE&schrolemons
 date: 2025-11-17
 categories: 合作赠稿
+reading_style: story
+reading_tone: blue
 ---
 浊尘点墨，画境寻音。
 每当信徒们接近世界边缘时，越能感受到世界之外的暗示：“我来自世界之外，我将在终结来临时回到世界之初。我将沿着世界抵达神域，我将在世界内外经历无数的转动。”

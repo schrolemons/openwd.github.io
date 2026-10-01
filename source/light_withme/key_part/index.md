@@ -2,6 +2,8 @@
 title: 第九边缘发行计划
 type: key
 comments: false
+reading_style: info
+reading_tone: cyan
 ---
 
 <div class="photos-page">

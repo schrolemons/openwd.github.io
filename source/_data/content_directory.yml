@@ -54,7 +54,7 @@ collections:
     source_post: 28
     tone: amber
     icon: sun
-    description: 发行计划、协作者档案、测试题部分与个人扩列内容
+    description: 发行计划、协作者档案与测试题部分
     unit: 项内容
     folders:
       key_part:
@@ -75,6 +75,7 @@ collections:
         direct_links: true
         headings: ["第九边缘：协作者测试"]
       friend_lists:
+        hidden_from_collection: true
         title: 扩列内容
         icon: address-card
         tone: violet

@@ -79,7 +79,7 @@ test('folder landing pages list all seven independent pages without including ot
 });
 
 test('all four world extensions have a directory and a navigation bar on their original article', () => {
-  for (const [directory, post, groups] of [['yinxing_world', 27, 4], ['light_withme', 28, 4], ['bingjie_domain', 25, 2], ['yanghui_days', 26, 3]]) {
+  for (const [directory, post, groups] of [['yinxing_world', 27, 4], ['light_withme', 28, 3], ['bingjie_domain', 25, 2], ['yanghui_days', 26, 3]]) {
     const $ = readPage(directory + '/');
     assert.equal(directory === 'bingjie_domain' ? $('.directory-resource-section').length : $('.directory-folder-card').length, groups, directory);
     const $article = readPage(`posts/${post}.html`);
@@ -88,14 +88,17 @@ test('all four world extensions have a directory and a navigation bar on their o
   }
 });
 
-test('light_withme shows plans, collaborators, tests and flat named profile entries without tools', () => {
+test('light_withme shows three groups while independent profile URLs remain available', () => {
   const $ = readPage('light_withme/');
   const links = $('.directory-entry-link').map((_, el) => $(el).attr('href')).get();
-  for (const route of ['/light_withme/key_part/', '/light_withme/operator/', 'https://zero.sch-nie.com/SCHNIE_test/', '/light_withme/friend_lists/mosae/']) assert.ok(links.includes(route), route);
+  for (const route of ['/light_withme/key_part/', '/light_withme/operator/', 'https://zero.sch-nie.com/SCHNIE_test/']) assert.ok(links.includes(route), route);
+  assert.ok(!$('.directory-folder-title, .directory-section-heading').text().includes('扩列'));
+  assert.ok(!links.includes('/light_withme/friend_lists/mosae/'));
+  assert.ok(!readPage('posts/28.html')('.collection-navigation').text().includes('扩列'));
   assert.ok(!links.includes('/light_withme/friend_lists/'), 'editor is not included');
-  assert.equal(links.length, 4);
-  assert.equal($('.directory-stats b').first().text(), '4');
-  assert.equal($('.directory-folder-section').length, 4, 'no nested mosae folder');
+  assert.equal(links.length, 3);
+  assert.equal($('.directory-stats b').first().text(), '3');
+  assert.equal($('.directory-folder-section').length, 3, 'no nested mosae folder');
   assert.ok(!$('.content-directory').text().includes('未命名'));
   assert.equal($('.directory-folder-card[href="/light_withme/tests/"]').length, 1);
   assert.match(readPage('light_withme/key_part/').text(), /第九边缘发行计划-logo设计/);

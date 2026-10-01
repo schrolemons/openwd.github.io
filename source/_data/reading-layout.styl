@@ -1,0 +1,700 @@
+// Homepage and chronological guide share the existing soft note palette.
+.world-home, .world-reading-guide
+  --directory-ink: #29354a
+  --directory-muted: #737d8e
+  color: var(--directory-ink)
+  font-size: 16px
+  line-height: 1.85
+
+  *, *::before, *::after
+    box-sizing: border-box
+
+  h1, h2, h3, h4
+    display: block
+    padding: 0
+    margin: 0
+    border: 0
+    color: var(--directory-ink)
+    line-height: 1.5
+    letter-spacing: .035em
+
+    &::before, &::after
+      display: none
+
+  a
+    border: 0
+
+  p
+    text-align: left
+
+  strong
+    color: inherit
+    font-weight: 600
+
+  a:focus-visible, summary:focus-visible
+    outline: 2px solid #7652a8
+    outline-offset: 5px
+
+.reading-eyebrow
+  display: block
+  font-size: 11px
+  letter-spacing: .14em
+  font-weight: 600
+  color: #737d8e
+
+.world-home-page.main-inner
+  opacity: .97
+
+.world-home-page .post-block
+  background: rgba(255, 255, 255, .95)
+
+.home-hero
+  position: relative
+  padding: 38px 36px 64px
+  border: 0
+  border-radius: 18px 18px 4px 4px
+  background: radial-gradient(ellipse at 100% 0, rgba(176,133,85,.24), transparent 65%), linear-gradient(125deg, #302b43, #51416a 72%, #625079)
+  overflow: hidden
+
+  &::before, &::after
+    content: ''
+    position: absolute
+    width: 360px
+    height: 360px
+    right: -120px
+    bottom: -155px
+    border: 1px solid rgba(233,206,160,.26)
+    border-radius: 50%
+    pointer-events: none
+
+  &::after
+    width: 310px
+    height: 310px
+    right: -95px
+    bottom: -130px
+    border-color: rgba(233,206,160,.13)
+
+  > .reading-eyebrow
+    position: relative
+    z-index: 1
+    color: #d5c4ad
+    letter-spacing: .2em
+
+  h1
+    position: relative
+    z-index: 1
+    margin: 24px 0 18px
+    color: #fbf8f2
+
+    .home-title-name
+      display: block
+      font-size: 22px
+      font-weight: 500
+      letter-spacing: .1em
+
+    .home-title-world
+      display: block
+      font: 64px/1.2 Georgia, 'Times New Roman', serif
+      letter-spacing: .08em
+
+  p
+    position: relative
+    z-index: 1
+    max-width: 34em
+    margin: 0
+    color: #e1dbe7
+    font-size: 15px
+
+.home-motif
+  position: absolute
+  right: 28px
+  bottom: 22px
+  pointer-events: none
+  display: flex
+  gap: 14px
+  color: #d5c4ad
+  font-size: 11px
+  letter-spacing: .1em
+
+  span + span::before
+    content: ''
+    display: inline-block
+    width: 3px
+    height: 3px
+    margin-right: 14px
+    background: #ba9e75
+    border-radius: 50%
+    vertical-align: middle
+
+.home-hero-actions
+  position: relative
+  z-index: 1
+  display: flex
+  flex-wrap: wrap
+  gap: 12px 24px
+  align-items: center
+  justify-content: flex-start
+  margin-top: 26px
+  font-size: 14px
+
+  a:first-child
+    display: flex
+    align-items: center
+    gap: 24px
+    padding: 9px 18px
+    border-radius: 6px
+    background: #f3e9d9
+    color: #51416a
+
+    &:hover
+      background: #fff7e9
+
+  a:last-child
+    color: #e9dfed
+
+  a:focus-visible
+    outline-color: #f3e9d9
+
+.reading-section-title
+  margin-bottom: 18px
+
+  h2
+    font-size: 23px
+    margin-top: 4px
+
+.home-navigation, .home-introduction
+  margin-top: 40px
+
+.home-navigation
+  padding-top: 30px
+  border-top: 2px solid #d8c9e5
+
+.home-route-grid
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  gap: 0 28px
+
+.home-route
+  display: flex
+  align-items: center
+  gap: 16px
+  padding: 22px 0
+  border: 0 !important
+  border-bottom: 1px solid var(--directory-edge) !important
+  background: transparent
+  border-radius: 0
+  transition: border-color .15s
+
+  &:hover
+    border-color: var(--directory-accent) !important
+
+    b
+      color: var(--directory-accent)
+
+  > i
+    display: grid
+    place-items: center
+    flex-shrink: 0
+    width: 42px
+    height: 42px
+    border-radius: 11px
+    background: var(--directory-soft)
+    color: var(--directory-accent)
+
+  > span:nth-child(2)
+    flex: 1
+    min-width: 0
+
+  b
+    display: block
+    color: var(--directory-ink)
+    font-size: 18px
+    font-weight: 600
+
+  span span
+    display: block
+    margin-top: 3px
+    color: #737d8e
+    font-size: 13px
+
+  > span:last-child
+    color: var(--directory-accent)
+
+.home-endnote
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  gap: 8px 16px
+  margin-top: 32px
+  padding-top: 16px
+  color: #9a8ca8
+  font-size: 11px
+  letter-spacing: .08em
+
+.home-intro-paragraph
+  display: flex
+  gap: 20px
+  padding: 22px 0
+  border-top: 1px solid #e8e8ef
+
+  p
+    margin: 0
+    flex: 1
+
+  strong
+    color: #685385
+
+.home-paragraph-number
+  flex-shrink: 0
+  color: #9c8eaf
+  font: 14px/2.1 Consolas, monospace
+
+.home-announcement
+  margin: 28px 0
+  padding: 22px 26px
+  border-left: 3px solid #4771b5
+  border-radius: 0 12px 12px 0
+  background: rgba(237,243,253,.8)
+
+  h2
+    font-size: 17px
+    margin-bottom: 10px
+    color: #4771b5
+
+  p
+    font-size: 14px
+    margin: 0
+    color: #64748b
+
+  a
+    display: inline-block
+    margin-top: 8px
+    color: #4771b5
+    border-bottom: 1px solid #ceddf3
+
+.guide-resources
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  gap: 16px
+
+.guide-resource
+  padding: 20px 24px
+  background: rgba(237,247,241,.85)
+  border: 1px solid #cbe6d9
+  border-radius: 12px
+
+  h3
+    font-size: 18px
+    margin-bottom: 8px
+    color: #468572
+
+  p
+    font-size: 14px
+    margin: 0
+    color: #64748b
+
+  a:not(.headerlink)
+    display: inline-block
+    margin-top: 8px
+    color: #468572
+    border-bottom: 1px solid #b6d8c9
+
+.guide-preface
+  display: grid
+  grid-template-columns: 28px minmax(0, 1fr)
+  gap: 14px
+  align-items: start
+  margin: 24px 0
+  padding: 20px 24px
+  border: 1px solid #cbe6d9
+  border-left: 3px solid #468572
+  border-radius: 10px
+  background: linear-gradient(110deg, rgba(237,247,241,.9), rgba(255,255,255,.7))
+
+  > i
+    color: #468572
+    font-size: 22px
+    margin-top: 4px
+
+  p
+    margin: 0
+
+  .guide-reading-rule
+    font-size: 16px
+    color: #29354a
+    font-weight: 500
+
+    strong
+      color: #468572
+      box-shadow: inset 0 -.45em rgba(203,230,217,.6)
+
+  .guide-world-definition
+    margin-top: 6px
+    font-size: 13px
+    color: #737d8e
+
+    strong
+      color: #468572
+      font-weight: 500
+
+.guide-era-nav
+  padding: 22px
+  border-radius: 12px
+  background: rgba(244,239,251,.8)
+  border: 1px solid #ded0ef
+  margin-bottom: 40px
+
+  > div
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 6px 24px
+    margin-top: 12px
+
+  a
+    display: flex
+    align-items: baseline
+    gap: 12px
+    padding: 6px 0
+    font-size: 13px
+    color: #5f5272
+
+    &:hover
+      color: #7652a8
+      text-decoration: underline
+
+  a span
+    color: #a695bb
+    font: 12px Consolas, monospace
+
+.guide-era
+  position: relative
+  border-left: 1px solid #dcd9e6
+  padding: 0 0 48px 28px
+
+  &:last-child
+    padding-bottom: 0
+
+.guide-era-header
+  display: flex
+  justify-content: flex-start
+  gap: 18px
+  margin-bottom: 20px
+
+  h2
+    font-size: 25px
+    margin-top: 3px
+    scroll-margin-top: 24px
+
+.guide-era-number
+  position: relative
+  margin-left: -46px
+  margin-top: 6px
+  display: grid
+  place-items: center
+  flex-shrink: 0
+  width: 36px
+  height: 36px
+  border: 1px solid #ded0ef
+  border-radius: 50%
+  background: #f4effb
+  color: #7652a8
+  font: 13px Consolas, monospace
+
+.guide-era-time
+  display: inline-block
+  color: #8f789f
+  font: 12px/1.8 Consolas, monospace
+  margin-top: 6px
+
+.guide-era-events
+  background: rgba(244,239,251,.6)
+  border-radius: 10px
+  padding: 18px 22px
+  margin-bottom: 20px
+
+  &.has-branches
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))
+    gap: 20px
+
+    .guide-events
+      padding: 14px 14px 14px 28px
+      background: rgba(255,255,255,.55)
+      border: 1px solid #e4d9ee
+      border-radius: 8px
+
+.world-reading-guide .guide-events
+  margin: 0
+  padding: 0 0 0 18px
+  font-size: 14px
+  color: #5f6b7e
+
+  li
+    padding: 3px 0
+
+  .guide-event-key
+    color: #7652a8
+    font-weight: 600
+
+.guide-era-content > p
+  font-size: 13px
+  color: #737d8e
+  margin-bottom: 18px
+
+.guide-contents
+  margin: 22px 0
+
+  h3
+    font-size: 12px
+    color: #737d8e
+    margin-bottom: 10px
+    font-weight: 500
+
+  > div
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 10px
+
+.world-reading-guide .guide-content-item
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  gap: 10px
+  padding: 12px 14px
+  border: 1px solid var(--directory-edge)
+  border-radius: 8px
+  background: linear-gradient(110deg, var(--directory-soft), rgba(255,255,255,.8))
+  font-size: 14px
+
+  &:hover
+    border-color: var(--directory-accent)
+    color: var(--directory-accent)
+
+.guide-content-type
+  color: var(--directory-accent)
+  font-size: 12px
+  flex-shrink: 0
+
+.guide-content-name
+  color: #29354a
+  flex: 1
+
+.guide-content-arrow
+  color: var(--directory-accent)
+
+.guide-events .guide-event-content
+  list-style: none
+  margin: 14px 0 10px
+
+.world-reading-guide .guide-choice-content
+  display: grid
+  grid-template-columns: max-content minmax(0, 1fr) auto
+  gap: 4px 6px
+  padding: 12px 0 4px
+  border: 0
+  border-top: 1px solid #e4d9ee
+  border-radius: 0
+  background: transparent
+  text-decoration: none
+
+  .guide-content-marker
+    grid-column: 1
+    font-size: 11px
+    color: #8a8097
+
+  .guide-content-type
+    grid-column: 2
+    font-size: 11px
+
+  .guide-content-name
+    grid-column: 1 / 3
+    font-size: 14px
+    font-weight: 500
+    line-height: 1.8
+
+  .guide-content-arrow
+    grid-column: 3
+    grid-row: 1 / 3
+    align-self: center
+    font-size: 13px
+
+  &:hover
+    border-color: #e4d9ee
+    background: transparent
+
+    .guide-content-name
+      color: var(--directory-accent)
+
+  &:focus-visible
+    outline: 2px solid var(--directory-accent)
+    outline-offset: 3px
+
+@media (max-width: 767px)
+  .guide-contents > div
+    grid-template-columns: minmax(0, 1fr)
+
+.guide-article
+  margin-bottom: 18px
+  padding: 24px 26px 0
+  border: 1px solid var(--directory-edge)
+  border-left: 3px solid var(--directory-accent)
+  border-radius: 12px
+  background: rgba(255,255,255,.88)
+
+  > header
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 14px
+    margin-bottom: 16px
+
+  h3
+    font-size: 21px
+    scroll-margin-top: 24px
+
+    a
+      color: var(--directory-ink)
+
+      &:hover
+        color: var(--directory-accent)
+
+.guide-type
+  flex-shrink: 0
+  padding: 3px 9px
+  color: var(--directory-accent)
+  background: var(--directory-soft)
+  border-radius: 5px
+  font-size: 12px
+
+.guide-overview p, .guide-detail-body > p
+  margin-bottom: 18px
+  font-size: 15px
+  line-height: 1.95
+
+  > strong:first-child
+    display: inline-block
+    font-size: 12px
+    font-weight: 500
+    color: var(--directory-accent)
+    margin-right: 4px
+
+.guide-detail
+  border: 0 !important
+  padding: 0 !important
+  margin: 0 !important
+  background: none !important
+
+  > summary
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 12px 0
+    list-style: none
+    font-size: 13px
+    color: var(--directory-accent)
+    border-top: 1px solid var(--directory-edge)
+    cursor: pointer
+
+    &::before, &::after, &::-webkit-details-marker
+      display: none
+
+  &[open] > summary span
+    transform: rotate(45deg)
+
+.guide-detail-body
+  padding-top: 12px
+
+.guide-metadata
+  border-top: 1px dashed var(--directory-edge)
+  padding: 18px 0 24px
+  font-size: 13px
+
+  p
+    margin: 0 0 12px
+    color: var(--directory-accent)
+
+  dl
+    margin: 0
+
+  dl > div
+    display: grid
+    grid-template-columns: 80px minmax(0, 1fr)
+    gap: 12px
+    padding: 4px 0
+
+  dt
+    font-weight: 400
+    color: #8b93a1
+
+  dd
+    margin: 0
+    color: #64748b
+
+@media (max-width: 767px)
+  .world-home, .world-reading-guide
+    font-size: 15px
+
+  .home-hero
+    padding: 28px 22px 62px
+
+  .home-hero h1 .home-title-name
+    font-size: 20px
+
+  .home-hero h1 .home-title-world
+    font-size: 46px
+
+  .home-hero p
+    font-size: 14px
+
+  .home-motif
+    right: 22px
+
+  .home-route-grid, .guide-resources, .guide-era-nav > div, .guide-era-events.has-branches
+    grid-template-columns: minmax(0, 1fr)
+
+  .home-route
+    padding: 18px 0
+
+  .home-navigation, .home-introduction
+    margin-top: 30px
+
+  .home-intro-paragraph
+    gap: 14px
+
+  .home-announcement, .guide-resource, .guide-era-nav
+    padding: 18px
+
+  .guide-era
+    padding-left: 20px
+
+  .guide-era-number
+    width: 30px
+    height: 30px
+    margin-left: -36px
+
+  .guide-era-header
+    gap: 12px
+
+  .guide-era-header h2
+    font-size: 21px
+
+  .guide-era-events
+    padding: 14px 16px
+
+  .guide-article
+    padding: 18px 16px 0
+
+  .guide-article > header
+    gap: 10px
+    align-items: flex-start
+    flex-wrap: wrap
+
+  .guide-article h3
+    font-size: 19px
+
+  .guide-overview p, .guide-detail-body > p
+    font-size: 14px
+
+  .guide-metadata dl > div
+    grid-template-columns: 68px minmax(0, 1fr)
+    gap: 8px

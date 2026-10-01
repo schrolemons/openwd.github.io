@@ -5,6 +5,8 @@ abbrlink: 918187906
 author: 瑞Ruifox
 date: 2025-05-22 20:43:51
 categories: 合作赠稿
+reading_style: story
+reading_tone: blue
 ---
 雨夜。
 余光温热，他不知道自己还剩多少次不会产生“创造”的冲动。

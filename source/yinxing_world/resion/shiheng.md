@@ -4,6 +4,8 @@ title: 逝痕技术联邦
 author: SCHNIE&schrolemons
 date: 2026-8-12 20:43:51
 categories: 世界区域
+reading_style: lore
+reading_tone: violet
 ---
 
 {% note primary %}
