@@ -31,8 +31,5 @@ document.addEventListener('page:loaded', () => {
     image.wrap(imageWrapLink);
   });
 
-  // Disable hash handling to avoid conflicts with PJAX navigation.
-  Fancybox.bind('[data-fancybox]', {
-    Hash: false
-  });
+  Fancybox.bind('[data-fancybox]');
 });

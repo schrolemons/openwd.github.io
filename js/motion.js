@@ -14,38 +14,16 @@ NexT.motion.integrator = {
     return this;
   },
   bootstrap() {
-    if (typeof Element.prototype.animate !== 'function') {
-      document.body.classList.remove('use-motion');
-      CONFIG.motion.enable = false;
-      return;
-    }
     if (!CONFIG.motion.async) this.queue = [this.queue.flat()];
-    this.queue.forEach(sequence => this.schedule(sequence));
-  },
-  schedule(sequence) {
-    let cursor = 0;
-    sequence.forEach(item => {
-      const duration = item.duration ?? CONFIG.motion?.duration ?? 200;
-      const start = Math.max(0, cursor - (item.overlap ?? 0));
-      const end = start + duration;
-      cursor = Math.max(cursor, end);
-
-      if (item.styles) {
-        const targets = typeof item.targets === 'string' ? document.querySelectorAll(item.targets) : [item.targets].filter(Boolean);
-        targets.forEach(target => {
-          const animation = target.animate([{}, item.styles], {
-            delay : start,
-            duration,
-            easing: 'linear',
-            fill  : 'forwards'
-          });
-          animation.finished.then(() => {
-            Object.assign(target.style, item.styles);
-            animation.cancel();
-          }).catch(() => {});
-        });
-      }
-      if (item.complete) setTimeout(item.complete, end);
+    this.queue.forEach(sequence => {
+      const timeline = window.anime.timeline({
+        duration: CONFIG.motion?.duration ?? 200,
+        easing  : 'linear'
+      });
+      sequence.forEach(item => {
+        if (item.deltaT) timeline.add(item, item.deltaT);
+        else timeline.add(item);
+      });
     });
   }
 };
@@ -57,17 +35,18 @@ NexT.motion.middleWares = {
     function getMistLineSettings(targets) {
       sequence.push({
         targets,
-        styles  : { transform: 'scaleX(1)' },
+        scaleX  : [0, 1],
         duration: 500,
-        overlap : 200
+        deltaT  : '-=200'
       });
     }
 
     function pushToSequence(targets, sequenceQueue = false) {
       sequence.push({
         targets,
-        styles : { opacity: 1, top: '0px' },
-        overlap: sequenceQueue ? 200 : 0
+        opacity: 1,
+        top    : 0,
+        deltaT : sequenceQueue ? '-=200' : '-=0'
       });
     }
 
@@ -85,7 +64,7 @@ NexT.motion.middleWares = {
         sequence.push({
           targets,
           complete: () => targets.classList.add('animated', menuItemTransition),
-          overlap : 200
+          deltaT  : '-=200'
         });
       });
     }
@@ -113,7 +92,7 @@ NexT.motion.middleWares = {
         sequence.push({
           targets,
           complete: () => targets.classList.add('animated', animation),
-          overlap : 100
+          deltaT  : '-=100'
         });
       });
     }
@@ -122,7 +101,7 @@ NexT.motion.middleWares = {
       sequence.push({
         targets,
         complete: () => targets.classList.add('animated', post_block),
-        overlap : 100
+        deltaT  : '-=100'
       });
       animate(coll_header, targets.querySelectorAll('.collection-header'));
       animate(post_header, targets.querySelectorAll('.post-header'));
@@ -144,7 +123,7 @@ NexT.motion.middleWares = {
         sequence.push({
           targets,
           complete: () => targets.classList.add('animated', sidebarTransition),
-          overlap : 100
+          deltaT  : '-=100'
         });
       });
     }
@@ -154,7 +133,7 @@ NexT.motion.middleWares = {
   footer() {
     return [{
       targets: document.querySelector('.footer'),
-      styles : { opacity: 1 }
+      opacity: 1
     }];
   }
 };

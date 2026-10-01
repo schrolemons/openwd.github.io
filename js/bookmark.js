@@ -1,4 +1,4 @@
-/* global NexT, CONFIG */
+/* global CONFIG */
 
 document.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // If the page opens with a specific hash, just jump out
     if (!isNaN(top) && location.hash === '') {
       // Auto scroll to the position
-      NexT.utils.scrollTo(window, top);
+      window.anime({
+        targets  : document.scrollingElement,
+        duration : 200,
+        easing   : 'linear',
+        scrollTop: top
+      });
     }
   };
   // Register everything
@@ -31,25 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save the position by clicking the icon
     link.addEventListener('click', () => {
       doSaveScroll();
-      if (typeof link.animate !== 'function') {
-        link.style.top = '-30px';
-        setTimeout(() => {
-          link.style.top = '';
-        }, 600);
-        return;
-      }
-      const animation = link.animate([{}, { top: '-30px' }], {
+      window.anime({
+        targets : link,
         duration: 200,
         easing  : 'linear',
-        fill    : 'forwards'
+        top     : -30,
+        complete: () => {
+          setTimeout(() => {
+            link.style.top = '';
+          }, 400);
+        }
       });
-      animation.finished.then(() => {
-        link.style.top = '-30px';
-        animation.cancel();
-        setTimeout(() => {
-          link.style.top = '';
-        }, 400);
-      }).catch(() => {});
     });
     scrollToMark();
     document.addEventListener('pjax:success', scrollToMark);

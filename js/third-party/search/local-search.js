@@ -1,4 +1,4 @@
-/* global CONFIG, NexT, pjax, LocalSearch */
+/* global CONFIG, pjax, LocalSearch */
 
 document.addEventListener('DOMContentLoaded', () => {
   if (!CONFIG.path) {
@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('`hexo-generator-searchdb` plugin is not installed!');
     return;
   }
-  document.body.appendChild(document.querySelector('#search-popup-template').content.cloneNode(true));
   const localSearch = new LocalSearch({
     path             : CONFIG.path,
     top_n_per_article: CONFIG.localsearch.top_n_per_article,
@@ -58,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle and trigger popup window
   document.querySelectorAll('.popup-trigger').forEach(element => {
     element.addEventListener('click', () => {
-      NexT.utils.setGutter();
       document.body.classList.add('search-active');
       // Wait for search-popup animation to complete
       setTimeout(() => input.focus(), 500);
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Monitor main search box
   const onPopupClose = () => {
-    NexT.utils.setGutter('0');
     document.body.classList.remove('search-active');
   };
 
@@ -85,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('keydown', event => {
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
       event.preventDefault();
-      NexT.utils.setGutter();
       document.body.classList.add('search-active');
       setTimeout(() => input.focus(), 500);
       if (!localSearch.isfetched) localSearch.fetchData();
