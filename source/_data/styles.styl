@@ -1,0 +1,442 @@
+//背景图片设置
+body{
+    background:url(/images/background.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position:center;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+//博客内容透明化
+//文章内容的透明度设置
+.content-wrap {
+  opacity: 0.8;
+}
+.main-inner {
+   // margin-top: 60px;
+   // padding: 60px 60px 60px 60px;
+
+    opacity: 0.9;
+}
+//侧边框的透明度设置
+.sidebar {
+  opacity: 0.8;
+}
+
+//菜单栏的透明度设置
+.header-inner {
+  background: rgba(255,255,255,0.8);
+}
+
+//搜索框（local-search）的透明度设置
+.popup {
+  opacity: 0.8;
+}
+
+// 近期文章
+.links-of-recent-posts
+  font-size: 1em
+  margin-top: 10px
+
+.links-of-recent-posts-title
+  font-size: 1.03em
+  font-weight: 600
+  margin-top: 0
+
+.links-of-recent-posts-list
+  list-style: none
+  margin: 0
+  padding: 0
+
+
+// ============================================
+//  文章正文排版优化
+// ============================================
+
+// 正文行高与段落间距优化
+.post-body
+  line-height: 1.85
+  letter-spacing: 0.01em
+  word-break: break-word
+
+.post-body p
+  margin: 0 0 1.2em
+  text-align: justify
+
+// ============================================
+//  标题层级增强 — 极简科技风
+// ============================================
+
+.post-body
+  h1, h2
+    position: relative
+    margin-top: 2.4em
+    margin-bottom: 0.9em
+    padding-bottom: 12px
+    padding-left: 0
+    font-weight: 600
+    letter-spacing: 0.06em
+    color: #1e293b
+    display: flex
+    align-items: center
+    gap: 14px
+
+  h1::before, h2::before
+    content: '//'
+    flex-shrink: 0
+    font-family: 'Consolas', 'Menlo', 'Courier New', monospace
+    font-size: 0.72em
+    font-weight: 400
+    color: #06b6d4
+    letter-spacing: 0
+    opacity: 0.7
+
+  h1::after, h2::after
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    height: 1px
+    width: 100%
+    background: #e2e8f0
+    box-shadow: none
+
+  h1
+    font-size: 1.55em
+
+  h2
+    font-size: 1.35em
+
+  h3
+    position: relative
+    margin-top: 1.8em
+    margin-bottom: 0.8em
+    padding-bottom: 10px
+    font-weight: 600
+    font-size: 1.2em
+    color: #334155
+    letter-spacing: 0.04em
+
+  h3::after
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    height: 3px
+    width: 2.2em
+    background: linear-gradient(90deg, #6366f1 0%, #06b6d4 100%)
+    border-radius: 2px
+
+  h4
+    font-size: 1.05em
+    font-weight: 600
+    margin-top: 1.4em
+    margin-bottom: 0.6em
+    color: #475569
+    letter-spacing: 0.03em
+
+  h5, h6
+    font-weight: 600
+    margin-top: 1.2em
+    margin-bottom: 0.5em
+    color: #64748b
+    letter-spacing: 0.02em
+
+// ============================================
+//  文字重点强调样式
+// ============================================
+
+.post-body
+  strong
+    color: #c2410c
+    font-weight: 700
+    padding: 0 2px
+    position: relative
+    transition: color 0.2s ease
+
+  strong::after
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    height: 0.35em
+    background: linear-gradient(120deg, rgba(251,191,36,0.35) 0%, rgba(251,146,60,0.35) 100%)
+    border-radius: 2px
+    z-index: -1
+    transition: height 0.2s ease
+
+  em
+    color: #7c3aed
+    font-style: italic
+    padding: 0 1px
+
+  em strong, strong em
+    color: #be123c
+    font-weight: 800
+
+// ============================================
+//  引用块优化
+// ============================================
+
+.post-body
+  blockquote
+    margin: 1.6em 0
+    padding: 1em 1.4em
+    border-left: 4px solid #6366f1
+    border-radius: 0 12px 12px 0
+    background: linear-gradient(135deg, rgba(238,242,255,0.7) 0%, rgba(243,232,255,0.5) 100%)
+    color: #4338ca
+    font-size: 0.97em
+    line-height: 1.8
+    position: relative
+
+  blockquote p
+    margin-bottom: 0.6em
+
+  blockquote p:last-child
+    margin-bottom: 0
+
+  blockquote strong
+    color: #6d28d9
+
+// ============================================
+//  行内代码优化
+// ============================================
+
+.post-body
+  code
+    font-size: 0.9em
+
+  pre code
+    background: none
+    color: inherit
+    padding: 0
+    border: none
+    font-weight: normal
+
+// ============================================
+//  列表优化
+// ============================================
+
+.post-body
+  ul, ol
+    padding-left: 1.6em
+    margin: 1em 0
+
+  ul li, ol li
+    margin-bottom: 0.4em
+    line-height: 1.8
+
+  ul li::marker
+    color: #8b5cf6
+
+  ol li::marker
+    color: #6366f1
+    font-weight: 600
+
+// ============================================
+//  分割线优化 — 极简科技风
+// ============================================
+
+.post-body
+  hr
+    position: relative
+    border: none
+    border-top: 1px solid #cbd5e1
+    margin: 3em 0
+    overflow: visible
+
+  hr::after
+    content: '◆'
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    font-size: 0.6em
+    color: #3b82f6
+    line-height: 1
+    background: var(--content-bg-color, #fff)
+    padding: 0 14px
+
+// ============================================
+//  链接样式
+// ============================================
+
+.post-body p a{
+  color: #0593d3;
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3;
+  &:hover {
+    color: #fc6423;
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423;
+  }
+}
+
+// ============================================
+//  表格优化
+// ============================================
+
+.post-body
+  table
+    border-collapse: separate
+    border-spacing: 0
+    border-radius: 12px
+    overflow: hidden
+    box-shadow: 0 2px 12px rgba(99,102,241,0.08)
+    margin: 1.5em 0
+    font-size: 0.94em
+
+  th
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)
+    color: #fff
+    padding: 12px 16px
+    font-weight: 600
+    letter-spacing: 0.02em
+
+  td
+    padding: 10px 16px
+    border-bottom: 1px solid #e8e5ff
+    background: #fafaff
+
+  tr:last-child td
+    border-bottom: none
+
+// ============================================
+//  Note 标签增强
+// ============================================
+
+.post-body .note
+  border-radius: 14px
+  border: none
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04)
+  margin: 1.5em 0
+  padding: 1.2em 1.5em
+
+.post-body .note.info
+  background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%)
+  border-left: 4px solid #6366f1
+  color: #3730a3
+
+.post-body .note.primary
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)
+  border-left: 4px solid #a855f7
+  color: #6b21a8
+
+.post-body .note.success
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)
+  border-left: 4px solid #22c55e
+  color: #166534
+
+.post-body .note.warning
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)
+  border-left: 4px solid #f59e0b
+  color: #92400e
+
+.post-body .note.danger
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)
+  border-left: 4px solid #ef4444
+  color: #991b1b
+
+.post-body .note h2, .post-body .note h4
+  margin-top: 0
+  border-bottom: none
+
+.post-body .note h3
+  margin-top: 0
+  margin-bottom: 0.4em
+  padding-bottom: 10px
+
+.post-body .note h3::before
+  display: none
+
+// ============================================
+//  [Read More]按钮样式
+// ============================================
+
+.post-button .btn {
+    color: #555 !important;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    border: none !important;
+    transition-property: unset;
+    padding: 0px 15px;
+}
+
+.post-button .btn:hover {
+    color: rgb(255, 255, 255) !important;
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
+}
+
+.tag-cloud-title {
+    font-size: 24px;
+    color: white;
+}
+
+.tag-cloud a {
+    //box-shadow: 0 1px 3px #6f42c1, 0 1px 2px #d9534f;
+    //font-size: 16px;
+    color: $red;
+    padding: 2px 10px;
+    margin: 8px;
+    //background: rgba(193,66,92,0);
+    border-bottom: none;
+    border-radius: 20px;
+}
+
+// ============================================
+//  移动端适配
+// ============================================
+
+@media (max-width: 768px)
+  .post-body
+    line-height: 1.75
+
+  .post-body h1
+    font-size: 1.25em
+    gap: 10px
+
+  .post-body h1::before, .post-body h2::before
+    font-size: 0.68em
+
+  .post-body h2
+    font-size: 1.12em
+    gap: 10px
+
+  .post-body h3
+    font-size: 1.08em
+
+  .post-body h3::after
+    height: 2px
+    width: 1.8em
+
+  .post-body hr
+    margin: 2.2em 0
+
+  .post-body hr::after
+    font-size: 0.48em
+    padding: 0 10px
+
+  .post-body blockquote
+    padding: 0.8em 1em
+    margin: 1.2em 0
+
+// 把返回顶部的按钮变大
+.back-to-top {
+    font-size: 18px;
+    height: 40px;
+
+
+}

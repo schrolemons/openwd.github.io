@@ -1,0 +1,24 @@
+{
+    "name": "hexo-theme-desktop",
+    "version": "1.0.0",
+    "description": "A modernist, gridless, scatter-card style theme for Hexo.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "hexo",
+        "theme",
+        "gridless",
+        "minimalist",
+        "dark-mode",
+        "desktop",
+        "katex"
+    ],
+    "author": "Chidori Shiori <feng.ikunmu@foxmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/FengIKUN/hexo-theme-desktop/issues"
+    },
+    "homepage": "https://github.com/FengIKUN/hexo-theme-desktop#readme"
+}

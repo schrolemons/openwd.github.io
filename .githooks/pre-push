@@ -1,0 +1,17 @@
+#!/bin/sh
+# This repository contains site sources; Hexo deploys main separately.
+case "$2" in
+  git@github.com:schrolemons/openwd.github.io.git|https://github.com/schrolemons/openwd.github.io.git|https://github.com/schrolemons/openwd.github.io)
+    ;;
+  *)
+    echo "Push blocked: this source repository may only push to schrolemons/openwd.github.io." >&2
+    exit 1
+    ;;
+esac
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$local_ref" != "refs/heads/source" ] || [ "$remote_ref" != "refs/heads/source" ]; then
+    echo "Push blocked: site sources must use the source branch. Publish main with npm run deploy." >&2
+    exit 1
+  fi
+done

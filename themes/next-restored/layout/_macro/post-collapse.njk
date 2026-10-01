@@ -1,0 +1,131 @@
+{% macro render(posts) %}
+
+{# 第一层：主分类顺序 #}
+{%- set civilizations = [
+  '逝痕文明',
+  '终末文明',
+  '九虹文明'
+] %}
+
+{# 第二层：另一个 category 的排序顺序，按你的实际分类修改 #}
+{%- set secondary_categories = [
+  '策略',
+  '神系',
+  '哲学条目',
+  '哲学杂谈',
+  '额外事件',
+  '外世拓展',
+  '文明历程'
+] %}
+
+
+{%- for civilization in civilizations %}
+
+  <div class="collection-year">
+    <span class="collection-header">
+      {{ title }}{{"    "}}{{ civilization }}
+    </span>
+  </div>
+
+
+  {# 按第二分类的规定顺序依次寻找文章 #}
+  {%- for secondary in secondary_categories %}
+
+    {%- for post in posts.toArray() %}
+
+      {# 检查主分类 #}
+      {%- for main_cat in post.categories.toArray() %}
+
+        {%- if main_cat.name == civilization %}
+
+          {# 检查第二分类 #}
+          {%- for sub_cat in post.categories.toArray() %}
+
+            {%- if sub_cat.name == secondary %}
+
+              <article itemscope itemtype="http://schema.org/Article">
+                <header class="post-header">
+
+                  <div class="post-title">
+                    {%- if post.link %}
+
+                      {%- set postTitleIcon = '<i class="fa fa-external-link-alt"></i>' %}
+                      {%- set postText = post.title or post.link %}
+
+                      {{ next_url(
+                        post.link,
+                        postText + postTitleIcon,
+                        {
+                          class: 'post-title-link post-title-link-external',
+                          itemprop: 'url'
+                        }
+                      ) }}
+
+                    {% else %}
+
+                      <a class="post-title-link"
+                         href="{{ url_for(post.path) }}"
+                         itemprop="url">
+
+                        <span>
+                          <h4>
+                            <u><mark>定向至：《{{ post.title or __('post.untitled') }}》</mark></u>
+                          </h4>
+                        </span>
+
+                      </a>
+
+                    {%- endif %}
+                  </div>
+
+
+                  <div class="post-categories">
+
+                    {%- for display_cat in post.categories.toArray() %}
+
+                      <span itemprop="about"
+                            itemscope
+                            itemtype="http://schema.org/Thing">
+
+                        <a href="{{ url_for(display_cat.path) }}"
+                           itemprop="url"
+                           rel="index">
+
+                          <span itemprop="name">
+                            {{ display_cat.name }}
+                          </span>
+
+                        </a>
+
+                      </span>
+
+                      {%- set cat_length = post.categories.length %}
+
+                      {%- if cat_length > 1 and loop.index !== cat_length %}
+                        {{ __('symbol.comma') }}
+                      {%- endif %}
+
+                    {%- endfor %}
+
+                  </div>
+
+                  {{ post_gallery(post.photos) }}
+
+                </header>
+              </article>
+
+            {%- endif %}
+
+          {%- endfor %}
+
+        {%- endif %}
+
+      {%- endfor %}
+
+    {%- endfor %}
+
+  {%- endfor %}
+
+{%- endfor %}
+
+{% endmacro %}
