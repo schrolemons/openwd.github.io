@@ -1215,7 +1215,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #ffbd24;
+    background: #ffafd5;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -5734,6 +5734,810 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 6px 12px;
+  }
+}
+:root {
+  --interaction-gold: #ffd700;
+  --interaction-wash: rgba(255,215,0,0.2);
+  --interaction-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+a,
+button,
+[role='button'],
+summary,
+input[type='button'],
+input[type='submit'] {
+  -webkit-tap-highlight-color: rgba(255,215,0,0.25);
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.24s, transform 0.24s var(--interaction-ease);
+}
+:is(a,
+button,
+[role='button'],
+summary,
+input[type='button'],
+input[type='submit']):focus-visible {
+  outline: 2px solid var(--interaction-gold) !important;
+  outline-offset: 4px !important;
+}
+.post-body :is(p,
+li,
+td,
+dd) a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.world-home a)),
+.post-body .reading-prose :is(p,
+dd) a:where(:not(:has(img)):not(.btn):not(.tab a):not(.world-home a)),
+.directory-breadcrumb a,
+.directory-stats a,
+.directory-tag-preview-link,
+.directory-tag-all,
+.guide-era-nav a,
+.guide-article h3 a,
+.post-title-link,
+.post-nav a,
+.post-toc a,
+.links-of-author a,
+.footer a {
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background-image: linear-gradient(var(--interaction-wash), var(--interaction-wash));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s, background-size 0.24s var(--interaction-ease);
+}
+.post-body :is(p:hover,
+li:hover,
+td:hover,
+dd) a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.world-home a)):hover,
+.post-body .reading-prose :is(p:hover,
+dd) a:where(:not(:has(img)):not(.btn):not(.tab a):not(.world-home a)):hover,
+.directory-breadcrumb a:hover,
+.directory-stats a:hover,
+.directory-tag-preview-link:hover,
+.directory-tag-all:hover,
+.guide-era-nav a:hover,
+.guide-article h3 a:hover,
+.post-title-link:hover,
+.post-nav a:hover,
+.post-toc a:hover,
+.links-of-author a:hover,
+.footer a:hover,
+.post-body :is(p:focus-visible,
+li:focus-visible,
+td:focus-visible,
+dd) a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.world-home a)):focus-visible,
+.post-body .reading-prose :is(p:focus-visible,
+dd) a:where(:not(:has(img)):not(.btn):not(.tab a):not(.world-home a)):focus-visible,
+.directory-breadcrumb a:focus-visible,
+.directory-stats a:focus-visible,
+.directory-tag-preview-link:focus-visible,
+.directory-tag-all:focus-visible,
+.guide-era-nav a:focus-visible,
+.guide-article h3 a:focus-visible,
+.post-title-link:focus-visible,
+.post-nav a:focus-visible,
+.post-toc a:focus-visible,
+.links-of-author a:focus-visible,
+.footer a:focus-visible {
+  background-color: transparent;
+  background-size: 100% 100%;
+  border-bottom-color: var(--interaction-gold);
+  text-decoration-color: var(--interaction-gold);
+  text-underline-offset: 4px;
+}
+.post-body :is(p:active,
+li:active,
+td:active,
+dd) a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.world-home a)):active,
+.post-body .reading-prose :is(p:active,
+dd) a:where(:not(:has(img)):not(.btn):not(.tab a):not(.world-home a)):active,
+.directory-breadcrumb a:active,
+.directory-stats a:active,
+.directory-tag-preview-link:active,
+.directory-tag-all:active,
+.guide-era-nav a:active,
+.guide-article h3 a:active,
+.post-title-link:active,
+.post-nav a:active,
+.post-toc a:active,
+.links-of-author a:active,
+.footer a:active {
+  background-color: rgba(255,215,0,0.15);
+}
+.btn,
+.post-button .btn,
+.swal-button {
+  color: #171717 !important;
+  background-color: #ffd700;
+  background-image: linear-gradient(110deg, transparent 36%, rgba(255,255,255,0.55) 48%, transparent 60%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  border-color: #ffd700;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: background-position 0.55s var(--interaction-ease), box-shadow 0.24s, transform 0.24s var(--interaction-ease);
+}
+.btn:hover,
+.post-button .btn:hover,
+.swal-button:hover,
+.btn:focus-visible,
+.post-button .btn:focus-visible,
+.swal-button:focus-visible {
+  color: #171717 !important;
+  background-color: #ffd700;
+  background-image: linear-gradient(110deg, transparent 36%, rgba(255,255,255,0.55) 48%, transparent 60%);
+  background-position: -30% 0;
+  border-color: #ffd700;
+  box-shadow: 0 5px 18px rgba(255,215,0,0.28);
+  transform: translateY(-2px);
+}
+.btn:active,
+.post-button .btn:active,
+.swal-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 1px 6px rgba(255,215,0,0.18);
+}
+.menu-item a,
+.pagination a,
+.sidebar-tag-link,
+.folder-article-link,
+.content-directory .directory-jump a,
+.content-directory .directory-resource-card,
+.content-directory .directory-folder-card,
+.content-directory .directory-collection-card,
+.content-directory .directory-entry-link,
+.content-directory .directory-tag-row,
+.content-directory .directory-category-links a,
+.world-reading-guide .guide-content-item,
+.post-body .nav-tabs .tab a,
+button:where(:not(:disabled):not(.swal-button):not(.btn)),
+[role='button']:not([aria-disabled='true']),
+.reading-prose summary,
+.guide-detail > summary {
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.24s, transform 0.24s var(--interaction-ease);
+}
+.menu-item a:hover,
+.pagination a:hover,
+.sidebar-tag-link:hover,
+.folder-article-link:hover,
+.content-directory .directory-jump a:hover,
+.content-directory .directory-resource-card:hover,
+.content-directory .directory-folder-card:hover,
+.content-directory .directory-collection-card:hover,
+.content-directory .directory-entry-link:hover,
+.content-directory .directory-tag-row:hover,
+.content-directory .directory-category-links a:hover,
+.world-reading-guide .guide-content-item:hover,
+.post-body .nav-tabs .tab a:hover,
+button:where(:not(:disabled):not(.swal-button):not(.btn)):hover,
+[role='button']:not([aria-disabled='true']):hover,
+.reading-prose summary:hover,
+.guide-detail > summary:hover,
+.menu-item a:focus-visible,
+.pagination a:focus-visible,
+.sidebar-tag-link:focus-visible,
+.folder-article-link:focus-visible,
+.content-directory .directory-jump a:focus-visible,
+.content-directory .directory-resource-card:focus-visible,
+.content-directory .directory-folder-card:focus-visible,
+.content-directory .directory-collection-card:focus-visible,
+.content-directory .directory-entry-link:focus-visible,
+.content-directory .directory-tag-row:focus-visible,
+.content-directory .directory-category-links a:focus-visible,
+.world-reading-guide .guide-content-item:focus-visible,
+.post-body .nav-tabs .tab a:focus-visible,
+button:where(:not(:disabled):not(.swal-button):not(.btn)):focus-visible,
+[role='button']:not([aria-disabled='true']):focus-visible,
+.reading-prose summary:focus-visible,
+.guide-detail > summary:focus-visible {
+  box-shadow: 0 3px 14px rgba(255,215,0,0.16);
+  transform: translateY(-2px);
+}
+.menu-item a:active,
+.pagination a:active,
+.sidebar-tag-link:active,
+.folder-article-link:active,
+.content-directory .directory-jump a:active,
+.content-directory .directory-resource-card:active,
+.content-directory .directory-folder-card:active,
+.content-directory .directory-collection-card:active,
+.content-directory .directory-entry-link:active,
+.content-directory .directory-tag-row:active,
+.content-directory .directory-category-links a:active,
+.world-reading-guide .guide-content-item:active,
+.post-body .nav-tabs .tab a:active,
+button:where(:not(:disabled):not(.swal-button):not(.btn)):active,
+[role='button']:not([aria-disabled='true']):active,
+.reading-prose summary:active,
+.guide-detail > summary:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: none;
+}
+.menu-item a:hover,
+.pagination a:hover,
+.post-body .nav-tabs .tab a:hover,
+.reading-prose summary:hover,
+.guide-detail > summary:hover,
+.menu-item a:focus-visible,
+.pagination a:focus-visible,
+.post-body .nav-tabs .tab a:focus-visible,
+.reading-prose summary:focus-visible,
+.guide-detail > summary:focus-visible {
+  background-color: rgba(255,215,0,0.12);
+}
+.content-directory .directory-entry-link:hover,
+.content-directory .directory-entry-link:focus-visible {
+  transform: none;
+  background-color: rgba(255,215,0,0.09);
+  box-shadow: none;
+}
+.sidebar-tag-link:hover,
+.sidebar-tag-link:focus-visible {
+  transform: none;
+}
+.directory-entry-arrow,
+.directory-folder-arrow,
+.directory-resource-arrow,
+.guide-content-arrow,
+.menu-item a .fa {
+  transition: transform 0.24s var(--interaction-ease), opacity 0.24s;
+}
+.directory-entry-link:hover .directory-entry-arrow,
+.directory-entry-link:focus-visible .directory-entry-arrow,
+.directory-folder-card:hover .directory-folder-arrow,
+.directory-folder-card:focus-visible .directory-folder-arrow,
+.guide-content-item:hover .guide-content-arrow,
+.guide-content-item:focus-visible .guide-content-arrow {
+  transform: translateX(3px);
+  opacity: 1;
+}
+.directory-resource-card:hover .directory-resource-arrow,
+.directory-resource-card:focus-visible .directory-resource-arrow {
+  transform: translate(2px, -2px);
+}
+.menu-item a:hover .fa,
+.menu-item a:focus-visible .fa {
+  transform: translateX(2px);
+}
+button:disabled,
+[aria-disabled='true'] {
+  transform: none !important;
+  box-shadow: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  a,
+  a *,
+  button,
+  button *,
+  [role='button'],
+  summary,
+  input[type='button'],
+  input[type='submit'] {
+    transition: none !important;
+    animation: none !important;
+  }
+  a:hover,
+  a:focus-visible,
+  a:active,
+  button:hover,
+  button:focus-visible,
+  button:active,
+  [role='button']:hover,
+  summary:hover,
+  summary:focus-visible,
+  a:hover *,
+  a:focus-visible *,
+  button:hover *,
+  button:focus-visible * {
+    transform: none !important;
+  }
+}
+body:has(.world-home) {
+  background-color: #080808;
+}
+.world-home-page.main-inner {
+  opacity: 1;
+}
+.world-home-page .post-block {
+  padding: 0 !important;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+}
+.world-home-page .post-body {
+  padding: 0;
+}
+.world-home {
+  padding: 0;
+  color: #303030;
+}
+.world-home,
+.world-home [data-tone] {
+  --directory-accent: #ffd700;
+  --directory-ink: #222;
+  --directory-muted: #707070;
+  --directory-edge: rgba(0,0,0,0.1);
+  --directory-soft: rgba(255,215,0,0.12);
+}
+.world-home ::selection {
+  color: #111;
+  background: #ffd700;
+}
+.world-home strong::after {
+  display: none;
+}
+.world-home a:focus-visible {
+  outline: 2px solid #ffd700;
+  outline-offset: 5px;
+}
+.world-home .home-hero {
+  margin: 0;
+  padding: 44px 44px 64px;
+  border: 1px solid rgba(255,215,0,0.4);
+  border-radius: 20px;
+  background: linear-gradient(110deg, rgba(5,5,5,0.97), rgba(5,5,5,0.83) 58%, rgba(5,5,5,0.6)), url("/images/background.jpg") center 48%/cover;
+  box-shadow: 0 14px 50px rgba(0,0,0,0.22), inset 0 0 50px rgba(255,215,0,0.035);
+}
+.world-home .home-hero::before {
+  right: -150px;
+  bottom: -245px;
+  width: 560px;
+  height: 560px;
+  border-color: rgba(255,215,0,0.1);
+}
+.world-home .home-hero::after {
+  display: none;
+}
+.world-home .home-hero > .reading-eyebrow {
+  color: #ffd700;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+}
+.world-home .home-hero h1 {
+  margin: 20px 0;
+}
+.world-home .home-hero .home-title-name {
+  color: #f5f5f5;
+  font-size: 22px;
+  font-weight: 400;
+}
+.world-home .home-hero .home-title-world {
+  color: #ffd700;
+  font: 86px/1.08 Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.055em;
+}
+.world-home .home-hero p {
+  color: #d6d6d6;
+  font-size: 15px;
+  line-height: 1.9;
+}
+.world-home .home-hero .home-hero-clause {
+  display: inline-block;
+}
+.world-home .home-hero > .reading-eyebrow,
+.world-home .home-title-name,
+.world-home .home-title-world,
+.world-home .home-hero p,
+.world-home .home-hero-actions,
+.world-home .home-motif {
+  animation: home-text-arrive 0.75s var(--interaction-ease) both;
+}
+.world-home .home-title-name {
+  animation-delay: 0.08s;
+}
+.world-home .home-title-world {
+  animation-delay: 0.16s;
+}
+.world-home .home-hero p {
+  animation-delay: 0.25s;
+}
+.world-home .home-hero-actions {
+  animation-delay: 0.34s;
+}
+.world-home .home-motif {
+  animation-delay: 0.42s;
+}
+.world-home .home-celestial {
+  position: absolute;
+  top: 76px;
+  right: 40px;
+  width: 240px;
+  height: 240px;
+  color: #ffd700;
+  pointer-events: none;
+  animation: home-orbit-drift 8s ease-in-out infinite alternate;
+}
+.world-home .home-hero-actions {
+  gap: 14px 26px;
+  margin-top: 28px;
+}
+.world-home .home-hero-actions a {
+  transition: background-color 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+}
+.world-home .home-hero-actions a span {
+  display: inline-block;
+  transition: transform 0.18s;
+}
+.world-home .home-hero-actions a:first-child {
+  padding: 11px 20px;
+  border-radius: 4px;
+  background: #ffd700;
+  color: #111;
+  font-weight: 500;
+}
+.world-home .home-hero-actions a:first-child:hover,
+.world-home .home-hero-actions a:first-child:focus-visible {
+  background: #ffd700;
+  box-shadow: 0 5px 22px rgba(255,215,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.45);
+  transform: translateY(-2px);
+}
+.world-home .home-hero-actions a:first-child:hover span,
+.world-home .home-hero-actions a:first-child:focus-visible span {
+  transform: translateX(3px);
+}
+.world-home .home-hero-actions a:first-child:active {
+  box-shadow: 0 2px 8px rgba(255,215,0,0.14);
+  transform: translateY(0);
+}
+.world-home .home-hero-actions a:last-child {
+  color: #f0f0f0;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+.world-home .home-hero-actions a:last-child span {
+  margin-left: 8px;
+  color: #ffd700;
+}
+.world-home .home-hero-actions a:last-child:hover,
+.world-home .home-hero-actions a:last-child:focus-visible {
+  background: rgba(255,215,0,0.12);
+  color: #ffd700;
+}
+.world-home .home-hero-actions a:last-child:hover span,
+.world-home .home-hero-actions a:last-child:focus-visible span {
+  transform: translate(2px, -2px);
+}
+.world-home .home-motif {
+  right: 36px;
+  bottom: 24px;
+  color: #ffd700;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+.world-home .home-motif span + span::before {
+  background: #ffd700;
+}
+.world-home .home-announcement {
+  display: block;
+  margin: 28px 0 0;
+  padding: 28px 32px;
+  border: 1px solid rgba(255,215,0,0.5);
+  border-radius: 14px;
+  background: linear-gradient(110deg, rgba(255,215,0,0.09), transparent 65%), rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+.world-home .home-announcement h2 {
+  color: #222;
+  font-size: 23px;
+  font-weight: 600;
+  margin: 0;
+  padding-top: 2px;
+}
+.world-home .home-announcement h2 i {
+  margin-right: 4px;
+  color: #111;
+}
+.world-home .home-announcement p {
+  color: #595959;
+  font-size: 15px;
+  line-height: 1.9;
+}
+.world-home .home-announcement p > strong:first-child {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: #ffd700;
+  color: #111;
+  font: 12px/1.9 Consolas, monospace;
+}
+.world-home .home-announcement a {
+  color: #222;
+  margin-top: 10px;
+  border-bottom: 2px solid #ffd700;
+  padding: 1px 4px;
+  margin-left: -4px;
+  border-radius: 3px;
+  transition: background-color 0.18s, box-shadow 0.18s;
+}
+.world-home .home-announcement a:hover,
+.world-home .home-announcement a:focus-visible {
+  background: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.12);
+}
+.world-home .reading-section-title {
+  display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 20px;
+  margin-bottom: 20px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.world-home .reading-section-title h2 {
+  color: #222;
+  font-size: 23px;
+  margin: 0;
+  position: relative;
+  padding-left: 16px;
+}
+.world-home .reading-section-title h2::before {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  bottom: 0.25em;
+  width: 4px;
+  border-radius: 2px;
+  background: #ffd700;
+}
+.world-home .reading-section-title .reading-eyebrow {
+  color: #8b8b8b;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.world-home .home-introduction,
+.world-home .home-navigation {
+  margin-top: 28px;
+  padding: 30px 32px;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+.world-home .home-intro-paragraph {
+  align-items: start;
+  gap: 18px;
+  padding: 24px 0;
+  border-top: 1px solid #ededed;
+}
+.world-home .home-intro-paragraph:first-child {
+  border-top: 0;
+}
+.world-home .home-intro-paragraph strong {
+  color: #222;
+  box-shadow: inset 0 -0.28em rgba(255,215,0,0.35);
+}
+.world-home .home-paragraph-number {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-top: 2px;
+  border: 1px solid rgba(255,215,0,0.65);
+  border-radius: 50%;
+  color: #666;
+  font: 11px/1 Consolas, monospace;
+}
+.world-home .home-paragraph-copy {
+  min-width: 0;
+  flex: 1;
+}
+.world-home .home-paragraph-copy h3 {
+  margin: 0 0 8px;
+  padding: 0;
+  color: #222;
+  font-size: 16px;
+  letter-spacing: 0.025em;
+}
+.world-home .home-paragraph-copy p {
+  margin: 0;
+  color: #5b5b5b;
+  font-size: 15px;
+  line-height: 2;
+}
+.world-home .home-navigation {
+  border-top: 2px solid #ffd700;
+}
+.world-home .home-route-grid {
+  gap: 0 28px;
+}
+.world-home .home-route {
+  padding: 22px 10px;
+  border-bottom-color: #e8e8e8 !important;
+  transition: background-color 0.18s, border-color 0.18s;
+}
+.world-home .home-route > i {
+  background: rgba(255,215,0,0.15);
+  color: #111;
+  border-radius: 8px;
+}
+.world-home .home-route b {
+  color: #222;
+  font-size: 17px;
+}
+.world-home .home-route span span {
+  color: #777;
+  font-size: 12px;
+}
+.world-home .home-route > span:last-child {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffd700;
+  color: #111;
+  font-size: 14px;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.world-home .home-route:hover,
+.world-home .home-route:focus-visible {
+  border-bottom-color: #ffd700 !important;
+  background-color: rgba(255,215,0,0.065);
+}
+.world-home .home-route:hover > span:last-child,
+.world-home .home-route:focus-visible > span:last-child {
+  transform: translateX(3px);
+  box-shadow: 0 0 0 4px rgba(255,215,0,0.15);
+}
+.world-home .home-route:hover b,
+.world-home .home-route:focus-visible b {
+  color: #111;
+  text-decoration: underline;
+  text-decoration-color: #ffd700;
+  text-underline-offset: 5px;
+}
+.world-home .home-endnote {
+  margin-top: 24px;
+  padding-top: 16px;
+  color: #888;
+  font-size: 10px;
+}
+.world-home .home-endnote > span:last-child {
+  color: #666;
+  font: italic 15px/1.6 Georgia, serif;
+  letter-spacing: 0.025em;
+}
+@media (min-width: 1100px) {
+  .world-home .home-hero h1 {
+    max-width: calc(100% - 264px);
+  }
+  .world-home .home-hero p {
+    max-width: calc(100% - 264px);
+  }
+}
+@media (max-width: 1099px) {
+  .world-home .home-celestial {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .world-home {
+    padding: 0 12px 24px;
+  }
+  .world-home .home-hero {
+    margin: 0;
+    padding: 30px 24px 62px;
+    border-radius: 14px;
+  }
+  .world-home .home-hero .home-title-name {
+    font-size: 19px;
+  }
+  .world-home .home-hero .home-title-world {
+    font-size: clamp(48px, 15vw, 62px);
+  }
+  .world-home .home-hero p {
+    font-size: 14px;
+  }
+  .world-home .home-hero-actions {
+    gap: 14px 20px;
+    font-size: 13px;
+  }
+  .world-home .home-hero-actions a:first-child {
+    gap: 18px;
+    padding: 10px 15px;
+  }
+  .world-home .home-motif {
+    right: 24px;
+    font-size: 11px;
+  }
+  .world-home .home-announcement {
+    margin-top: 20px;
+    padding: 22px 20px;
+  }
+  .world-home .home-introduction,
+  .world-home .home-navigation {
+    margin-top: 20px;
+    padding: 24px 20px;
+  }
+  .world-home .reading-section-title {
+    gap: 8px 12px;
+  }
+  .world-home .reading-section-title h2 {
+    font-size: 21px;
+  }
+  .world-home .home-intro-paragraph {
+    gap: 12px;
+    padding: 22px 0;
+  }
+  .world-home .home-paragraph-number {
+    width: 26px;
+    height: 26px;
+  }
+  .world-home .home-paragraph-copy p {
+    font-size: 14px;
+  }
+  .world-home .reading-section-title .reading-eyebrow {
+    font-size: 9px;
+  }
+  .world-home .home-route {
+    gap: 12px;
+    padding: 18px 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .world-home *,
+  .world-home *::before,
+  .world-home *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+body:has(.swal-overlay--show-modal) .home-hero > .reading-eyebrow,
+body:has(.swal-overlay--show-modal) .home-hero .home-title-name,
+body:has(.swal-overlay--show-modal) .home-hero .home-title-world,
+body:has(.swal-overlay--show-modal) .home-hero p,
+body:has(.swal-overlay--show-modal) .home-hero .home-hero-actions,
+body:has(.swal-overlay--show-modal) .home-hero .home-motif {
+  animation-play-state: paused;
+}
+body:has(.world-home) .swal-button {
+  background: #ffd700;
+  color: #111;
+}
+body:has(.world-home) .swal-button:not([disabled]):hover {
+  background: #ffd700;
+}
+body:has(.world-home) .swal-button:focus {
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.25);
+}
+body:has(.world-home) .swal-button:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+body:has(.world-home) .swal-icon--success {
+  border-color: #ffd700;
+}
+body:has(.world-home) .swal-icon--success__line {
+  background: #ffd700;
+}
+body:has(.world-home) .swal-icon--success__ring {
+  border-color: #ffd700;
+}
+@keyframes home-text-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+@keyframes home-orbit-drift {
+  from {
+    transform: translateY(0) rotate(-2deg);
+  }
+  to {
+    transform: translateY(-5px) rotate(2deg);
   }
 }
 /*相册主页面*/
