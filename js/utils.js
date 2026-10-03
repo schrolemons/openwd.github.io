@@ -187,7 +187,7 @@ NexT.utils = {
     const backToTop = document.querySelector('.back-to-top');
     const readingProgressBar = document.querySelector('.reading-progress-bar');
     // For init back to top in sidebar if page was scrolled after page refresh.
-    window.addEventListener('scroll', () => {
+    const updateScrollPercent = () => {
       if (backToTop || readingProgressBar) {
         const contentHeight = document.body.scrollHeight - window.innerHeight;
         const scrollPercent = contentHeight > 0 ? Math.min(100 * window.scrollY / contentHeight, 100) : 0;
@@ -200,7 +200,10 @@ NexT.utils = {
         }
       }
       this.updateActiveNav();
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', updateScrollPercent, { passive: true });
+    window.addEventListener('pageshow', updateScrollPercent);
+    updateScrollPercent();
 
     backToTop && backToTop.addEventListener('click', () => {
       window.anime({
