@@ -3,6 +3,8 @@
 document.addEventListener('click', event => {
   const trigger = event.target.closest('[data-qr-src]');
   if (!trigger) return;
+  if (trigger.matches('a') && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)) return;
+  event.preventDefault();
   let modal = document.querySelector('.directory-qr-dialog');
   if (!modal) {
     modal = document.createElement('dialog');
@@ -20,6 +22,6 @@ document.addEventListener('click', event => {
   modal.querySelector('h2').textContent = title;
   modal.querySelector('img').src = trigger.dataset.qrSrc;
   modal.querySelector('img').alt = title + '二维码';
-  modal.querySelector('a').href = trigger.dataset.qrSrc;
+  modal.querySelector('a').href = trigger.getAttribute('href') || trigger.dataset.qrSrc;
   modal.showModal();
 });

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
+<script src="/js/world-theme.js"></script>
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://picbed.sch-nie.com/social/world.jpg">
@@ -32,6 +33,7 @@
         }
     })();
 </script>
+
     <meta name="description" content="Reading Progress for NexT  Installation  If you want to use the CDN instead of clone this repo, please jump to the Step 3.  Step 1 &rarr; Go to NexT dir  Change dir to NexT directory. There must be la">
 <meta property="og:type" content="website">
 <meta property="og:title" content="第九边缘:WORLD">
@@ -67,7 +69,7 @@
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <link rel="alternate" href="/atom.xml" title="第九边缘:WORLD" type="application/atom+xml">
-<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+</head>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -204,13 +206,17 @@
     
     
     
-    <div class="post-block reading-document" data-reading-style="info" data-tone="cyan" lang="zh-CN">
-        <div class="reading-kicker"><span>信息</span><span>项目说明与相关资料</span></div><header class="post-header">
+    <div class="post-block reading-document" data-reading-style="info" data-tone="cyan" lang="zh-CN"><header class="post-header">
+<div class="reading-kicker"><span>信息</span><span>项目说明与相关资料</span></div>
 
 <h1 class="post-title" itemprop="name headline">
 </h1>
 
 <div class="post-meta-container">
+  
+
+
+
   <ul class="breadcrumb">
             <li><a href="/lib/">LIB</a></li>
             <li><a href="/lib/reading_progress/">READING_PROGRESS</a></li>
@@ -228,34 +234,34 @@
 
 
       <div class="post-body">
-          <div class="reading-prose"><h1 align="center">Reading Progress for <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT</a></h1>
+          <div class="reading-prose"><section class="world-prose-section"><h1 align="center">Reading Progress for <a target="_blank" rel="noopener" href="https://github.com/theme-next">NexT</a></h1>
 
-<h1 align="center">Installation</h1>
+</section><section class="world-prose-section"><h1 align="center">Installation</h1>
 
-<h2>If you want to use the CDN instead of clone this repo, please jump to the Step 3.</h2>
+</section><section class="world-prose-section"><h2>If you want to use the CDN instead of clone this repo, please jump to the Step 3.</h2>
 
-<h2 align="center">Step 1 → Go to NexT dir</h2>
+</section><section class="world-prose-section"><h2 align="center">Step 1 → Go to NexT dir</h2>
 
-<p>Change dir to <strong>NexT</strong> directory. There must be <code>layout</code>, <code>source</code>, <code>languages</code> and other directories:</p>
+<p class="world-natural-paragraph">Change dir to <strong>NexT</strong> directory. There must be <code>layout</code>, <code>source</code>, <code>languages</code> and other directories:</p>
 <figure class="highlight sh"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">bower.json  _config.arknights.yml  docs  gulpfile.coffee  languages  layout  LICENSE.md  package.json  README.md  scripts  <span class="built_in">source</span>  <span class="built_in">test</span></span><br></pre></td></tr></tbody></table></div></figure>
 
-<h2 align="center">Step 2 → Get module</h2>
+</section><section class="world-prose-section"><h2 align="center">Step 2 → Get module</h2>
 
-<p>Install module to <code>source/lib</code> directory:</p>
+<p class="world-natural-paragraph">Install module to <code>source/lib</code> directory:</p>
 <figure class="highlight sh"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/theme-next-reading-progress <span class="built_in">source</span>/lib/reading_progress</span><br></pre></td></tr></tbody></table></div></figure>
 
-<h2 align="center">Step 3 → Set it up</h2>
+</section><section class="world-prose-section"><h2 align="center">Step 3 → Set it up</h2>
 
-<p>Enable module in <strong>NexT</strong> <code>_config.yml</code> file:</p>
+<p class="world-natural-paragraph">Enable module in <strong>NexT</strong> <code>_config.yml</code> file:</p>
 <figure class="highlight yml"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">reading_progress:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">"#37c6c0"</span></span><br><span class="line">  <span class="attr">height:</span> <span class="string">2px</span></span><br></pre></td></tr></tbody></table></div></figure>
 
-<p><strong>And, if you wants to use the CDN, then need to set:</strong></p>
+<p class="world-natural-paragraph"><strong>And, if you wants to use the CDN, then need to set:</strong></p>
 <figure class="highlight yml"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">reading_progress:</span> <span class="string">//cdn.jsdelivr.net/gh/theme-next/theme-next-reading-progress@1/reading_progress.min.js</span></span><br></pre></td></tr></tbody></table></div></figure>
 
-<h1 align="center">Update</h1>
+</section><section class="world-prose-section"><h1 align="center">Update</h1>
 
 <figure class="highlight sh"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next/source/lib/reading_progress</span><br><span class="line">$ git pull</span><br></pre></td></tr></tbody></table></div></figure>
-</div>
+</section></div>
       </div>
       
       
@@ -342,26 +348,6 @@ document.addEventListener('page:loaded', () => {
     Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
   );
 });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-
-<script>
-var options = {
-  bottom: '64px',
-  right: '32px',
-  left: 'unset',
-  time: '0.5s',
-  mixColor: 'transparent',
-  backgroundColor: 'transparent',
-  buttonColorDark: '#100f2c',
-  buttonColorLight: '#dcdcdc',
-  saveInCookies: true,
-  label: '🌓',
-  autoMatchOsTheme: true
-}
-const darkmode = new Darkmode(options);
-window.darkmode = darkmode;
-darkmode.showWidget();
 </script>
 
 </body>

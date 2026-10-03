@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
+<script src="/js/world-theme.js"></script>
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="https://picbed.sch-nie.com/social/world.jpg">
@@ -32,6 +33,7 @@
         }
     })();
 </script>
+
     <meta name="description" content="本页面展示了 rawhtml 容器的用法。你可以在 Markdown 文件的任意位置、任意数量地插入 HTML 容器，它们与周围的 Markdown 内容无缝共存。 使用方式容器标签支持两种模式：    参数 说明    title 容器左上方的标题   width &#x2F; height iframe 的宽高   minHeight 最小高度   src 外部 HTML 页面的 URL 路径">
 <meta property="og:type" content="website">
 <meta property="og:title" content="测试页 - 原生HTML渲染">
@@ -204,13 +206,17 @@
     
     
     
-    <div class="post-block reading-document" data-reading-style="info" data-tone="cyan" lang="zh-CN">
-        <div class="reading-kicker"><span>信息</span><span>项目说明与相关资料</span></div><header class="post-header">
+    <div class="post-block reading-document" data-reading-style="info" data-tone="cyan" lang="zh-CN"><header class="post-header">
+<div class="reading-kicker"><span>信息</span><span>项目说明与相关资料</span></div>
 
 <h1 class="post-title" itemprop="name headline">测试页 - 原生HTML渲染
 </h1>
 
 <div class="post-meta-container">
+  
+
+
+
 </div>
 
 </header>
@@ -223,8 +229,8 @@
 
 
       <div class="post-body">
-          <div class="reading-prose"><p>本页面展示了 <code>rawhtml</code> 容器的用法。你可以在 Markdown 文件的<strong>任意位置、任意数量</strong>地插入 HTML 容器，它们与周围的 Markdown 内容无缝共存。</p>
-<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p>容器标签支持两种模式：</p>
+          <div class="reading-prose"><section class="world-prose-section"><p class="world-natural-paragraph">本页面展示了 <code>rawhtml</code> 容器的用法。你可以在 Markdown 文件的<strong>任意位置、任意数量</strong>地插入 HTML 容器，它们与周围的 Markdown 内容无缝共存。</p>
+</section><section class="world-prose-section"><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p class="world-natural-paragraph">容器标签支持两种模式：</p>
 <div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table>
 <thead>
 <tr>
@@ -249,23 +255,23 @@
 <td>外部 HTML 页面的 URL 路径</td>
 </tr>
 </tbody></table></div>
-<h3 id="模式一：src-引用内部或者外部的页面"><a href="#模式一：src-引用内部或者外部的页面" class="headerlink" title="模式一：src 引用内部或者外部的页面"></a>模式一：<code>src</code> 引用内部或者外部的页面</h3><p>适合引用已有的独立 HTML 页面：</p>
+<h3 id="模式一：src-引用内部或者外部的页面"><a href="#模式一：src-引用内部或者外部的页面" class="headerlink" title="模式一：src 引用内部或者外部的页面"></a>模式一：<code>src</code> 引用内部或者外部的页面</h3><p class="world-natural-paragraph">适合引用已有的独立 HTML 页面：</p>
 <figure class="highlight plaintext"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">{% rawhtml src="/light_withme/friend_lists/mosae/" title="..." width="100%" height="calc(100vh - 160px)" %}</span><br><span class="line">{% endrawhtml %}</span><br></pre></td></tr></tbody></table></div></figure>
 
-<h3 id="模式二：内嵌-HTML代码"><a href="#模式二：内嵌-HTML代码" class="headerlink" title="模式二：内嵌 HTML代码"></a>模式二：内嵌 HTML代码</h3><p>适合直接在标签内编写小型 HTML 片段：</p>
+<h3 id="模式二：内嵌-HTML代码"><a href="#模式二：内嵌-HTML代码" class="headerlink" title="模式二：内嵌 HTML代码"></a>模式二：内嵌 HTML代码</h3><p class="world-natural-paragraph">适合直接在标签内编写小型 HTML 片段：</p>
 <figure class="highlight plaintext"><div class="reading-table-scroll" tabindex="0" role="region" aria-label="表格，可横向滚动"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">{% rawhtml title="示例" height="400px" %}</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;&lt;h1&gt;Hello World&lt;/h1&gt;&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">{% endrawhtml %}</span><br></pre></td></tr></tbody></table></div></figure>
 
-<hr>
-<h2 id="效果演示：src-模式（内部）"><a href="#效果演示：src-模式（内部）" class="headerlink" title="效果演示：src 模式（内部）"></a>效果演示：src 模式（内部）</h2><p>下面以 <code>src</code> 模式加载墨薛的个人扩列条页面：</p>
-<div class="rawhtml-wrapper" style="margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;"><div class="rawhtml-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e2e8f0;"><span class="rawhtml-bar-title" style="font-size:0.85rem;font-weight:600;color:#334155;">墨薛的个人扩列条</span><button onclick="window.open('/light_withme/friend_lists/mosae/','_blank')" title="全屏查看" style="padding:0.3rem 0.7rem;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#475569;font-size:0.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;">↗ 扩大</button></div><div style="padding:0;"><iframe id="rawhtml-mnb2hx10" class="rawhtml-tag-frame" src="/light_withme/friend_lists/mosae/" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:calc(100vh - 160px);min-height:400px;border:none;display:block;"></iframe></div><script>(function(){var f=document.getElementById("rawhtml-mnb2hx10");if(f){document.body.style.scrollbarGutter="stable";f.addEventListener("mouseenter",function(){document.body.style.overflow="hidden"});f.addEventListener("mouseleave",function(){document.body.style.overflow=""})}})();</script></div>
+</section><hr class="world-section-break">
+<section class="world-prose-section"><h2 id="效果演示：src-模式（内部）"><a href="#效果演示：src-模式（内部）" class="headerlink" title="效果演示：src 模式（内部）"></a>效果演示：src 模式（内部）</h2><p class="world-natural-paragraph">下面以 <code>src</code> 模式加载墨薛的个人扩列条页面：</p>
+<div class="rawhtml-wrapper" style="margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;"><div class="rawhtml-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e2e8f0;"><span class="rawhtml-bar-title" style="font-size:0.85rem;font-weight:600;color:#334155;">墨薛的个人扩列条</span><button onclick="window.open('/light_withme/friend_lists/mosae/','_blank')" title="全屏查看" style="padding:0.3rem 0.7rem;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#475569;font-size:0.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;">↗ 扩大</button></div><div style="padding:0;"><iframe id="rawhtml-sww6oldo" class="rawhtml-tag-frame" src="/light_withme/friend_lists/mosae/" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:calc(100vh - 160px);min-height:400px;border:none;display:block;"></iframe></div><script>(function(){var f=document.getElementById("rawhtml-sww6oldo");if(f){document.body.style.scrollbarGutter="stable";f.addEventListener("mouseenter",function(){document.body.style.overflow="hidden"});f.addEventListener("mouseleave",function(){document.body.style.overflow=""})}})();</script></div>
 
-<hr>
-<h2 id="效果演示：src-模式（外部）"><a href="#效果演示：src-模式（外部）" class="headerlink" title="效果演示：src 模式（外部）"></a>效果演示：src 模式（外部）</h2><p>下面以 <code>src</code> 模式加载第九边缘方舟页面：</p>
-<div class="rawhtml-wrapper" style="margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;"><div class="rawhtml-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e2e8f0;"><span class="rawhtml-bar-title" style="font-size:0.85rem;font-weight:600;color:#334155;">SCHNIE:ARK</span><button onclick="window.open('https://ark.sch-nie.com','_blank')" title="全屏查看" style="padding:0.3rem 0.7rem;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#475569;font-size:0.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;">↗ 扩大</button></div><div style="padding:0;"><iframe id="rawhtml-9r2r1kym" class="rawhtml-tag-frame" src="https://ark.sch-nie.com" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:calc(100vh - 360px);min-height:100px;border:none;display:block;"></iframe></div><script>(function(){var f=document.getElementById("rawhtml-9r2r1kym");if(f){document.body.style.scrollbarGutter="stable";f.addEventListener("mouseenter",function(){document.body.style.overflow="hidden"});f.addEventListener("mouseleave",function(){document.body.style.overflow=""})}})();</script></div>
+</section><hr class="world-section-break">
+<section class="world-prose-section"><h2 id="效果演示：src-模式（外部）"><a href="#效果演示：src-模式（外部）" class="headerlink" title="效果演示：src 模式（外部）"></a>效果演示：src 模式（外部）</h2><p class="world-natural-paragraph">下面以 <code>src</code> 模式加载第九边缘方舟页面：</p>
+<div class="rawhtml-wrapper" style="margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;"><div class="rawhtml-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e2e8f0;"><span class="rawhtml-bar-title" style="font-size:0.85rem;font-weight:600;color:#334155;">SCHNIE:ARK</span><button onclick="window.open('https://ark.sch-nie.com','_blank')" title="全屏查看" style="padding:0.3rem 0.7rem;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#475569;font-size:0.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;">↗ 扩大</button></div><div style="padding:0;"><iframe id="rawhtml-p184uytp" class="rawhtml-tag-frame" src="https://ark.sch-nie.com" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="width:100%;height:calc(100vh - 360px);min-height:100px;border:none;display:block;"></iframe></div><script>(function(){var f=document.getElementById("rawhtml-p184uytp");if(f){document.body.style.scrollbarGutter="stable";f.addEventListener("mouseenter",function(){document.body.style.overflow="hidden"});f.addEventListener("mouseleave",function(){document.body.style.overflow=""})}})();</script></div>
 
-<hr>
-<h2 id="效果演示：内嵌-HTML-模式"><a href="#效果演示：内嵌-HTML-模式" class="headerlink" title="效果演示：内嵌 HTML 模式"></a>效果演示：内嵌 HTML 模式</h2><p>下面是一个简单的内嵌 HTML 页面：</p>
-<div class="rawhtml-wrapper" style="margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;"><div class="rawhtml-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e2e8f0;"><span class="rawhtml-bar-title" style="font-size:0.85rem;font-weight:600;color:#334155;">内嵌 HTML 示例</span><button onclick="(function(){var h=atob('CjwhRE9DVFlQRSBodG1sPgo8aHRtbCBsYW5nPSJ6aC1DTiI+CjxoZWFkPgo8bWV0YSBjaGFyc2V0PSJVVEYtOCI+CjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIj4KPHN0eWxlPgogICogeyBtYXJnaW46IDA7IHBhZGRpbmc6IDA7IGJveC1zaXppbmc6IGJvcmRlci1ib3g7IH0KICBib2R5IHsKICAgIGZvbnQtZmFtaWx5OiAnU2Vnb2UgVUknLCAnTm90byBTYW5zIFNDJywgc2Fucy1zZXJpZjsKICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxMzVkZWcsICM2NjdlZWEgMCUsICM3NjRiYTIgMTAwJSk7CiAgICBjb2xvcjogd2hpdGU7CiAgICBkaXNwbGF5OiBmbGV4OwogICAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICAgIGp1c3RpZnktY29udGVudDogY2VudGVyOwogICAgbWluLWhlaWdodDogMTAwdmg7CiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7CiAgfQogIC5jYXJkIHsKICAgIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC4xNSk7CiAgICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoMTBweCk7CiAgICBib3JkZXItcmFkaXVzOiAyMHB4OwogICAgcGFkZGluZzogMnJlbSAzcmVtOwogICAgYm9yZGVyOiAxcHggc29saWQgcmdiYSgyNTUsMjU1LDI1NSwwLjMpOwogIH0KICBoMSB7IGZvbnQtc2l6ZTogMnJlbTsgbWFyZ2luLWJvdHRvbTogMC41cmVtOyB9CiAgcCB7IGZvbnQtc2l6ZTogMS4xcmVtOyBvcGFjaXR5OiAwLjk7IH0KPC9zdHlsZT4KPC9oZWFkPgo8Ym9keT4KPGRpdiBjbGFzcz0iY2FyZCI+CiAgPGgxPui/meaYr+S4gOS4quWGheW1jCBIVE1MIOekuuS+izwvaDE+CiAgPHA+6L+Z5q61IEhUTUwg5a6M5YWo6ZqU56a75ZyoIGlmcmFtZSDkuK08L3A+CjwvZGl2Pgo8L2JvZHk+CjwvaHRtbD4K');h=decodeURIComponent(h.split('').map(function(c){return'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)}).join(''));var w=window.open('about:blank','_blank');w.document.write(h);w.document.close()})()" title="全屏查看" style="padding:0.3rem 0.7rem;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#475569;font-size:0.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;">↗ 扩大</button></div><div style="padding:0;"><iframe id="rawhtml-som9ufjs" class="rawhtml-tag-frame" srcdoc="
+</section><hr class="world-section-break">
+<section class="world-prose-section"><h2 id="效果演示：内嵌-HTML-模式"><a href="#效果演示：内嵌-HTML-模式" class="headerlink" title="效果演示：内嵌 HTML 模式"></a>效果演示：内嵌 HTML 模式</h2><p class="world-natural-paragraph">下面是一个简单的内嵌 HTML 页面：</p>
+<div class="rawhtml-wrapper" style="margin:1.5rem 0;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;"><div class="rawhtml-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1rem;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border-bottom:1px solid #e2e8f0;"><span class="rawhtml-bar-title" style="font-size:0.85rem;font-weight:600;color:#334155;">内嵌 HTML 示例</span><button onclick="(function(){var h=atob('CjwhRE9DVFlQRSBodG1sPgo8aHRtbCBsYW5nPSJ6aC1DTiI+CjxoZWFkPgo8bWV0YSBjaGFyc2V0PSJVVEYtOCI+CjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIj4KPHN0eWxlPgogICogeyBtYXJnaW46IDA7IHBhZGRpbmc6IDA7IGJveC1zaXppbmc6IGJvcmRlci1ib3g7IH0KICBib2R5IHsKICAgIGZvbnQtZmFtaWx5OiAnU2Vnb2UgVUknLCAnTm90byBTYW5zIFNDJywgc2Fucy1zZXJpZjsKICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxMzVkZWcsICM2NjdlZWEgMCUsICM3NjRiYTIgMTAwJSk7CiAgICBjb2xvcjogd2hpdGU7CiAgICBkaXNwbGF5OiBmbGV4OwogICAgYWxpZ24taXRlbXM6IGNlbnRlcjsKICAgIGp1c3RpZnktY29udGVudDogY2VudGVyOwogICAgbWluLWhlaWdodDogMTAwdmg7CiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7CiAgfQogIC5jYXJkIHsKICAgIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC4xNSk7CiAgICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoMTBweCk7CiAgICBib3JkZXItcmFkaXVzOiAyMHB4OwogICAgcGFkZGluZzogMnJlbSAzcmVtOwogICAgYm9yZGVyOiAxcHggc29saWQgcmdiYSgyNTUsMjU1LDI1NSwwLjMpOwogIH0KICBoMSB7IGZvbnQtc2l6ZTogMnJlbTsgbWFyZ2luLWJvdHRvbTogMC41cmVtOyB9CiAgcCB7IGZvbnQtc2l6ZTogMS4xcmVtOyBvcGFjaXR5OiAwLjk7IH0KPC9zdHlsZT4KPC9oZWFkPgo8Ym9keT4KPGRpdiBjbGFzcz0iY2FyZCI+CiAgPGgxPui/meaYr+S4gOS4quWGheW1jCBIVE1MIOekuuS+izwvaDE+CiAgPHA+6L+Z5q61IEhUTUwg5a6M5YWo6ZqU56a75ZyoIGlmcmFtZSDkuK08L3A+CjwvZGl2Pgo8L2JvZHk+CjwvaHRtbD4K');h=decodeURIComponent(h.split('').map(function(c){return'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)}).join(''));var w=window.open('about:blank','_blank');w.document.write(h);w.document.close()})()" title="全屏查看" style="padding:0.3rem 0.7rem;border:1px solid #cbd5e1;border-radius:6px;background:#fff;color:#475569;font-size:0.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all 0.15s;">↗ 扩大</button></div><div style="padding:0;"><iframe id="rawhtml-zp26wtno" class="rawhtml-tag-frame" srcdoc="
 <!DOCTYPE html>
 <html lang=&quot;zh-CN&quot;>
 <head>
@@ -293,7 +299,7 @@
   h1 { font-size: 2rem; margin-bottom: 0.5rem; }
   p { font-size: 1.1rem; opacity: 0.9; }
 </style>
-<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+</head>
 <body>
 <div class=&quot;card&quot;>
   <h1>这是一个内嵌 HTML 示例</h1>
@@ -301,13 +307,13 @@
 </div>
 </body>
 </html>
-" sandbox="allow-scripts allow-same-origin" style="width:100%;height:300px;min-height:200px;border:none;display:block;"></iframe></div><script>(function(){var f=document.getElementById("rawhtml-som9ufjs");if(f){document.body.style.scrollbarGutter="stable";f.addEventListener("mouseenter",function(){document.body.style.overflow="hidden"});f.addEventListener("mouseleave",function(){document.body.style.overflow=""})}})();</script></div>
+" sandbox="allow-scripts allow-same-origin" style="width:100%;height:300px;min-height:200px;border:none;display:block;"></iframe></div><script>(function(){var f=document.getElementById("rawhtml-zp26wtno");if(f){document.body.style.scrollbarGutter="stable";f.addEventListener("mouseenter",function(){document.body.style.overflow="hidden"});f.addEventListener("mouseleave",function(){document.body.style.overflow=""})}})();</script></div>
 
-<hr>
-<blockquote>
-<p>你可以在一个 <code>.md</code> 文件中放置<strong>任意多个</strong>这样的容器，它们之间可以用普通的 Markdown 内容隔开。</p>
+</section><hr class="world-section-break">
+<section class="world-prose-section"><blockquote>
+<p class="world-natural-paragraph">你可以在一个 <code>.md</code> 文件中放置<strong>任意多个</strong>这样的容器，它们之间可以用普通的 Markdown 内容隔开。</p>
 </blockquote>
-</div>
+</section></div>
       </div>
       
       
@@ -389,26 +395,6 @@ document.addEventListener('page:loaded', () => {
     Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
   );
 });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-
-<script>
-var options = {
-  bottom: '64px',
-  right: '32px',
-  left: 'unset',
-  time: '0.5s',
-  mixColor: 'transparent',
-  backgroundColor: 'transparent',
-  buttonColorDark: '#100f2c',
-  buttonColorLight: '#dcdcdc',
-  saveInCookies: true,
-  label: '🌓',
-  autoMatchOsTheme: true
-}
-const darkmode = new Darkmode(options);
-window.darkmode = darkmode;
-darkmode.showWidget();
 </script>
 
 </body>
