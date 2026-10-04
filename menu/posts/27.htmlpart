@@ -1,7 +1,7 @@
 <div class="menu-article"><h1 class="menu-article-title">灵耀体系：阴行世界</h1><div class="menu-article-body"><section class="world-content-section world-prose-section" data-tone="violet" data-index="01">
 
 <h2>异世之篇</h2>
-<div class="world-content-panel" data-tone="blue">
+<div class="world-content-panel world-content-group" data-tone="violet">
 
 <h3>异世之篇前置说明</h3>
 <blockquote>
@@ -17,7 +17,10 @@
 <p>以下按<strong>首次同意公布</strong>的先后顺序。</p>
 </div>
 
-<h3>异世之篇</h3>
+<hr>
+<div class="world-content-panel world-content-group" data-tone="violet">
+
+<h3>异世之篇具体内容</h3>
 <blockquote>
 <p>来自外世的协作者们，<br>不仅能够通过电子设备接收来自“本世之我”的信息，<br>还会发生个性、行为特点的偏移。<br>他们在本世 中对应的“我”，<br>虽无法清晰认识到他们的存在，<br>却无比清楚自己刚诞生于此世之刻：便充满了对方的影子。<br>这是一场双向的选择。<br>双方在梦境中初遇之时，<br>剧烈的熟悉感，会让他们在见到彼此的第一眼，就把对方错认为“自己本来的样子”<br>——<br>他们默契地将对方误当作自身的高仿，<br>而自己才是原本的“自己”。</p>
 </blockquote>
@@ -61,17 +64,21 @@
 
 </div>
 
+</div>
+
 </section>
 
 <hr>
-<section class="world-content-section world-prose-section" data-tone="blue" data-index="02">
+<section class="world-content-section world-prose-section" data-tone="amber" data-index="02">
 
 <h2>众生回廊</h2>
+<div class="world-content-panel world-content-group" data-tone="amber">
+
 <h3>众生回廊前置说明</h3>
-<div class="world-content-panel" data-tone="blue">
+<div class="world-content-panel world-content-plain world-content-steps world-content-separated" data-tone="amber">
 
 <h4>Q1：我们为什么需要oc？</h4>
-<h5>角色与自我</h5>
+<div class="world-content-step-list" role="list"><div class="world-content-step" role="listitem" data-step="1" aria-label="第1项"><h5>角色与自我</h5>
 <blockquote>
 <p>oc（Original Character）/自设，即我们<strong>创作</strong>出来的原创角色。但和传统认知中的<strong>人物</strong>不一样的是，oc的特性<strong>不取决于</strong>于具体的故事。</p>
 <p>祂们是我们<strong>灵魂的身份证</strong>，虚拟的同时不受非理想事物的压迫和约束，以<strong>直观的形式</strong>记载着我们自己的缩影，但又超越现实。</p>
@@ -79,31 +86,29 @@
 <p>比如，当我们向别人做自我介绍时，总是说“我来自哪里”，“我喜欢什么”，“我擅长什么”......</p>
 <p>oc也是如此。但他们来自我们想象出的世界，可能喜欢着我们在现实世界无法追求的事物，也可能擅长我们幻想中的魔法。祂可能是一个人，也可能是一只小动物，也有可能是一个图腾、一个概念。</p>
 <p>即：祂们诞生于我们的幻想，永远在我们内心保有神秘感，以一种直观且理想的形式展现在我们面前：祂是无需掩盖的，又期望与世界交流的内心活动。</p>
-<h5>幻想与现实</h5>
+</div><div class="world-content-step" role="listitem" data-step="2" aria-label="第2项"><h5>幻想与现实</h5>
 <p>但在现实生活中，很多人不理解这种幻想。</p>
 <p>他们认为，这是对现实的逃避，是可有可无的精神自耗。</p>
 <p>但当一个孩童第一次接触新鲜事物时，他眼中的满是对世界的好奇，对世界美好的向往。</p>
 <p>思想的成熟打破了这份保护，我们见识了太多赤裸的现象，或许在奋力前行之前，我们应该先给自己鼓劲：</p>
-<h5>向内寻找</h5>
+</div><div class="world-content-step" role="listitem" data-step="3" aria-label="第3项"><h5>向内寻找</h5>
 <blockquote>
-<p>向内看，肯定犹豫的“自我”；<br>向内看，平息愤怒的&quot;自我”；<br>向内看，找到真实的“自我”；  </p>
+<p>向内看，肯定犹豫的“自我”；<br>向内看，平息愤怒的"自我”；<br>向内看，找到真实的“自我”；  </p>
 </blockquote>
 <p>用自己需要的形象，来支撑那破碎的理想自我。</p>
 <p>若你决定在面对真实的世界之前，先确认自己的精神世界，先找寻早已迷失在文明洪流中的自我，去展现出温暖、包容、大方的善意，</p>
 <p>那就创作只属于你的角色吧，守护好这份魔法。</p>
 <p>那就寻找只属于你的角色吧，那是最终的亲近自然的纯净。</p>
 <p>我们终会正视自己“人”的身份：那在此之前，不妨大胆扮演年幼时理想的你自己，愿你们能够成为彼此最闪烁的星星。</p>
-</div>
+</div></div></div>
 
-<div class="world-content-panel" data-tone="blue">
+<div class="world-content-panel world-content-plain world-content-separated" data-tone="amber">
 
 <h4>Q2：如何创造一个oc（的文字设定）？</h4>
-<blockquote>
 <p>或许，你可以尝试回答以下问题：</p>
-</blockquote>
-<div class="world-content-grid" data-layout="columns">
+<div class="world-content-grid world-content-framed" data-layout="columns">
 
-<div class="world-content-panel" data-tone="violet">
+<div class="world-content-panel world-content-compact" data-tone="violet">
 
 <h5>【宏观】</h5>
 <ol>
@@ -112,7 +117,7 @@
 </ol>
 </div>
 
-<div class="world-content-panel" data-tone="blue">
+<div class="world-content-panel world-content-compact" data-tone="cyan">
 
 <h5>【当下】</h5>
 <ol start="3">
@@ -121,7 +126,7 @@
 </ol>
 </div>
 
-<div class="world-content-panel" data-tone="green">
+<div class="world-content-panel world-content-compact" data-tone="green">
 
 <h5>【发展】</h5>
 <ol start="5">
@@ -130,7 +135,7 @@
 </ol>
 </div>
 
-<div class="world-content-panel" data-tone="amber">
+<div class="world-content-panel world-content-compact" data-tone="amber">
 
 <h5>【归属】</h5>
 <ol start="7">
@@ -145,22 +150,27 @@
 <p>无论如何，你对oc的情感，远重于其外表。</p>
 </div>
 
-<div class="world-content-panel" data-tone="blue">
+<div class="world-content-panel world-content-plain world-content-steps world-content-separated" data-tone="amber">
 
 <h4>Q3：如何完成第一次【文字-&gt;图片】转换？</h4>
-<h5>约稿前的准备</h5>
+<div class="world-content-step-list" role="list"><div class="world-content-step" role="listitem" data-step="1" aria-label="第1项"><h5>约稿前的准备</h5>
 <p><strong>【首先】</strong>，约稿并不是必需品。请在有<strong>独立法律责任</strong>（即成年）后，在专业的平台进行。</p>
-<h5>明确需求</h5>
+</div><div class="world-content-step" role="listitem" data-step="2" aria-label="第2项"><h5>明确需求</h5>
 <p><strong>【其次】</strong>，向画师<strong>明确</strong>表示自己的需求：ta的大抵类型是什么（兽人，少年/少女，动物，Q版等），大抵形象是什么（什么样的色调，休闲服还是工作服，有没有标志性动作），拥有什么样的身份（简要版本的oc故事），自己想要什么样的画面效果（三视图/双视图/live2d/vup/立绘，平涂还是厚涂等）。如果您选择公开招募，那无需过于详细；相反，若您向心仪的画师发出邀请，那么您需要尽可能地<strong>一次性表达</strong>自己的需求。</p>
-<h5>合作与沟通</h5>
+</div><div class="world-content-step" role="listitem" data-step="3" aria-label="第3项"><h5>合作与沟通</h5>
 <p><strong>【同时】</strong>，我们需要注意，您与画师之间并不是雇佣关系，您并不因为出钱，而比画师“高贵”；您与画师更为一种合作关系。双方在沟通的同时，需要保有基本的尊重（如不随意毁稿，在约稿前仔细阅读画师的简介等），在弹性调整需求或稿酬的同时，也要谨慎地按照平台规定的<strong>基本流程</strong>进行。</p>
-<h5>表达认可</h5>
+</div><div class="world-content-step" role="listitem" data-step="4" aria-label="第4项"><h5>表达认可</h5>
 <p><strong>【最后】</strong>，向您的画师表达你的认可。这同时也是一种对“仪式感”的赞美。</p>
-<h5>展示与保护</h5>
+</div><div class="world-content-step" role="listitem" data-step="5" aria-label="第5项"><h5>展示与保护</h5>
 <p><strong>【注意】</strong>：您在不足够信赖的社交平台展示自己oc的形象时，请为其打上<strong>厚码</strong>。这是对您oc的保护，也是对您（和画师）创造力的保护；您也不能够在未经稿件所属者的允许下，保存、在相关商业化平台分享相关的作品。</p>
+</div></div></div>
+
 </div>
 
-<h3>众生回廊</h3>
+<hr>
+<div class="world-content-panel world-content-group" data-tone="amber">
+
+<h3>众生回廊具体内容</h3>
 <blockquote>
 <p>祂们是我们灵魂的身份证，<br>以直观的形式，记载着我们自己超越现实的缩影；<br>牠们来自我们想象出的世界，<br>喜欢着我们在现实中无法追求的事物，擅长着我们幻想中的魔法。<br>牠们可能是一个人，也可能是一只小动物，<br>也有可能是一个图腾、一个概念…<br>祂们诞生于幻境，却以直观的形式，存在于我们面前——<br>祂是我无需掩盖的、期望着与世界交流的内心活动。<br>或许我们在奋力前行之前，应该先给自己鼓劲：<br>向内看，肯定犹豫的“自我”；<br>向内看，平息愤怒的”自我”；<br>向内看，找到真实的“自我”；<br>用自己需要的形象，来支撑那破碎的理想自我 。<br>若你决定在面对真实的世界之前，先确认自己的精神世界，先找寻早已迷失在文明洪流中的自我<br>去展现出温暖、包容、大方的善意，<br>那就创作只属于你的角色吧，守护好这份魔法；<br>那就寻找只属于你的角色吧，那是最亲近自然的纯净；<br>我们终会正视自己“人”的身份：但在那之前，不妨大胆扮演另一个自己，<br>愿我们总能够在目及彼此之刻，成为彼此最闪烁的星星。</p>
 </blockquote>
@@ -170,6 +180,8 @@
 
 <h4>墨薛</h4>
 <p><a href="https://world.sch-nie.com/yinxing_world/character/mosae/">角色：墨薛</a></p>
+</div>
+
 </div>
 
 </div>
