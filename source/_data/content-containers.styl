@@ -1,0 +1,108 @@
+// Opt-in chapter, explanation and parallel-entry containers for authored Markdown.
+.post-body, .world-standalone .menu-article-body
+  .world-content-section, .world-content-panel
+    --content-accent: var(--tone-violet)
+    &[data-tone='blue']
+      --content-accent: var(--tone-blue)
+    &[data-tone='green']
+      --content-accent: var(--tone-green)
+    &[data-tone='cyan']
+      --content-accent: var(--tone-cyan)
+    &[data-tone='amber']
+      --content-accent: var(--tone-amber)
+    &[data-tone='rose']
+      --content-accent: var(--tone-rose)
+    &[data-tone='violet']
+      --content-accent: var(--tone-violet)
+
+  .world-content-section.world-prose-section
+    padding: 28px 32px
+    margin: var(--world-block-gap) 0
+    border: 0
+    background: var(--world-paper)
+    box-shadow: none
+    > h2
+      margin: 0 0 28px
+      padding: 0 0 14px
+      color: unquote('color-mix(in srgb, var(--content-accent) 90%, var(--world-ink))')
+      font-size: 1.55em
+      border-bottom-color: unquote('color-mix(in srgb, var(--content-accent) 35%, var(--world-edge))')
+    > h3
+      margin: 30px 0 18px
+      padding: 0
+      border: 0
+      color: var(--world-ink)
+      font-size: 1.18em
+    > :last-child
+      margin-bottom: 0
+
+  .world-content-panel
+    margin: 22px 0
+    padding: 22px 24px
+    border: 1px solid unquote('color-mix(in srgb, var(--content-accent) 32%, var(--world-edge))')
+    border-left: 3px solid var(--content-accent)
+    border-radius: 6px
+    background: unquote('color-mix(in srgb, var(--content-accent) 6%, var(--world-paper))')
+    > h3, > h4, > h5
+      margin: 0 0 18px
+      padding: 0 0 10px
+      color: unquote('color-mix(in srgb, var(--content-accent) 90%, var(--world-ink))')
+      border-left: 0
+      border-bottom: 1px solid unquote('color-mix(in srgb, var(--content-accent) 30%, var(--world-edge))')
+    > h5:not(:first-child)
+      margin-top: 28px
+      padding-bottom: 0
+      border-bottom: 0
+      font-size: 1em
+    > :last-child
+      margin-bottom: 0
+    ol
+      padding-left: 1.5em
+    li + li
+      margin-top: 10px
+
+  .world-content-grid
+    display: grid
+    grid-template-columns: minmax(0, 1fr)
+    gap: 16px
+    margin: 24px 0
+    > .note.note, > .md-note, > .world-content-panel
+      margin: 0
+      min-width: 0
+    &[data-layout='columns']
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+    > .note.note, > .md-note
+      padding: 20px 24px
+    .world-file-title
+      font-size: 1.03em
+    .md-note
+      --content-entry-accent: var(--tone-blue)
+      &.md-note-primary
+        --content-entry-accent: var(--tone-violet)
+      &.md-note-success
+        --content-entry-accent: var(--tone-green)
+      &.md-note-warning
+        --content-entry-accent: var(--tone-amber)
+      &.md-note-danger
+        --content-entry-accent: var(--tone-rose)
+    .md-note h3, .md-note h4
+      margin: 0 0 16px
+      padding: 0 0 10px
+      border-bottom: 1px solid var(--world-edge)
+      color: unquote('color-mix(in srgb, var(--content-entry-accent) 90%, var(--world-ink))')
+      &::before
+        display: none
+
+@media (max-width: 767px)
+  .post-body, .world-standalone .menu-article-body
+    .world-content-section.world-prose-section
+      padding: 22px 18px
+      margin: var(--world-block-gap) 0
+      > h2
+        font-size: 1.4em
+    .world-content-panel
+      padding: 18px 16px
+    .world-content-grid[data-layout='columns']
+      grid-template-columns: minmax(0, 1fr)
+    .world-content-grid > .note.note, .world-content-grid > .md-note
+      padding: 18px 16px

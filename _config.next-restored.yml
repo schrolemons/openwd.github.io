@@ -13,7 +13,7 @@ recent_posts:
 scheme: Gemini
 darkmode: false
 darkmode_js:
-  enable: true
+  enable: false
   bottom: 64px
   right: 32px
   left: unset

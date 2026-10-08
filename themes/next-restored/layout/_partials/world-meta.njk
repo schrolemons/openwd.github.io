@@ -1,0 +1,10 @@
+{% set metadata = world_source_meta(document) %}
+{% set categories = world_categories(document) %}
+{% if metadata.author or metadata.date or metadata.updated or categories.length %}
+<div class="post-meta world-meta">
+  {% if metadata.author %}<span class="post-meta-item world-meta-author">{{ metadata.author | escape }}</span>{% endif %}
+  {% if metadata.date %}<span class="post-meta-item"><span>发布</span> <time datetime="{{ metadata.date }}">{{ metadata.date }}</time></span>{% endif %}
+  {% if metadata.updated %}<span class="post-meta-item"><span>更新</span> <time datetime="{{ metadata.updated }}">{{ metadata.updated }}</time></span>{% endif %}
+  {% if categories.length %}<span class="post-meta-item world-meta-path">{% for category in categories %}{% if category.path %}<a href="{{ url_for(category.path) }}">{{ category.name | escape }}</a>{% else %}<span>{{ (category.name or category) | escape }}</span>{% endif %}{% if not loop.last %}<span aria-hidden="true"> / </span>{% endif %}{% endfor %}</span>{% endif %}
+</div>
+{% endif %}

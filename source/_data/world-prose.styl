@@ -1,0 +1,400 @@
+// Source-aware paragraphs and static section islands. The reading profile owns rhythm.
+.post-body
+  line-height: 1.9
+  letter-spacing: .01em
+  overflow-wrap: anywhere
+
+  p
+    margin: 0 0 1.3em
+    text-align: left
+
+  h1, h2, h3, h4, h5, h6
+    color: var(--world-ink)
+    font-family: var(--world-ui-font)
+    font-weight: 600
+    line-height: 1.6
+    letter-spacing: .025em
+    scroll-margin-top: 24px
+
+    &::before, &::after
+      display: none
+
+  h1, h2
+    font-size: 1.45em
+    margin: 2.4em 0 1em
+    padding-bottom: .5em
+    border-bottom: 1px solid var(--world-edge)
+
+  h3
+    font-size: 1.2em
+    margin: 1.8em 0 .8em
+    padding-left: 12px
+    border-left: 3px solid var(--world-gold)
+    border-bottom: 1px solid var(--world-edge)
+
+  h4
+    font-size: 1.06em
+    margin: 1.5em 0 .65em
+
+  h5, h6
+    font-size: 1em
+    margin: 1.4em 0 .6em
+    color: var(--world-muted)
+
+  strong
+    color: inherit
+    font-family: inherit
+    font-size: inherit
+    line-height: inherit
+    font-weight: 700
+
+    &::after
+      display: none
+
+  p strong, li strong, td strong, dd strong
+    font-family: inherit
+    font-size: inherit
+    font-weight: 700
+
+  em
+    color: inherit
+    font-family: inherit
+    font-size: inherit
+    font-style: italic
+
+  mark
+    color: var(--world-ink)
+    background: var(--world-gold-wash)
+
+  p a:where(:not(.btn):not(.fancybox):not(:has(img)):not(.world-qr-trigger):not(.guide-content-item):not(.directory-entry-link):not(.world-home a)),
+  li a:where(:not(.btn):not(.fancybox):not(:has(img)):not(.world-qr-trigger):not(.guide-content-item):not(.directory-entry-link):not(.world-home a)),
+  td a:where(:not(.btn):not(.fancybox):not(:has(img)):not(.world-qr-trigger):not(.guide-content-item):not(.directory-entry-link):not(.world-home a)),
+  dd a:where(:not(.btn):not(.fancybox):not(:has(img)):not(.world-qr-trigger):not(.guide-content-item):not(.directory-entry-link):not(.world-home a))
+    color: var(--world-link)
+    font-weight: 600
+    border-bottom: 1px solid currentColor
+    border-radius: 2px
+    box-decoration-break: clone
+    -webkit-box-decoration-break: clone
+
+  ul, ol
+    padding-left: 1.7em
+    margin: 1.2em 0
+
+  li
+    margin: .45em 0
+    line-height: inherit
+
+    &::marker
+      color: var(--world-muted)
+
+  blockquote
+    margin: 1.6em 0
+    padding: 16px 20px
+    color: var(--world-muted)
+    background: var(--world-soft)
+    border-left: 3px solid var(--world-gold)
+    border-radius: 0 8px 8px 0
+    font-size: .95em
+    box-shadow: none
+
+    p:last-child
+      margin-bottom: 0
+
+  hr
+    border: 0
+    height: var(--world-separator-gap)
+    margin: 0
+    background: transparent
+
+  code
+    color: var(--world-ink)
+    background: var(--world-soft)
+    padding: .12em .35em
+    border-radius: 4px
+    font: .9em/1.7 var(--world-code-font)
+    text-indent: 0
+    box-decoration-break: clone
+    -webkit-box-decoration-break: clone
+
+    strong, em
+      font-family: inherit
+
+  p code, li code
+    padding: .12em .35em
+
+  pre code
+    color: inherit
+    background: none
+    padding: 0
+
+  pre, figure.highlight
+    max-width: 100%
+    overflow: auto
+    border-radius: 8px
+    font-size: 13px
+
+  img, video
+    max-width: 100%
+    height: auto
+    border-radius: 8px
+
+  .photos-page
+    margin: 24px 0
+
+  .photos-item > p
+    text-align: center
+    text-indent: 0
+    margin: 12px 0 0
+    color: var(--world-muted)
+    font: 14px/1.8 var(--world-ui-font)
+
+  .world-prose-section > .photos-page
+    margin: 0
+
+    ~ br
+      display: none
+
+  .reading-table-scroll
+    overflow-x: auto
+    max-width: 100%
+    margin: 1.5em 0
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    overscroll-behavior-x: contain
+
+  table
+    width: 100%
+    margin: 0
+    border-collapse: collapse
+    box-shadow: none
+    font: 14px/1.8 var(--world-ui-font)
+
+  th, td
+    padding: 12px 16px
+    border: 0
+    border-bottom: 1px solid var(--world-edge)
+    color: var(--world-ink)
+    background: var(--world-surface)
+    vertical-align: top
+    text-align: left
+    min-width: 100px
+
+  th
+    background: var(--world-soft)
+    font-weight: 600
+    white-space: nowrap
+
+  tr:last-child td
+    border-bottom: 0
+
+  .note.note
+    --note-accent: var(--tone-blue)
+    --note-soft: var(--world-soft)
+    border: 1px solid var(--world-edge)
+    border-left: 3px solid var(--note-accent)
+    border-radius: 8px
+    padding: 20px 24px
+    margin: 1.6em 0
+    background: var(--world-soft)
+    color: var(--world-ink)
+    font-size: .95em
+    box-shadow: none
+
+    &::before
+      display: none
+
+    &.primary
+      --note-accent: var(--tone-violet)
+    &.success
+      --note-accent: var(--tone-green)
+    &.warning
+      --note-accent: var(--tone-amber)
+    &.danger
+      --note-accent: var(--tone-rose)
+
+    > :first-child
+      margin-top: 0
+    > :last-child
+      margin-bottom: 0
+
+    h1, h2, h3, h4, h5, h6
+      border: 0
+      padding-left: 0
+      color: var(--world-ink)
+      font-size: 1.1em
+      line-height: 1.75
+      letter-spacing: .015em
+      margin-bottom: .75em
+
+  // Static notes use a plain chapter heading and fine rule on a single paper surface.
+  .world-file-note.note.note
+    position: relative
+    border: 1px solid unquote('color-mix(in srgb, var(--note-accent) 40%, var(--world-edge))')
+    background: unquote('color-mix(in srgb, var(--note-accent) 6%, var(--world-paper))')
+    box-shadow: none
+    &::after
+      display: none
+    > p,
+    > .world-paragraph-lines > .world-paragraph-line
+      text-indent: 0
+      padding-inline: 0
+    > .world-file-title
+      display: flex
+      align-items: center
+      gap: 18px
+      position: relative
+      box-sizing: border-box
+      width: 100%
+      max-width: 100%
+      margin: 0 0 16px
+      padding: 0
+      border: 0
+      border-radius: 0
+      clip-path: none
+      background: transparent
+      color: unquote('color-mix(in srgb, var(--note-accent) 90%, var(--world-ink))')
+      font-size: 1.08em
+      font-weight: 600
+      line-height: 1.65
+      letter-spacing: .04em
+      > .world-note-heading-copy
+        display: block
+        flex: 0 1 auto
+        min-width: 0
+      &::before
+        display: none
+      &::after
+        content: ''
+        display: block
+        position: static
+        flex: 1 0 28px
+        min-width: 28px
+        height: 1px
+        border: 0
+        background: unquote('linear-gradient(90deg, var(--note-accent) 0 28px, color-mix(in srgb, var(--note-accent) 35%, var(--world-edge)) 28px, transparent 100%)')
+        transform: none
+      &:last-child
+        margin-bottom: 0
+
+  details.note.note
+    padding: 0
+
+    > summary
+      list-style: none
+      padding: 14px 20px
+      color: var(--world-ink)
+      background: var(--world-soft)
+      border-radius: 7px
+      cursor: pointer
+      font: 500 14px/1.8 var(--world-ui-font)
+
+      &::-webkit-details-marker
+        display: none
+
+      p
+        display: inline
+        margin: 0
+
+      &::after
+        content: '+'
+        float: right
+        margin-left: 12px
+        color: var(--note-accent)
+
+    &[open] > summary
+      border-radius: 7px 7px 0 0
+      border-bottom: 1px solid var(--world-edge)
+
+      &::after
+        content: '−'
+
+    > :not(summary)
+      margin-left: 20px
+      margin-right: 20px
+    > summary + *
+      margin-top: 20px
+    > :last-child:not(summary)
+      margin-bottom: 20px
+
+.world-prose-section
+  padding: 28px 32px
+  margin: var(--world-block-gap) 0
+  border: 1px solid var(--world-edge)
+  border-radius: var(--world-radius)
+  background: var(--world-paper)
+  box-shadow: var(--world-shadow)
+
+  > :first-child
+    margin-top: 0
+  > :last-child
+    margin-bottom: 0
+
+  &:first-child
+    margin-top: 0
+
+  &:has(+ hr.world-section-break)
+    margin-bottom: 0
+
+.reading-prose
+  .world-source-indent
+    display: none
+  .world-ui-copy
+    text-indent: 0
+  .world-natural-paragraph
+    text-indent: 2em
+  .world-paragraph-lines
+    text-indent: 0
+    > .world-paragraph-break
+      display: none
+    > .world-paragraph-line
+      display: block
+      text-indent: 2em
+      margin-top: .45em
+      &:first-child
+        margin-top: 0
+  .world-media-paragraph
+    text-align: center
+    text-indent: 0
+  img, video, iframe
+    display: block
+    max-width: 100%
+    margin-left: auto
+    margin-right: auto
+
+  .reading-table-scroll
+    margin-left: auto
+    margin-right: auto
+
+.post-body .world-prose-section > .note.note:first-child
+  margin-top: 0
+
+.post-body .world-prose-section > .note.note:last-child
+  margin-bottom: 0
+
+.post-body .reading-prose > hr.world-section-break + .world-prose-section
+  margin-top: 0
+
+.post-body .reading-prose > hr.world-section-break
+  margin: 0
+
+@media (max-width: 767px)
+  .world-prose-section
+    padding: 22px 18px
+
+  .post-body
+    h2
+      font-size: 1.35em
+    h3
+      font-size: 1.18em
+    .note.note
+      padding: 16px !important
+    details.note.note
+      padding: 0 !important
+      > summary
+        padding: 12px 16px
+      > :not(summary)
+        margin-left: 16px
+        margin-right: 16px
+    blockquote
+      padding: 14px 16px

@@ -1,0 +1,249 @@
+// Owned HTML views share UI roles; their canvas, story choices and artwork remain native.
+.world-standalone
+  color: var(--world-ink)
+  font-family: var(--world-ui-font)
+
+  a:not(:has(img))
+    color: var(--world-ink)
+    text-decoration-color: var(--world-gold)
+    text-underline-offset: 4px
+
+  button:not(.world-theme-toggle)
+    font-family: var(--world-ui-font)
+
+  hr
+    border: 0
+    height: var(--world-separator-gap)
+    margin: 0
+    background: transparent
+
+  .world-theme-toggle
+    bottom: 24px
+    color: var(--world-ink) !important
+    background: var(--world-paper) !important
+    border: 1px solid var(--world-edge) !important
+    z-index: 10001
+
+// Timeline: only UI variables are mapped. Stars, lanterns and event effects retain their art palette.
+.world-standalone:has(:where(#era-info-panel))
+  --bg-deep: var(--world-paper)
+  --bg-panel: var(--world-paper)
+  --bg-card: var(--world-surface)
+  --accent: var(--tone-amber)
+  --accent-glow: var(--world-gold)
+  --accent-dim: var(--world-edge)
+  --text-primary: var(--world-ink)
+  --text-secondary: var(--world-muted)
+  --text-dim: var(--world-muted)
+  --border: var(--world-edge)
+  --border-bright: var(--world-gold)
+  --info: var(--tone-blue)
+  --danger: var(--tone-rose)
+  --warning: var(--tone-amber)
+  --success: var(--tone-green)
+
+  #era-info-panel, .easter-egg-modal, .reader-toc, .modal-panel
+    color: var(--world-ink)
+    background: var(--world-paper)
+    border-color: var(--world-edge)
+    box-shadow: var(--world-shadow)
+
+  #era-info-panel .panel-header, #era-info-panel .panel-summary, #era-info-panel .panel-desc-line,
+  .timeline-controls, .article-reader-header
+    color: var(--world-ink)
+    background: var(--world-soft)
+    border-color: var(--world-edge)
+
+  .era-title
+    color: var(--world-ink)
+    background: none
+    -webkit-text-fill-color: var(--world-ink)
+    text-shadow: none
+
+  #panel-collapse-btn, #panel-expand-tab, .doc-close, .reader-toc-close, .modal-close,
+  .modal-btn, .mobile-panel-toggle, #return-stars-btn
+    color: var(--world-ink)
+    background: var(--world-soft)
+    border: 1px solid var(--world-edge)
+    border-radius: 6px
+
+    &:hover, &:focus-visible
+      color: #171717
+      background: var(--world-gold)
+
+  .nav-btn, .view-era-btn, .doc-read-btn, .restart-btn, .ctrl-btn, .reader-toc-toggle, .article-reader-close
+    color: var(--world-ink)
+    background: var(--world-soft)
+    border: 1px solid var(--world-edge)
+    border-radius: 6px
+    box-shadow: none
+
+    &:hover, &:focus-visible
+      color: #171717
+      background: var(--world-gold)
+      border-color: var(--world-gold)
+
+  .article-doc-panel, .article-reader-container, .reader-toc-panel, .branch-option
+    background: var(--world-paper)
+    border-color: var(--world-edge)
+    border-radius: 8px
+    box-shadow: var(--world-shadow)
+
+  .md-note
+    background: var(--world-soft)
+    border-color: var(--world-edge)
+    border-radius: 8px
+    color: var(--world-ink)
+
+  .md-note-info
+    border-left-color: var(--tone-blue)
+  .md-note-primary
+    border-left-color: var(--tone-violet)
+  .md-note-success
+    border-left-color: var(--tone-green)
+  .md-note-warning
+    border-left-color: var(--tone-amber)
+  .md-note-danger
+    border-left-color: var(--tone-rose)
+
+  .menu-article a
+    color: var(--world-ink)
+    border-bottom: 1px solid var(--world-gold)
+
+  .menu-article-title, .menu-article-body h1, .menu-article-body h2, .menu-article-body h3,
+  .menu-article-body strong, .menu-article-body em
+    color: var(--world-ink)
+    text-shadow: none
+
+  .menu-article-body p
+    font-size: 16px
+    line-height: 1.95
+
+  .menu-article-body hr
+    background: none
+    border: 0
+
+  .menu-article-body blockquote, .menu-article-body code, .menu-article-body th
+    color: var(--world-ink)
+    background: var(--world-soft)
+    border-color: var(--world-edge)
+
+// The profile keeps its playful illustrations, carousel and closeable content layout.
+// Explicit paint overrides are needed here because the authored page uses Tailwind utilities
+// and its legacy body.night-mode sheet, both of which are outside the Hexo stylesheet.
+body.world-standalone:has(.cute-card)
+  background: var(--world-soft) !important
+  color: var(--world-ink) !important
+
+  .cute-card, .cute-monitor, .hobby-modal, .personality-modal, .confirm-modal, .toc-panel
+    background: var(--world-paper) !important
+    color: var(--world-ink) !important
+    border: 1px solid var(--world-edge) !important
+    border-radius: 8px !important
+    box-shadow: var(--world-shadow) !important
+
+  .cute-card
+    margin-bottom: var(--world-block-gap)
+
+  .cute-header
+    color: var(--world-ink) !important
+    -webkit-text-fill-color: var(--world-ink) !important
+    background: none !important
+
+  .cute-card:hover
+    transform: none
+
+  .cute-section-title, .cute-section-title-yellow
+    color: var(--world-ink) !important
+    border-color: var(--world-edge) !important
+    font: 600 22px/1.6 var(--world-ui-font) !important
+    background: var(--world-soft) !important
+    border-radius: 6px !important
+    box-shadow: none !important
+
+  .hobby-modal-header, .personality-modal-header, .monitor-header, .monitor-footer,
+  .hobby-modal-content, .personality-modal-content, .monitor-content, .info-box
+    background: var(--world-soft) !important
+    color: var(--world-ink) !important
+    border-color: var(--world-edge) !important
+
+  .cute-tag, .cute-tag-blue, .cute-list-item
+    background: var(--world-soft) !important
+    color: var(--world-ink) !important
+    border: 1px solid var(--world-edge) !important
+    border-radius: 6px !important
+
+  .cute-link
+    color: var(--world-ink) !important
+    background: transparent !important
+    border-bottom: 1px solid var(--world-gold) !important
+    border-radius: 2px !important
+    box-shadow: none !important
+
+    &::after
+      display: none
+
+    &:hover, &:focus-visible
+      background: var(--world-gold-wash) !important
+
+  .toc-button, .scroll-button, .section-close, .hobby-modal-close, .personality-modal-close,
+  .confirm-btn-no, .cute-nav-btn
+    background: var(--world-soft) !important
+    color: var(--world-ink) !important
+    border-color: var(--world-edge) !important
+    box-shadow: none !important
+
+  .confirm-btn-yes
+    background: var(--world-gold) !important
+    color: #171717 !important
+    border-color: var(--world-gold) !important
+
+  [class*='highlight-']
+    color: var(--world-ink) !important
+    background: var(--world-gold-wash) !important
+
+  [class*='text-slate-'], [class*='text-gray-'], [class*='text-yellow-7'], [class*='text-yellow-8'],
+  [class*='text-yellow-9'], [class*='text-blue-6'], [class*='text-blue-7'], [class*='text-blue-8'],
+  .hobby-modal-title, .personality-modal-title, .confirm-modal-title, .confirm-modal-message, .toc-title, .toc-item
+    color: var(--world-ink) !important
+
+  [class*='bg-white'], [class*='bg-gradient-'], [class*='bg-yellow-100'], [class*='bg-blue-50'], [class*='bg-blue-100']
+    background: var(--world-soft) !important
+    border-color: var(--world-edge) !important
+
+  .cute-divider, .cute-divider-blue
+    border-color: var(--world-edge) !important
+
+    &::before, &::after
+      color: var(--tone-amber) !important
+      background: var(--world-paper) !important
+
+  .mosae-avatar
+    border-color: var(--world-gold) !important
+
+  .toc-item:hover, .toc-item.active
+    background: var(--world-gold-wash) !important
+
+@media (max-width: 767px)
+  body.world-standalone:has(.cute-card)
+    .cute-section-title, .cute-section-title-yellow
+      font-size: 20px !important
+
+@media (prefers-reduced-motion: reduce)
+  body.world-standalone:has(.cute-card), body.world-standalone:has(.cute-card) *, .world-theme-mark
+    animation: none !important
+    transition: none !important
+body.world-standalone:has(.cute-card)
+  .scroll-buttons-container
+    bottom: 80px !important
+    right: 24px !important
+    gap: 10px !important
+  .scroll-button
+    width: 40px !important
+    height: 40px !important
+    border: 1px solid var(--world-edge) !important
+    border-radius: 8px !important
+    background: var(--world-paper) !important
+    color: var(--world-ink) !important
+    box-shadow: none !important
+    font-size: 16px !important

@@ -1,19 +1,19 @@
 {# Widgets with fixed position #}
 
 {%- if theme.sidebar.display !== 'remove' %}
-  <div class="toggle sidebar-toggle" role="button">
+  <button type="button" class="toggle sidebar-toggle" aria-label="切换目录与站点导航" title="目录与站点导航">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
-  </div>
+  </button>
   <div class="sidebar-dimmer"></div>
 {%- endif %}
 
 {%- if theme.back2top.enable and not theme.back2top.sidebar %}
-  <div class="back-to-top" role="button" aria-label="{{ __('accessibility.back_to_top') }}">
+  <button type="button" class="back-to-top" aria-label="{{ __('accessibility.back_to_top') }}" title="{{ __('accessibility.back_to_top') }}">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
-  </div>
+  </button>
 {%- endif %}
 
 {%- if theme.reading_progress.enable %}

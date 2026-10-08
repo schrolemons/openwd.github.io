@@ -1,4 +1,5 @@
 'use strict';
+const { presentStandalone } = require('../lib/standalone-presentation.cjs');
 
 function escapeForSrcdoc(html) {
   return html
@@ -41,6 +42,13 @@ function processRawHtml(html, config) {
 
 hexo.extend.filter.register('before_post_render', function(data) {
   if (data.content && data.content.trimStart().toLowerCase().startsWith('<!doctype html>')) {
+    // Owned HTML entrances must render the same shell in server and generate.
+    // Markdown rawhtml blocks still keep their deliberately isolated iframe.
+    if (/(?:^|\/)index\.html$/.test((data.source || '').replace(/\\/g, '/'))) {
+      data.layout = 'false';
+      data.content = presentStandalone(data.content);
+      return data;
+    }
     // Standalone HTML has no frontmatter; retain its own document title.
     if (!data.title) {
       const $ = require('cheerio').load(data.content);

@@ -1,7 +1,7 @@
 {% macro entries(items, excerpts=false) %}
   <div class="directory-entries{% if excerpts %} directory-entries-rich{% endif %}">
     {% for entry in items %}
-      <article class="directory-entry"><div class="directory-entry-main">
+      <article class="directory-entry"{% if entry.tone %} data-tone="{{ entry.tone }}"{% endif %}><div class="directory-entry-main">
         {% if entry.qr %}
           <button type="button" class="directory-entry-link directory-qr-trigger" data-qr-src="{{ entry.path | escape }}" data-qr-title="{{ entry.title | escape }}"><span>{{ entry.title | escape }}</span><i class="fa fa-qrcode directory-entry-arrow" aria-hidden="true"></i></button>
         {% else %}

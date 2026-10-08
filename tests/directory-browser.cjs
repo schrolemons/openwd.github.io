@@ -132,7 +132,8 @@ const server = http.createServer((req, res) => {
     assert.equal(await page.locator('.directory-tag-article').count(), 10);
     await page.locator('.pagination a').filter({ hasText: '2' }).click();
     await page.waitForURL('**/page/2/');
-    assert.equal(await page.locator('.directory-tag-article').count(), 1);
+    const $ = require('cheerio').load(fs.readFileSync(path.join(root, 'public/tags/九虹重启/page/2/index.html'), 'utf8'));
+    assert.equal(await page.locator('.directory-tag-article').count(), $('.directory-tag-article').length, 'pagination retains every current matching article');
     await page.goto(base + '/bingjie_domain/', { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => [...document.querySelectorAll('.directory-resource-icon img')].every(image => image.complete && image.naturalWidth > 0));
     assert.equal(await page.locator('.directory-resource-icon img').count(), 5, 'all real site icons load');

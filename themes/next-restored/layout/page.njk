@@ -25,7 +25,6 @@ import swal from 'sweetalert';
     {##################}
     <div class="post-block{% if reading %} reading-document{% endif %}"{% if reading %} data-reading-style="{{ reading.style }}" data-tone="{{ reading.tone }}"{% endif %} lang="{{ page.lang }}">
       {%- if page.header !== false and page.type !== 'categories' and page.type !== 'tags' %}
-        {% if reading %}<div class="reading-kicker"><span>{{ reading.label }}</span><span>{{ reading.description }}</span></div>{% endif %}
         {%- include '_partials/page/page-header.njk' -%}
       {%- endif %}
       {#################}
@@ -40,14 +39,21 @@ import swal from 'sweetalert';
         {% elif page.type === 'schedule' %}
           {%- include '_partials/page/schedule.njk' -%}
         {% else %}
-          {% if reading %}<div class="reading-prose">{{ reading_content(page.content) }}</div>{% else %}{{ page.content }}{% endif %}
+          {% if reading %}<div class="reading-prose">{{ reading_content(page.content, reading.style) }}</div>{% else %}{{ page.content }}{% endif %}
         {%- endif %}
       </div>
       {#####################}
       {### END PAGE BODY ###}
       {#####################}
+      {% if reading %}
+      <footer class="post-footer">
+        {% if world_copyright_enabled(page, theme.creative_commons, true) %}
+          {{ partial('_partials/post/post-copyright.njk', {page: page}) }}
+        {% endif %}
+        <div class="world-endnote"><span>POWERED BY SCHNIE</span></div>
+      </footer>
+      {% endif %}
     </div>
-    {%- include '_partials/page/breadcrumb.njk' -%}
     {######################}
     {### END PAGE BLOCK ###}
     {######################}

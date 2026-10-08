@@ -1,0 +1,83 @@
+// The shared theme vocabulary; type colour is semantic, never a page skin.
+:root
+  --world-gold: #ffd700
+  --world-paper: #fcfbf8
+  --world-surface: #fff
+  --world-soft: #f3f1eb
+  --world-ink: #242424
+  --world-muted: #66645e
+  --world-link: #a33445
+  --world-link-hover: #7e2038
+  --world-link-wash: unquote('color-mix(in srgb, var(--world-link) 12%, var(--world-paper))')
+  --world-edge: #dcd8ce
+  --world-gold-wash: rgba(255,215,0,.14)
+  --world-hover: #edf0f4
+  --world-selected: #e3e8ef
+  --world-shadow: 0 4px 18px rgba(0,0,0,.08)
+  --world-ui-font: 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif
+  --world-code-font: 'Cascadia Code', Consolas, 'Noto Sans SC', 'Microsoft YaHei', monospace
+  --world-radius: 8px
+  --world-block-gap: 32px
+  --world-separator-gap: 34px
+  --interaction-gold: var(--world-gold)
+  --interaction-wash: var(--world-gold-wash)
+  --interaction-ease: cubic-bezier(.2,.7,.2,1)
+  --tone-violet: #7652a8
+  --tone-blue: #4771b5
+  --tone-rose: #a34868
+  --tone-cyan: #147887
+  --tone-amber: #8c651b
+  --tone-green: #397361
+  --content-bg-color: var(--world-paper)
+  --body-bg-color: #080808
+  --card-bg-color: var(--world-surface)
+  --text-color: var(--world-ink)
+  --blockquote-color: var(--world-muted)
+  --link-color: var(--world-ink)
+  --link-hover-color: var(--world-ink)
+  --table-row-odd-bg-color: var(--world-soft)
+  --table-row-hover-bg-color: var(--world-gold-wash)
+  --menu-item-bg-color: var(--world-hover)
+  --btn-default-bg: var(--world-gold)
+  --btn-default-color: #171717
+  --btn-default-border-color: var(--world-gold)
+  --btn-default-hover-bg: var(--world-gold)
+  --btn-default-hover-color: #171717
+  --btn-default-hover-border-color: var(--world-gold)
+  --waline-theme-color: #8c651b
+  --waline-active-color: #8c651b
+  --waline-text-color: var(--world-ink)
+  --waline-bg-color: var(--world-paper)
+  --waline-bg-color-light: var(--world-soft)
+  --waline-border-color: var(--world-edge)
+
+html[data-world-theme='dark']
+  --world-paper: #1c1c1b
+  --world-surface: #242423
+  --world-soft: #2b2a26
+  --world-ink: #ece9e2
+  --world-muted: #aaa69c
+  --world-link: #f3a0ab
+  --world-link-hover: #ffd0d8
+  --world-edge: #48453e
+  --world-gold-wash: rgba(255,215,0,.10)
+  --world-hover: #30353d
+  --world-selected: #363e49
+  --world-shadow: 0 4px 18px rgba(0,0,0,.22)
+  --tone-violet: #c4a6ed
+  --tone-blue: #9ebff1
+  --tone-rose: #efa8c0
+  --tone-cyan: #83cbd5
+  --tone-amber: #e2bf76
+  --tone-green: #91c7b0
+  --highlight-background: #242423
+  --highlight-foreground: #ece9e2
+  --highlight-gutter-background: #2b2a26
+  --highlight-gutter-foreground: #aaa69c
+  --waline-theme-color: #ffd700
+  --waline-active-color: #ffd700
+
+@media (max-width: 767px)
+  :root
+    --world-block-gap: 24px
+    --world-separator-gap: 24px

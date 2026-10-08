@@ -8,6 +8,6 @@
 {% elif folder %}
   <nav class="content-directory folder-navigation" data-tone="{{ folder.tone }}" aria-label="同目录内容">
     <div class="folder-navigation-heading"><a href="{{ url_for(folder.collection.path) }}">{{ folder.collection.title | escape }}</a><span aria-hidden="true">/</span><a href="{{ url_for(folder.path) }}">{{ folder.name | escape }}</a><span class="directory-count">{{ folder.count }} {{ folder.collection.unit }}</span></div>
-    <div class="folder-navigation-links">{% for entry in folder.entries %}<a class="folder-article-link" href="{{ url_for(entry.path) }}"{% if url_for(entry.path) === url_for(page.path) or entry.path + 'index.html' === page.path %} aria-current="page"{% endif %}>{{ entry.title | escape }}</a>{% endfor %}</div>
+    <div class="folder-navigation-links">{% for entry in folder.entries %}<a class="folder-article-link"{% if entry.tone %} data-tone="{{ entry.tone }}"{% endif %} href="{{ url_for(entry.path) }}"{% if url_for(entry.path) === url_for(page.path) or entry.path + 'index.html' === page.path %} aria-current="page"{% endif %}>{{ entry.title | escape }}</a>{% endfor %}</div>
   </nav>
 {% endif %}

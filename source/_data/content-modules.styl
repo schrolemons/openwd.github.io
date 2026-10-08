@@ -1,0 +1,544 @@
+// Content organization adapters share surfaces and typography with the reading system.
+.post-body
+  .world-ui-copy, .world-ui-copy > .world-paragraph-line
+    text-indent: 0
+  .world-collaboration-entry
+    padding: 14px 18px
+    border: 1px solid var(--world-edge)
+    border-radius: 6px
+    background: var(--world-soft)
+    font-size: 15px
+    line-height: 1.9
+  .world-layout-plan, .world-layout-team, .world-layout-about
+    position: relative
+    font-family: var(--world-ui-font)
+    font-size: 16px
+    line-height: 1.95
+    > .world-module-heading.note.note
+      border: 0
+      border-left-color: var(--note-accent)
+      border-radius: 0
+      padding: 0 !important
+      margin: 0 0 20px
+      background: none
+      font-size: 1em
+      h3
+        padding: 0 0 12px
+        margin: 0 0 14px
+        border: 0
+        border-bottom: 1px solid var(--world-edge)
+        font-size: 20px
+        font-weight: 600
+      &::before
+        display: none
+    > blockquote
+      margin: 0
+      padding: 0
+      border: 0
+      background: none
+      color: var(--world-ink)
+      font-size: 1em
+  .world-module-grid
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    align-items: stretch
+    gap: 16px
+    > .note.note
+      margin: 0
+      font-size: 15px
+      background: var(--world-soft)
+      h3, h4
+        font-size: 17px
+        margin: 0 0 12px
+        padding: 0 0 10px
+        border: 0
+        border-bottom: 1px solid var(--world-edge)
+  .world-layout-plan:not(.world-module-hero)
+    border-top: 2px solid var(--tone-cyan)
+    > .world-module-heading.note.note h3
+      display: flex
+      flex-wrap: wrap
+      align-items: baseline
+      gap: 6px 14px
+      .world-module-eyebrow
+        color: var(--world-muted)
+        font-size: 12px
+        font-weight: 500
+        letter-spacing: .025em
+      .world-module-title
+        color: var(--world-ink)
+        font-size: 22px
+    .world-plan-wish, .world-participation-step
+      margin-top: 18px
+      padding: 16px 18px
+      border-left: 2px solid var(--world-gold)
+      border-radius: 0 6px 6px 0
+      background: var(--world-soft)
+    .world-status-line, .world-welcome-line
+      display: inline-block
+      padding: 6px 12px
+      margin: 0
+      border: 1px solid var(--world-edge)
+      border-radius: 5px
+      background: var(--world-soft)
+      font-size: 13px
+      text-indent: 0
+      box-sizing: border-box
+      max-width: 100%
+  .world-layout-plan
+    --plan-accent: var(--tone-cyan)
+    --plan-wash: unquote('color-mix(in srgb, var(--plan-accent) 7%, var(--world-paper))')
+    .world-step-source-index, .world-module-delimiter
+      display: none
+    .world-triad-index
+      display: grid
+      grid-template-columns: repeat(3, minmax(0, 1fr))
+      padding: 20px 0
+      margin: 0 0 24px
+      border: 1px solid var(--world-edge)
+      border-radius: 8px
+      background: var(--plan-wash)
+    .world-triad-term
+      display: grid
+      justify-items: center
+      gap: 4px
+      padding: 0 10px
+      text-indent: 0
+      & + .world-triad-term
+        border-left: 1px solid var(--world-edge)
+      &::before
+        content: attr(data-label)
+        color: var(--world-ink)
+        font-size: 19px
+        font-weight: 600
+      &::after
+        content: attr(data-english)
+        color: var(--world-muted)
+        font: 10px/1.7 var(--world-code-font)
+        letter-spacing: .12em
+    .world-logo-details.world-paragraph-line, .world-logo-details.world-natural-paragraph
+      display: grid
+      grid-template-columns: repeat(3, minmax(0, 1fr))
+      gap: 14px
+      margin-top: 24px
+      text-indent: 0
+    .world-logo-detail
+      display: block
+      position: relative
+      padding: 18px
+      border: 1px solid var(--world-edge)
+      border-radius: 8px
+      background: var(--world-paper)
+      font-size: 14px
+      line-height: 1.85
+      &::before
+        content: attr(data-number)
+        display: block
+        margin-bottom: 12px
+        color: var(--plan-accent)
+        font: 30px/1.2 Georgia, serif
+        text-indent: 0
+    .world-plan-wish.world-paragraph-line, .world-plan-wish.world-natural-paragraph
+      padding: 20px 24px
+      border: 1px solid unquote('color-mix(in srgb, var(--plan-accent) 24%, var(--world-edge))')
+      border-radius: 8px
+      background: var(--plan-wash)
+      font-size: 15px
+      line-height: 2
+    .world-plan-task.world-paragraph-line, .world-plan-task.world-natural-paragraph
+      position: relative
+      margin: 18px 0 0
+      padding: 22px 24px 22px 70px
+      border: 1px solid var(--world-edge)
+      border-radius: 8px
+      background: var(--world-paper)
+      &::before
+        content: attr(data-sequence)
+        position: absolute
+        top: 25px
+        left: 22px
+        color: var(--plan-accent)
+        font: 24px/1.2 Georgia, serif
+        text-indent: 0
+      strong
+        color: var(--plan-accent)
+    .world-status-line.world-ui-copy, .world-welcome-line.world-ui-copy
+      color: var(--plan-accent)
+      background: var(--plan-wash)
+      border-color: unquote('color-mix(in srgb, var(--plan-accent) 22%, var(--world-edge))')
+    .world-participation-step.world-paragraph-line, .world-participation-step.world-natural-paragraph
+      position: relative
+      padding: 24px 24px 24px 70px
+      border: 1px solid var(--world-edge)
+      border-radius: 8px
+      background: var(--world-paper)
+      &::before
+        content: attr(data-step)
+        position: absolute
+        top: 28px
+        left: 22px
+        color: var(--plan-accent)
+        font: 24px/1.2 Georgia, serif
+        text-indent: 0
+      & + .world-paragraph-break + .world-participation-step::after
+        content: ''
+        position: absolute
+        left: 34px
+        top: -19px
+        height: 18px
+        border-left: 1px solid var(--plan-accent)
+    .world-plan-action
+      color: var(--world-link)
+      padding: 2px 4px
+      background: var(--world-soft)
+  .world-team-register
+    > .world-module-heading.note.note h3
+      padding-bottom: 18px
+      font-size: 24px
+    &::after
+      content: attr(data-people-count)
+      position: absolute
+      top: 22px
+      right: 28px
+      color: var(--world-muted)
+      font: 28px/1.5 Georgia, serif
+      opacity: .5
+  .world-people-grid
+    display: grid
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    align-items: start
+    gap: 16px
+  .world-module-hero
+    .photos-page
+      margin: 0
+    .photos-item > p
+      margin-bottom: 0
+  .world-layout-team
+    .world-person-card.note.note
+      margin: 0
+      background: var(--world-paper)
+      border-left: 1px solid var(--world-edge)
+      border-top: 2px solid var(--world-gold)
+      font-size: 15px
+      > summary
+        display: grid
+        grid-template-columns: 44px minmax(0, 1fr)
+        align-items: start
+        gap: 14px
+        box-sizing: border-box
+        min-height: 190px
+        padding: 22px 18px 16px
+        background: var(--world-paper)
+        font-size: 15px
+        font-weight: 400
+        position: relative
+        &::after
+          content: ''
+          position: absolute
+          right: 16px
+          bottom: 18px
+          width: 6px
+          height: 6px
+          border-right: 1px solid var(--world-muted)
+          border-bottom: 1px solid var(--world-muted)
+          transform: rotate(45deg)
+      &[open] > summary::after
+        transform: rotate(225deg)
+      .world-person-seal
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 44px
+        height: 44px
+        border: 1px solid var(--world-gold)
+        border-radius: 50%
+        background: var(--world-soft)
+        color: var(--world-ink)
+        font: 22px/1.2 Georgia, var(--world-ui-font)
+        &::before
+          content: attr(data-monogram)
+      .world-person-identity
+        min-width: 0
+        > p
+          display: block
+          margin: 0
+          line-height: 1.6
+      .world-person-label
+        display: block
+        color: var(--world-muted)
+        font-size: 11px
+        font-weight: 400
+      .world-person-name
+        display: block
+        color: var(--world-ink)
+        font-size: 20px
+        font-weight: 600
+        overflow-wrap: anywhere
+      .world-person-role
+        display: block
+        margin-top: 10px
+        color: var(--world-muted)
+        font-size: 13px
+        line-height: 1.8
+        strong
+          color: var(--world-ink)
+          font: inherit
+          font-weight: 500
+      .world-person-meta
+        grid-column: 1 / -1
+        padding-top: 12px
+        border-top: 1px solid var(--world-edge)
+        color: var(--world-muted)
+        font-size: 11px
+        line-height: 1.6
+        &::before
+          content: attr(data-date)
+      .world-person-date-source
+        position: absolute
+        width: 1px
+        height: 1px
+        overflow: hidden
+        clip-path: inset(50%)
+      > summary + *
+        margin-top: 16px
+      p
+        font-size: 15px
+    .world-step-label
+      display: block
+      color: var(--world-muted)
+      font: 11px/1.8 Consolas, var(--world-ui-font)
+      margin-bottom: 5px
+    .world-step-title
+      color: var(--world-ink)
+      font-size: 18px
+      font-weight: 600
+  .world-module-resource
+    display: grid
+    grid-template-columns: 56px minmax(0, 1fr) auto
+    align-items: center
+    gap: 18px
+    &::before
+      content: attr(data-file-kind)
+      display: flex
+      align-items: center
+      justify-content: center
+      box-sizing: border-box
+      width: 56px
+      height: 64px
+      border: 1px solid var(--world-edge)
+      border-top: 2px solid var(--world-gold)
+      border-radius: 6px
+      background: var(--world-soft)
+      color: var(--world-muted)
+      font: 11px/1.4 Consolas, var(--world-ui-font)
+      letter-spacing: .04em
+    .world-resource-copy
+      min-width: 0
+      .world-module-heading.note.note
+        border: 0
+        border-left-color: var(--note-accent)
+        padding: 0 !important
+        margin: 0 0 6px
+        background: none
+        &::before
+          display: none
+        h3
+          margin: 0
+          padding: 0
+          border: 0
+          font-size: 20px
+          font-weight: 600
+      blockquote
+        padding: 0
+        margin: 0
+        border: 0
+        background: none
+        color: var(--world-muted)
+        font-size: 14px
+        p
+          margin: 0
+          text-indent: 0
+        .world-paragraph-line
+          text-indent: 0
+          color: var(--world-muted)
+        br:last-child, .world-paragraph-line:empty
+          display: none
+    .world-resource-action
+      margin: 0
+      min-width: 0
+    .world-resource-link
+      display: inline-flex
+      align-items: center
+      gap: 12px
+      padding: 9px 14px
+      border: 1px solid var(--world-gold)
+      border-radius: 6px
+      background: var(--world-soft)
+      color: var(--world-ink)
+      font-size: 13px
+      line-height: 1.6
+      text-indent: 0
+      &::after
+        content: '↗'
+        font-size: 16px
+    .world-resource-link:hover, .world-resource-link:focus-visible
+      background: var(--world-hover)
+  .world-qr-trigger
+    display: inline-flex
+    align-items: center
+    gap: 10px
+    padding: 7px 12px
+    border: 1px solid var(--world-edge)
+    border-radius: 6px
+    background: var(--world-paper)
+    color: var(--world-ink)
+    font-size: 14px
+    text-indent: 0
+  .world-layout-about
+    .world-invitation-card.note.note
+      margin: 0 0 16px
+      padding: 24px
+      background: var(--world-soft)
+      h3
+        margin: 0 0 12px
+        padding: 0
+        border: 0
+        font-size: 26px
+    .reward-wrap
+      display: block
+      margin: 18px 0 0
+    .reward-item-content
+      display: flex
+      align-items: center
+      justify-content: space-between
+      flex-wrap: wrap
+      gap: 18px
+      position: relative
+      box-sizing: border-box
+      width: 100%
+      margin: 0 0 12px
+      padding: 28px 28px 28px 88px
+      border: 1px solid unquote('color-mix(in srgb, var(--tone-amber) 38%, var(--world-edge))')
+      border-radius: 8px
+      background: linear-gradient(115deg, unquote('color-mix(in srgb, var(--tone-amber) 7%, var(--world-paper))'), var(--world-paper) 62%)
+      color: var(--world-ink)
+      font-size: 14px
+      box-shadow: inset 0 0 0 5px var(--world-paper), inset 0 0 0 6px unquote('color-mix(in srgb, var(--tone-amber) 16%, var(--world-paper))')
+      &::before
+        content: ''
+        position: absolute
+        left: 30px
+        top: calc(50% - 16px)
+        width: 30px
+        height: 30px
+        border: 1px solid unquote('color-mix(in srgb, var(--tone-amber) 60%, var(--world-edge))')
+        border-radius: 3px
+        transform: rotate(45deg)
+        background: unquote('color-mix(in srgb, var(--tone-amber) 8%, var(--world-paper))')
+      &::after
+        content: ''
+        position: absolute
+        left: 40px
+        top: calc(50% - 6px)
+        width: 10px
+        height: 10px
+        border: 1px solid var(--tone-amber)
+        transform: rotate(45deg)
+    .reward-item-name
+      font: 600 18px/1.8 var(--world-ui-font)
+    .reward-item-time
+      display: flex
+      gap: 16px
+      align-items: center
+      margin: 0
+      color: var(--world-muted)
+    .reward-item-money
+      color: var(--tone-amber)
+      background: transparent
+      border: 0
+      border-right: 1px solid var(--world-edge)
+      border-radius: 0
+      padding: 3px 18px 3px 0
+      margin: 0
+      height: auto
+      font-size: 19px
+      line-height: 1.6
+      font-weight: 600
+      font-variant-numeric: tabular-nums
+    .world-contact-grid + .world-module-heading.note.note
+      margin-top: 28px
+
+@media (max-width: 767px)
+  .post-body .world-layout-plan
+    .world-triad-index
+      padding: 16px 0
+    .world-triad-term
+      padding: 0 6px
+      &::before
+        font-size: 16px
+      &::after
+        font-size: 8px
+        letter-spacing: .03em
+    .world-logo-details.world-paragraph-line, .world-logo-details.world-natural-paragraph
+      grid-template-columns: minmax(0, 1fr)
+    .world-logo-detail
+      padding: 16px 18px 16px 66px
+      &::before
+        position: absolute
+        top: 20px
+        left: 16px
+        font-size: 26px
+    .world-plan-task.world-paragraph-line, .world-plan-task.world-natural-paragraph, .world-participation-step.world-paragraph-line, .world-participation-step.world-natural-paragraph
+      padding: 58px 18px 18px
+      &::before
+        top: 18px
+        left: 18px
+      &::after
+        left: 28px
+    .world-plan-wish.world-paragraph-line, .world-plan-wish.world-natural-paragraph
+      padding: 18px
+  .post-body .world-layout-about .reward-item-content
+    padding: 22px 20px 22px 66px
+    gap: 8px
+    &::before
+      left: 23px
+      width: 24px
+      height: 24px
+      top: calc(50% - 12px)
+    &::after
+      left: 31px
+      width: 8px
+      height: 8px
+      top: calc(50% - 4px)
+    .reward-item-time
+      flex-wrap: wrap
+      gap: 8px 12px
+      font-size: 12px
+    .reward-item-money
+      font-size: 16px
+      padding-right: 12px
+  .post-body .world-module-grid
+    grid-template-columns: minmax(0, 1fr)
+  .post-body :is(.world-layout-plan,.world-layout-team,.world-layout-about) > .world-module-heading.note.note h3
+    font-size: 18px
+  .post-body .world-people-grid
+    grid-template-columns: minmax(0, 1fr)
+  .post-body .world-module-resource
+    grid-template-columns: 44px minmax(0, 1fr)
+    gap: 12px 14px
+    &::before
+      width: 44px
+      height: 52px
+    .world-resource-copy h3
+      font-size: 18px !important
+    .world-resource-action
+      grid-column: 2
+  .post-body .world-team-register::after
+    top: 18px
+    right: 18px
+  .post-body .world-layout-plan .world-module-heading.note.note .world-module-title
+    font-size: 20px
+
+@media (min-width: 768px) and (max-width: 991px)
+  .post-body .world-people-grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))

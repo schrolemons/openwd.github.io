@@ -9,10 +9,10 @@
 
   {% set result = tag_directory() %}
   <div class="post-block"><div class="content-directory directory-tag-results" data-tone="{{ result.tone }}">
-    <nav class="directory-breadcrumb" aria-label="标签路径"><a href="{{ url_for('tags/') }}">元素构建</a><span aria-hidden="true">/</span><span aria-current="page">{{ result.name | escape }}</span></nav>
-    <header class="directory-header"><span class="directory-eyebrow">第九边缘 · 主题阅读</span><h1>{{ result.name | escape }}</h1><div class="directory-stats"><span><b>{{ result.count }}</b> 篇相关文章</span>{% if page.total > 1 %}<span>第 {{ page.current }} / {{ page.total }} 页</span>{% endif %}</div></header>
+    <header class="directory-header"><nav class="directory-breadcrumb" aria-label="标签路径"><a href="{{ url_for('tags/') }}">元素构建</a><span aria-hidden="true">/</span><span aria-current="page">{{ result.name | escape }}</span></nav>
+    <span class="directory-eyebrow">第九边缘 · 主题阅读</span><h1>{{ result.name | escape }}</h1><div class="directory-stats"><span><b>{{ result.count }}</b> 篇相关文章</span>{% if page.total > 1 %}<span>第 {{ page.current }} / {{ page.total }} 页</span>{% endif %}</div></header>
     <div class="directory-tag-articles">{% for entry in result.entries %}
-      <article class="directory-tag-article"><span class="directory-tag-number" aria-hidden="true">{{ result.offset + loop.index }}</span><div class="directory-tag-article-copy"><a class="directory-entry-link" href="{{ url_for(entry.path) }}"{% if entry.external %} target="_blank" rel="noopener"{% endif %}><span>{{ entry.title | escape }}</span><span class="directory-entry-arrow" aria-hidden="true">→</span></a><div class="directory-tag-article-meta">{% for category in entry.categories %}<a href="{{ url_for(category.path) }}">{{ category.name | escape }}</a>{% if not loop.last %}<span aria-hidden="true">/</span>{% endif %}{% endfor %}</div></div><time datetime="{{ entry.date }}">{{ entry.date }}</time></article>
+      <article class="directory-tag-article" data-tone="{{ entry.tone }}"><span class="directory-tag-number" aria-hidden="true">{{ result.offset + loop.index }}</span><div class="directory-tag-article-copy"><a class="directory-entry-link" href="{{ url_for(entry.path) }}"{% if entry.external %} target="_blank" rel="noopener"{% endif %}><span>{{ entry.title | escape }}</span><span class="directory-entry-arrow" aria-hidden="true">→</span></a><div class="directory-tag-article-meta">{% for category in entry.categories %}<a href="{{ url_for(category.path) }}">{{ category.name | escape }}</a>{% if not loop.last %}<span aria-hidden="true">/</span>{% endif %}{% endfor %}</div></div><time datetime="{{ entry.date }}">{{ entry.date }}</time></article>
     {% endfor %}</div>
   </div></div>
 

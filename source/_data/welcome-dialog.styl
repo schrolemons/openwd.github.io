@@ -1,0 +1,112 @@
+// The homepage welcome uses the site's paper and restrained gold identity.
+// Keep these rules scoped: content dialogs still inherit their semantic tone.
+.swal-modal.world-welcome-dialog
+  --dialog-accent: var(--tone-amber)
+  --action-accent: var(--dialog-accent)
+  box-sizing: border-box
+  width: unquote('min(520px, calc(100vw - 40px))')
+  max-height: calc(100dvh - 40px)
+  overflow-y: auto
+  padding: 0
+  border: 1px solid var(--world-edge)
+  border-top: 2px solid unquote('color-mix(in srgb, var(--world-gold) 55%, var(--world-edge))')
+  border-radius: 12px
+  background: linear-gradient(135deg, unquote('color-mix(in srgb, var(--tone-amber) 4%, var(--world-paper))'), var(--world-paper) 65%)
+  color: var(--world-ink)
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .28), 0 4px 12px rgba(0, 0, 0, .10)
+
+  &::before, &::after
+    content: none
+    display: none
+
+  .swal-title
+    color: var(--world-ink)
+    font-size: 26px
+    font-weight: 600
+    line-height: 1.5
+    letter-spacing: .02em
+    margin: 0
+    padding: 32px 32px 0
+    text-align: left
+    overflow-wrap: anywhere
+
+  .world-welcome-greeting
+    display: block
+    color: var(--world-muted)
+    font-size: 12px
+    font-weight: 400
+    line-height: 1.8
+    letter-spacing: .18em
+    margin-bottom: 10px
+
+  .world-welcome-world
+    color: var(--tone-amber)
+    font: 32px/1.5 Georgia, 'Times New Roman', serif
+    letter-spacing: .04em
+
+  .swal-text
+    display: block
+    width: auto
+    max-width: none
+    color: var(--world-muted)
+    font-size: 13px
+    line-height: 1.8
+    margin: 14px 32px 28px
+    padding: 0
+    text-align: left
+
+  .swal-footer
+    display: flex
+    justify-content: flex-end
+    padding: 18px 32px
+    margin: 0
+    border-top: 1px solid var(--world-edge)
+    background: var(--world-soft)
+
+  .swal-button-container
+    margin: 0
+
+  .swal-button
+    min-width: 106px
+    min-height: 42px
+    padding: 9px 22px
+    border: 1px solid unquote('color-mix(in srgb, var(--world-gold) 70%, var(--tone-amber))')
+    border-radius: 6px
+    background: var(--world-gold)
+    color: #171717 !important
+    font: 500 14px/1.6 var(--world-ui-font)
+    letter-spacing: .12em
+    box-shadow: none
+
+    &:not([disabled]):hover
+      background: var(--world-gold)
+      border-color: var(--world-gold)
+      color: #171717 !important
+      box-shadow: 0 4px 14px rgba(255, 215, 0, .16), inset 0 0 0 1px rgba(255, 255, 255, .4)
+
+    &:focus
+      outline: none !important
+      outline-offset: 0 !important
+      box-shadow: none
+
+    &:focus-visible
+      // SweetAlert focuses this button on open; use a quiet, visible inset.
+      outline: 1px solid rgba(23, 23, 23, .55) !important
+      outline-offset: -4px !important
+      box-shadow: none
+
+@media (max-width: 480px)
+  .swal-modal.world-welcome-dialog
+    .swal-title
+      font-size: 22px
+      padding: 26px 24px 0
+
+    .world-welcome-world
+      font-size: 27px
+
+    .swal-text
+      font-size: 13px
+      margin: 12px 24px 24px
+
+    .swal-footer
+      padding: 16px 24px

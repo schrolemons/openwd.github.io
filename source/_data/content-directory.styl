@@ -1,41 +1,43 @@
 // Directory typography follows the site's note colours and heading rhythm.
 .content-directory, .sidebar-tag-cluster
-  --directory-accent: #7652a8
-  --directory-soft: #f4effb
-  --directory-edge: #ded0ef
-  --directory-ink: #29354a
-  --directory-muted: #737d8e
+  --directory-accent: var(--tone-violet)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
+  --directory-ink: var(--world-ink)
+  --directory-muted: var(--world-muted)
 
 [data-tone='violet']
-  --directory-accent: #7652a8
-  --directory-soft: #f4effb
-  --directory-edge: #ded0ef
+  --directory-accent: var(--tone-violet)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
 [data-tone='blue']
-  --directory-accent: #4771b5
-  --directory-soft: #edf3fd
-  --directory-edge: #ceddf3
+  --directory-accent: var(--tone-blue)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
 [data-tone='rose']
-  --directory-accent: #b85c7b
-  --directory-soft: #fdf0f4
-  --directory-edge: #f0d0dc
+  --directory-accent: var(--tone-rose)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
 [data-tone='cyan']
-  --directory-accent: #168ba0
-  --directory-soft: #eaf7fa
-  --directory-edge: #c4e8ef
+  --directory-accent: var(--tone-cyan)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
 [data-tone='amber']
-  --directory-accent: #a57625
-  --directory-soft: #fcf5e7
-  --directory-edge: #ebdcbc
+  --directory-accent: var(--tone-amber)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
 [data-tone='green']
-  --directory-accent: #468572
-  --directory-soft: #edf7f1
-  --directory-edge: #cbe6d9
+  --directory-accent: var(--tone-green)
+  --directory-soft: unquote('color-mix(in srgb, var(--directory-accent) 8%, var(--world-paper))')
+  --directory-edge: var(--world-edge)
 
 .main-inner.directory-page
-  opacity: .97
+  opacity: 1
 
 .directory-page .post-block
-  background: rgba(255, 255, 255, .94)
+  background: transparent
+  padding: 0
+  box-shadow: none
 
 .content-directory
   color: var(--directory-ink)
@@ -67,10 +69,10 @@
     transition: color .2s ease, background-color .2s ease, border-color .2s ease
 
   a:hover, button:hover
-    color: var(--directory-accent)
+    color: var(--directory-ink)
 
   a:focus-visible, button:focus-visible
-    outline: 2px solid var(--directory-accent)
+    outline: 2px solid var(--world-gold)
     outline-offset: 4px
     border-radius: 4px
 
@@ -79,10 +81,14 @@
     margin: 0
 
   .directory-header
+    background: var(--world-paper)
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    padding: 28px 32px
     position: relative
     margin-bottom: 26px
-    padding-bottom: 26px
-    border-bottom: 1px solid #e2e5ec
+    padding-bottom: 28px
+    border-bottom: 1px solid var(--world-edge)
 
   .directory-header::after
     content: ''
@@ -92,7 +98,7 @@
     width: 84px
     height: 3px
     border-radius: 2px
-    background: linear-gradient(90deg, #8b66be, #69bccc)
+    background: var(--world-gold)
 
   .directory-eyebrow
     display: block
@@ -111,7 +117,7 @@
   .directory-header h1::before
     display: inline-block
     content: '//'
-    color: #63aebf
+    color: var(--world-muted)
     font: 21px/1.4 Consolas, monospace
     letter-spacing: -.08em
 
@@ -168,13 +174,13 @@
     color: var(--directory-accent)
     background: var(--directory-soft)
     border: 1px solid var(--directory-edge)
-    border-radius: 20px
+    border-radius: 6px
     font-size: 13px
 
   .directory-jump a:hover, .directory-jump [aria-current]
-    background: var(--directory-accent)
-    border-color: var(--directory-accent)
-    color: white
+    background: var(--world-gold)
+    border-color: var(--world-gold)
+    color: #171717
 
   .directory-jump a > span
     font-size: 11px
@@ -185,12 +191,12 @@
     scroll-margin-top: 24px
 
   .directory-tree > .directory-section
-    margin-bottom: 34px
+    margin-bottom: var(--world-separator-gap)
     padding: 24px 26px
     border: 1px solid var(--directory-edge)
     border-top: 3px solid var(--directory-accent)
     border-radius: 12px
-    background: linear-gradient(115deg, var(--directory-soft), rgba(255, 255, 255, .96) 65%)
+    background: linear-gradient(115deg, var(--directory-soft), var(--world-paper) 65%)
     box-shadow: 0 5px 18px rgba(69, 56, 94, .025)
 
   .directory-section-heading
@@ -215,7 +221,7 @@
     width: 38px
     height: 38px
     border-radius: 10px
-    color: white
+    color: #171717
     background: var(--directory-accent)
     font-family: Georgia, serif
     font-size: 20px
@@ -283,7 +289,14 @@
 
   .directory-entry
     padding: 11px 0
-    border-bottom: 1px solid #e8e8f0
+    border-bottom: 1px solid var(--world-edge)
+
+  > .directory-entries
+    padding: 24px 26px
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    background: var(--world-paper)
+    margin-bottom: 26px
 
   .directory-entry:first-child
     padding-top: 0
@@ -291,6 +304,12 @@
   .directory-entry:last-child
     border: 0
     padding-bottom: 0
+
+  // Article rows follow the enclosing directory block, even when their source
+  // note assigned a different data-tone. Resource cards keep their own tone.
+  .directory-entry
+    --directory-accent: inherit
+    --directory-soft: inherit
 
   .directory-entry-link
     display: flex
@@ -364,7 +383,7 @@
     padding: 20px
     border: 1px solid var(--directory-edge)
     border-radius: 10px
-    background: linear-gradient(125deg, var(--directory-soft), rgba(255, 255, 255, .9))
+    background: linear-gradient(125deg, var(--directory-soft), var(--world-paper))
 
   .directory-category-grid > .directory-section .directory-section-symbol
     display: none
@@ -447,10 +466,17 @@
     margin-top: 38px
 
   .directory-addendum > .directory-section-heading
-    padding-bottom: 12px
-    border-bottom: 1px solid #e2e5ec
+    padding: 18px 22px
+    color: var(--world-ink)
+    background: var(--world-paper)
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    box-shadow: var(--world-shadow)
 
   .directory-addendum > .directory-section-heading h2
+    margin: 0
+    padding: 0
+    border: 0
     color: var(--directory-ink)
     font-size: 20px
 
@@ -466,7 +492,7 @@
     padding: 22px
     border: 1px solid var(--directory-edge)
     border-radius: 12px
-    background: linear-gradient(120deg, var(--directory-soft), rgba(255, 255, 255, .8))
+    background: linear-gradient(120deg, var(--directory-soft), var(--world-paper))
 
   .directory-collection-card:hover, .directory-folder-card:hover
     border-color: var(--directory-accent)
@@ -560,7 +586,7 @@
     border: 1px solid var(--directory-edge)
     border-left: 3px solid var(--directory-accent)
     border-radius: 12px
-    background: linear-gradient(110deg, var(--directory-soft), rgba(255, 255, 255, .9) 45%)
+    background: linear-gradient(110deg, var(--directory-soft), var(--world-paper) 45%)
 
   .directory-tag-group:first-child
     margin-top: 0
@@ -612,7 +638,7 @@
     padding: 17px
     border: 1px solid var(--directory-edge)
     border-radius: 10px
-    background: rgba(255, 255, 255, .88)
+    background: var(--world-paper)
 
   .directory-tag-row
     display: flex
@@ -677,6 +703,10 @@
 
   .directory-tag-footnote
     margin-top: 24px
+    padding: 14px 18px
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    background: var(--world-paper)
     font-size: 11px
     color: var(--directory-muted)
 
@@ -752,7 +782,7 @@
     padding: 23px
     border: 1px solid var(--directory-edge)
     border-radius: 12px
-    background: linear-gradient(135deg, var(--directory-soft), #fff 85%)
+    background: linear-gradient(135deg, var(--directory-soft), var(--world-paper) 85%)
     color: var(--directory-ink)
     text-align: left
     font-family: inherit
@@ -777,7 +807,7 @@
     width: 44px
     height: 44px
     border-radius: 10px
-    background: #fff
+    background: var(--world-paper)
     border: 1px solid var(--directory-edge)
     font-size: 17px
 
@@ -796,6 +826,7 @@
     width: 100%
     font-size: inherit
     padding: 23px
+    background: linear-gradient(135deg, var(--directory-soft), var(--world-paper) 85%)
 
   .directory-resource-arrow svg
     display: block
@@ -830,10 +861,18 @@
     margin-bottom: 32px
 
   .directory-resource-intro
-    margin-bottom: 30px
+    margin-bottom: 24px
+    padding: 18px 22px
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    background: var(--world-paper)
 
   .directory-resource-section > .directory-section-heading
     margin-bottom: 18px
+    padding: 18px 22px
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    background: var(--world-paper)
 
   .directory-resource-section .directory-section-heading h2
     display: flex
@@ -843,7 +882,7 @@
 // The original album uses negative margins; keep it in normal flow after navigation.
 .directory-article-page
   .content-directory.folder-navigation
-    background: rgba(255, 255, 255, .96)
+    background: var(--world-paper)
     border-top: 3px solid var(--directory-accent)
     border-left-width: 1px
     margin-bottom: 32px
@@ -861,7 +900,7 @@
     display: block
     overflow: hidden
     border-radius: 12px
-    background: #171720
+    background: var(--world-ink)
     pointer-events: none
 
   .post-body .photos-page .photos-column a img
@@ -882,7 +921,7 @@
     border-radius: 0
     box-shadow: none
     background: transparent
-    color: #737d8e
+    color: var(--world-muted)
     font-size: 14px
     text-align: center
 
@@ -928,7 +967,7 @@
     font-size: 12px
     border: 1px solid var(--directory-edge)
     border-radius: 7px
-    background: rgba(255, 255, 255, .8)
+    background: var(--world-paper)
 
   .folder-article-link .fa
     color: var(--directory-accent)
@@ -946,7 +985,7 @@
 .sidebar-tag-cluster
   padding-top: 22px
   margin-top: 22px
-  border-top: 1px solid rgba(124, 94, 163, .15)
+  border-top: 1px solid var(--world-edge)
   text-align: left
 
   .sidebar-tag-heading
@@ -961,14 +1000,14 @@
     font-size: 16px
     font-weight: 600
     letter-spacing: .04em
-    color: #555069
+    color: var(--world-muted)
 
   .sidebar-tag-heading > a
     position: absolute
     right: 0
     font-size: 14px
     border: 0
-    color: #967eb7
+    color: var(--world-muted)
     padding: 2px 5px
 
   .sidebar-tag-group
@@ -979,7 +1018,7 @@
 
   .sidebar-tag-group h4
     margin: 0 0 8px
-    color: #8a8297
+    color: var(--world-muted)
     font-size: 10px
     font-weight: 400
     letter-spacing: .12em
@@ -1006,9 +1045,9 @@
     transition: background-color .18s, border-color .18s
 
   .sidebar-tag-link:hover, .sidebar-tag-link:focus-visible
-    color: white
-    background: var(--directory-accent)
-    border-color: var(--directory-accent)
+    color: #171717
+    background: var(--world-gold)
+    border-color: var(--world-gold)
     outline: none
 
   .sidebar-tag-count
@@ -1016,15 +1055,16 @@
     opacity: .75
 
 .directory-qr-dialog
+  box-sizing: border-box
   width: 380px
   max-width: calc(100vw - 40px)
   max-height: calc(100vh - 40px)
   padding: 32px
-  border: 1px solid #cce4e8
-  border-radius: 18px
-  background: #fff
+  border: 1px solid var(--world-edge)
+  border-radius: 8px
+  background: var(--world-paper)
   box-shadow: 0 15px 70px rgba(27, 45, 60, .2)
-  color: #29354a
+  color: var(--world-ink)
   text-align: center
   overflow: auto
 
@@ -1046,11 +1086,11 @@
 
   p
     margin: 0 0 12px
-    color: #737d8e
+    color: var(--world-muted)
     font-size: 13px
 
   a
-    color: #168ba0
+    color: var(--tone-cyan)
     font-size: 12px
     border: 0
 
@@ -1063,7 +1103,7 @@
     padding: 5px
     border: 0
     background: transparent
-    color: #737d8e
+    color: var(--world-muted)
     cursor: pointer
 
 @media (max-width: 1100px)
@@ -1074,7 +1114,7 @@
 
 @media (max-width: 767px)
   .directory-page .post-block
-    padding: 24px 20px
+    padding: 0
   .content-directory
     .directory-header h1
       font-size: 27px
@@ -1086,7 +1126,7 @@
       margin-left: 0
     .directory-tree > .directory-section
       padding: 20px 18px
-      margin-bottom: 24px
+      margin-bottom: var(--world-separator-gap)
     .directory-section-heading h2
       font-size: 21px
       gap: 10px

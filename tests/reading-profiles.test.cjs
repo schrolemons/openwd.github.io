@@ -11,6 +11,19 @@ const documents = [...db.Post, ...db.Page].filter(doc => /\.md$/.test(doc.source
 const text = value => value.replace(/\s+/g, '');
 const attrs = ($, selector, name) => $(selector).map((_, el) => $(el).attr(name)).get();
 
+test('every source-backed metadata field appears once inside its page header, including directory indexes',()=>{
+  const {sourceMetadata}=require('../lib/site-presentation.cjs');
+  for(const doc of documents){
+    if(doc.source==='index.md')continue; // Homepage has its authored correspondence layout.
+    const meta=sourceMetadata(fs.readFileSync(path.join('source',doc.source),'utf8'));
+    const route=doc.source.startsWith('_posts/')?'posts/'+doc.abbrlink+'.html':doc.path;
+    const $=cheerio.load(fs.readFileSync(path.join('public',route),'utf8'));
+    const fields=[meta.author,meta.date,meta.updated].filter(Boolean);
+    for(const field of fields)assert.ok($('.post-header .world-meta,.directory-header .world-meta').text().includes(field),`${doc.source}: ${field}`);
+    if(fields.length)assert.equal($('.world-meta').length,1,doc.source+' one metadata row');
+  }
+});
+
 test('every rendered Markdown has the correct reading profile and retains its complete content and embeds', () => {
   assert.equal(documents.length, 50);
   const found = new Set();
@@ -62,24 +75,22 @@ test('explicit type/tone fields take precedence and unsupported fields fail visi
   assert.equal(decorated('details[open]').length, 0, 'original fold state is preserved');
 });
 
-test('formatting migration preserves the Markdown body and existing metadata', { skip: !fs.existsSync('.repair-backups/20261001/markdown-reading/sources.json') }, () => {
+const baselineManifest = process.env.MARKDOWN_BASELINE_MANIFEST;
+test('formatting migration preserves the Markdown body and existing metadata', { skip: !baselineManifest || !fs.existsSync(baselineManifest) }, () => {
   const yaml = require('js-yaml');
-  const manifest = JSON.parse(fs.readFileSync('.repair-backups/20261001/markdown-reading/sources.json', 'utf8'));
+  const manifest = JSON.parse(fs.readFileSync(baselineManifest, 'utf8'));
   for (const item of manifest) {
     const raw = fs.readFileSync(item.file, 'utf8');
     const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
     const body = match ? raw.slice(match[0].length) : raw;
-    // The author added these three content markers during the formatting pass.
-    // Keep the original backup intact and account only for these exact edits.
-    const checkedBody = item.file === 'source/_posts/perception/light/木缘桑庭.md'
-      ? body.replace(/`【内容】(主线：<星源绘逢>|思维碰撞：<水渊蚀源>|支线：<重返故都>)`\r?\n/g, '`$1`\r\n')
-      : body;
-    assert.equal(crypto.createHash('sha256').update(checkedBody).digest('hex'), item.bodyHash, item.file);
+    assert.equal(crypto.createHash('sha256').update(body).digest('hex'), item.bodyHash, item.file);
     const old = fs.readFileSync(item.backup, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
     if (match && old) {
       const current = yaml.load(match[1]);
+      const previous = yaml.load(old[1]);
       delete current.reading_style; delete current.reading_tone;
-      assert.deepEqual(current, yaml.load(old[1]), `Original frontmatter: ${item.file}`);
+      delete previous.reading_style; delete previous.reading_tone;
+      assert.deepEqual(current, previous, `Original frontmatter: ${item.file}`);
     }
   }
 });

@@ -1,0 +1,154 @@
+// Shared interaction language. Existing category/type colours remain semantic.
+
+a, button, [role='button'], summary, input[type='button'], input[type='submit']
+  -webkit-tap-highlight-color: rgba(255,215,0,.25)
+  transition: color .2s, background-color .2s, border-color .2s, box-shadow .24s, transform .24s var(--interaction-ease)
+
+:is(a, button, [role='button'], summary, input[type='button'], input[type='submit']):focus-visible
+  outline: 2px solid var(--interaction-gold) !important
+  outline-offset: 4px !important
+
+// Inline links stay inline, including wrapped links; image links and tabs are excluded.
+.post-body p a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.post-body li a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.post-body td a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.post-body dd a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.directory-breadcrumb a, .directory-stats a, .directory-tag-preview-link,
+.directory-tag-all, .guide-era-nav a, .guide-article h3 a,
+.post-title-link, .post-nav a, .post-toc a, .links-of-author a, .footer a
+  border-radius: 3px
+  box-decoration-break: clone
+  -webkit-box-decoration-break: clone
+  background-image: linear-gradient(var(--interaction-wash), var(--interaction-wash))
+  background-size: 0% 100%
+  background-repeat: no-repeat
+  transition: color .2s, border-color .2s, background-color .2s, background-size .24s var(--interaction-ease)
+
+  &:hover, &:focus-visible
+    background-color: transparent
+    background-size: 100% 100%
+    border-bottom-color: var(--interaction-gold)
+    text-decoration-color: var(--interaction-gold)
+    text-underline-offset: 4px
+
+  &:active
+    background-color: rgba(255,215,0,.15)
+
+// Navigation and content controls share motion without changing their type colours.
+.menu-item a, .pagination a, .sidebar-tag-link, .folder-article-link,
+.content-directory .directory-jump a, .content-directory .directory-resource-card,
+.content-directory .directory-folder-card, .content-directory .directory-collection-card,
+.content-directory .directory-entry-link, .content-directory .directory-tag-row,
+.content-directory .directory-category-links a,
+.world-reading-guide .guide-content-item, .post-body .nav-tabs .tab a,
+button:where(:not(:disabled):not(.swal-button):not(.btn):not(.world-theme-toggle)), [role='button']:not([aria-disabled='true']),
+.reading-prose summary, .guide-detail > summary
+  transition: color .2s, background-color .2s, border-color .2s, box-shadow .24s, transform .24s var(--interaction-ease)
+
+  &:hover, &:focus-visible
+    box-shadow: 0 3px 14px rgba(255,215,0,.16)
+    transform: translateY(-2px)
+
+  &:active
+    transform: translateY(0) scale(.99)
+    box-shadow: none
+
+.menu-item a, .pagination a, .post-body .nav-tabs .tab a, .reading-prose summary, .guide-detail > summary
+  &:hover, &:focus-visible
+    background-color: var(--world-hover)
+
+.menu-item-active a, .post-body .nav-tabs .tab.active a
+  background-color: var(--world-selected)
+  color: var(--world-ink)
+  box-shadow: inset 2px 0 var(--world-gold)
+
+.post-toc a, .guide-era-nav a, .guide-article h3 a
+  background-image: none
+  &:hover, &:focus-visible
+    color: var(--world-ink)
+    background-color: var(--world-hover)
+    background-image: none
+
+.world-reading-guide .guide-content-item
+  &:hover, &:focus-visible
+    background: var(--world-hover)
+    border-color: var(--world-edge)
+    color: var(--world-ink)
+
+// The article title/arrow pair gives direction without moving a whole text row.
+.content-directory .directory-entry-link
+  &:hover, &:focus-visible
+    transform: none
+    background-color: var(--world-hover)
+    box-shadow: none
+
+// Content hover inherits its own note/type colour; the site navigation stays neutral.
+.world-reading-guide .guide-content-item,
+.world-reading-guide .guide-article h3 a,
+.world-reading-guide .guide-detail > summary,
+.content-directory .directory-entry-link,
+.content-directory .directory-tag-preview-link,
+.content-directory .directory-folder-card,
+.content-directory .directory-collection-card,
+.content-directory .directory-tag-row,
+.content-directory .directory-category-links a,
+.content-directory .directory-section-heading a,
+.content-directory .folder-article-link,
+.post-nav [data-tone] a
+  &:hover, &:focus-visible
+    color: var(--directory-accent)
+    background-color: unquote('color-mix(in srgb, var(--directory-accent) 12%, var(--world-paper))')
+    background-image: none
+    border-color: unquote('color-mix(in srgb, var(--directory-accent) 40%, var(--world-edge))')
+    box-shadow: none
+    outline-color: var(--directory-accent) !important
+
+// Prose links retain their underline and add a coloured surface and text response.
+.post-body p a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.headerlink):not(.world-qr-trigger):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.post-body li a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.headerlink):not(.world-qr-trigger):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.post-body td a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.headerlink):not(.world-qr-trigger):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a)),
+.post-body dd a:where(:not(:has(img)):not(.btn):not(.fancybox):not(.headerlink):not(.world-qr-trigger):not(.tab a):not(.directory-entry-link):not(.guide-content-item):not(.world-home a))
+  &:hover, &:focus-visible
+    color: var(--world-link-hover)
+    background-color: var(--world-link-wash)
+    background-image: none
+    border-bottom: 1px solid currentColor
+    text-decoration: none
+    box-shadow: 3px 0 0 var(--world-link-wash), -3px 0 0 var(--world-link-wash)
+
+.sidebar-tag-link:hover, .sidebar-tag-link:focus-visible
+  transform: none
+
+.directory-entry-arrow, .directory-folder-arrow, .directory-resource-arrow,
+.guide-content-arrow, .menu-item a .fa
+  transition: transform .24s var(--interaction-ease), opacity .24s
+
+.directory-entry-link:hover .directory-entry-arrow,
+.directory-entry-link:focus-visible .directory-entry-arrow,
+.directory-folder-card:hover .directory-folder-arrow,
+.directory-folder-card:focus-visible .directory-folder-arrow,
+.guide-content-item:hover .guide-content-arrow,
+.guide-content-item:focus-visible .guide-content-arrow
+  transform: translateX(3px)
+  opacity: 1
+
+.directory-resource-card:hover .directory-resource-arrow,
+.directory-resource-card:focus-visible .directory-resource-arrow
+  transform: translate(2px, -2px)
+
+.menu-item a:hover .fa, .menu-item a:focus-visible .fa
+  transform: translateX(2px)
+
+button:disabled, [aria-disabled='true']
+  transform: none !important
+  box-shadow: none !important
+
+@media (prefers-reduced-motion: reduce)
+  a, a *, button, button *, [role='button'], summary, input[type='button'], input[type='submit']
+    transition: none !important
+    animation: none !important
+
+  a:hover, a:focus-visible, a:active, button:hover, button:focus-visible, button:active,
+  [role='button']:hover, summary:hover, summary:focus-visible,
+  a:hover *, a:focus-visible *, button:hover *, button:focus-visible *
+    transform: none !important

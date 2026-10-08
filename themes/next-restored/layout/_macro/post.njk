@@ -2,7 +2,7 @@
 {### POST BLOCK ###}
 {##################}
 
-<div class="post-block">
+<div class="post-block{% if is_index %} post-preview{% endif %}">
   {% set reading = reading_profile(post) %}
   {# Gallery support #}
   {{ post_gallery(post.photos) }}
@@ -68,6 +68,7 @@
     {% if not is_index %}{{ partial('_partials/page/folder-navigation.njk') }}{% endif %}
     <div class="post-body{% if post.path === 'posts/24.html' %} reading-guide-body{% endif %}{% if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{% endif %}" itemprop="articleBody">
       {%- if is_index %}
+        {% if reading %}<div class="reading-prose reading-preview">{% endif %}
         {%- if post.description and theme.excerpt_description %}
           <p>{{ post.description }}</p>
           <!--noindex-->
@@ -93,9 +94,10 @@
         {% else %}
           {{ post.content }}
         {%- endif %}
+        {% if reading %}</div>{% endif %}
       {% else %}
         {{- next_inject('postBodyStart') }}
-        {% if post.path === 'posts/25.html' %}{{ partial('resource-entrances.njk') }}{% elif post.path === 'posts/24.html' %}{{ world_reading_guide(post.content) }}{% elif reading %}<div class="reading-prose">{{ reading_content(post.content) }}</div>{% else %}{{- post.content }}{% endif %}
+        {% if post.path === 'posts/25.html' %}{{ partial('resource-entrances.njk') }}{% elif post.path === 'posts/24.html' %}{{ world_reading_guide(post.content) }}{% elif reading %}<div class="reading-prose">{{ reading_content(post.content, reading.style) }}</div>{% else %}{{- post.content }}{% endif %}
       {%- endif %}
     </div>
 
@@ -113,8 +115,8 @@
           {{ partial('_partials/post/post-reward.njk') }}
         {%- endif %}
 
-        {%- if theme.creative_commons.license and theme.creative_commons.post and post.copyright !== false %}
-          {{ partial('_partials/post/post-copyright.njk') }}
+        {%- if world_copyright_enabled(post, theme.creative_commons) %}
+          {{ partial('_partials/post/post-copyright.njk', {page: post}) }}
         {%- endif %}
 
         {%- if theme.follow_me %}
@@ -129,14 +131,14 @@
           {%- set prev = post.prev if theme.post_navigation === 'right' else post.next %}
           {%- set next = post.next if theme.post_navigation === 'right' else post.prev %}
           <div class="post-nav">
-            <div class="post-nav-item">
+            <div class="post-nav-item"{% if prev %} data-tone="{{ world_feature_tone(prev) }}"{% endif %}>
               {%- if prev %}
                 <a href="{{ url_for(prev.path) }}" rel="prev" title="{{ prev.title }}">
                   <i class="fa fa-angle-left"></i> {{ prev.title }}
                 </a>
               {%- endif %}
             </div>
-            <div class="post-nav-item">
+            <div class="post-nav-item"{% if next %} data-tone="{{ world_feature_tone(next) }}"{% endif %}>
               {%- if next %}
                 <a href="{{ url_for(next.path) }}" rel="next" title="{{ next.title }}">
                   {{ next.title }} <i class="fa fa-angle-right"></i>
@@ -149,8 +151,8 @@
 
         </center></div>
       {%- endif %}
-      <div style="text-align:center;color: #008080;font-size:20px;">
-      ---------------- POWERED BY SCHNIE ----------------
+      <div class="world-endnote">
+      <span>POWERED BY SCHNIE</span>
       </div>
     </footer>
   </article>

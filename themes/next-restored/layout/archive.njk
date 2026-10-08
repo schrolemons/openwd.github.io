@@ -8,6 +8,7 @@
   <div class="post-block"><div class="content-directory">
     <header class="directory-header">
       <span class="directory-eyebrow">第九边缘 · 文明档案</span><h1>世界总览</h1><p>从文明到主题，再走进每一篇记录。</p>
+      {{ partial('_partials/world-meta.njk', {document: page}) }}
       <div class="directory-stats"><span><b>{{ site.posts.length }}</b> 篇文章</span><span><b>{{ tree.roots.length }}</b> 个文明分区</span><a href="{{ url_for('categories/') }}">分类导航 <span aria-hidden="true">↗</span></a></div>
     </header>
     <nav class="directory-jump" aria-label="文明分区导航">{% for node in tree.roots %}{% if node.count %}<a data-tone="{{ node.tone }}" href="#{{ node.anchor }}">{{ node.name | escape }}<span>{{ node.count }}</span></a>{% endif %}{% endfor %}</nav>

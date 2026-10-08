@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { presentStandalone } = require('../lib/standalone-presentation.cjs');
 
 function findStandaloneDirs(sourceDir) {
   const results = [];
@@ -52,7 +53,8 @@ function copyDir(src, dest) {
     if (entry.isDirectory()) {
       copyDir(srcPath, destPath);
     } else {
-      fs.copyFileSync(srcPath, destPath);
+      if (entry.name === 'index.html') fs.writeFileSync(destPath, presentStandalone(fs.readFileSync(srcPath, 'utf8')));
+      else fs.copyFileSync(srcPath, destPath);
     }
   }
 }
@@ -96,7 +98,7 @@ function processRedirect(dir, relPath, publicDir, hexo) {
 
     const html = '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<script>window.open("https://' + domainTarget + '","_blank");</script>\n<title>Redirecting...</title>\n</head>\n<body style="text-align:center;padding-top:60px;font-family:sans-serif;background:#f8fafc;">\n<p style="color:#64748b;">Redirecting to <a href="https://' + domainTarget + '" target="_blank" style="color:#3b82f6;">' + domainTarget + '</a>...</p>\n</body>\n</html>';
 
-    fs.writeFileSync(path.join(outDir, 'index.html'), html);
+    fs.writeFileSync(path.join(outDir, 'index.html'), presentStandalone(html));
     hexo.log.info('Redirect: ' + relPath + '/');
   }
 
@@ -152,7 +154,7 @@ hexo.extend.filter.register('server_middleware', function(app) {
       app.use(r.urlPath, function(req, res) {
         const html = '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<script>window.open("https://' + target + '","_blank");</script>\n<title>Redirecting…</title>\n</head>\n<body style="text-align:center;padding-top:60px;font-family:sans-serif;background:#f8fafc;">\n<p style="color:#64748b;">Redirecting to <a href="https://' + target + '" target="_blank" style="color:#3b82f6;">' + target + '</a>…</p>\n</body>\n</html>';
         res.setHeader('Content-Type', 'text/html');
-        res.end(html);
+        res.end(presentStandalone(html));
       });
       hexo.log.info('[redirect] mounted: ' + r.urlPath + ' -> ' + target);
     }
@@ -203,7 +205,8 @@ hexo.extend.filter.register('server_middleware', function(app) {
 
       const ext = path.extname(fullPath).toLowerCase();
       res.setHeader('Content-Type', mimeMap[ext] || 'application/octet-stream');
-      fs.createReadStream(fullPath).pipe(res);
+      if (ext === '.html') res.end(presentStandalone(fs.readFileSync(fullPath, 'utf8')));
+      else fs.createReadStream(fullPath).pipe(res);
     });
 
     hexo.log.info('[standalone] mounted: ' + urlPrefix + ' -> ' + d.relPath);

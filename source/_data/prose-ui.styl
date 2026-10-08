@@ -1,0 +1,351 @@
+// Shared prose rules, independent of source folder and container depth.
+.post-body .reading-prose:has(> .world-content-section)
+  box-sizing: border-box
+  padding: 0
+  background: transparent
+  border: 0
+
+// Authored Markdown separators are open space between paper sections.
+.post-body hr, .world-standalone hr
+  height: var(--world-separator-gap)
+  margin: 0
+  border: 0
+  background: transparent
+  &::before, &::after
+    display: none
+
+// One shared gap, matching the overview; no chapter margins stacked on the break.
+.post-body .reading-prose > .world-prose-section:has(+ hr.world-section-break), .world-standalone .menu-article-body > .world-content-section.world-prose-section:has(+ hr)
+  margin-bottom: 0
+.post-body .reading-prose > hr.world-section-break + .world-prose-section, .world-standalone .menu-article-body > hr + .world-content-section.world-prose-section
+  margin-top: 0
+
+.post-body, .world-standalone .menu-article-body
+  --prose-accent: var(--world-link-hover)
+
+  .world-content-section, .world-content-panel
+    --prose-accent: unquote('color-mix(in srgb, var(--content-accent) 90%, var(--world-ink))')
+  .note.note
+    --prose-accent: unquote('color-mix(in srgb, var(--note-accent) 90%, var(--world-ink))')
+  .md-note
+    --prose-accent: unquote('color-mix(in srgb, var(--tone-blue) 90%, var(--world-ink))')
+    &.md-note-primary
+      --prose-accent: unquote('color-mix(in srgb, var(--tone-violet) 90%, var(--world-ink))')
+    &.md-note-success
+      --prose-accent: unquote('color-mix(in srgb, var(--tone-green) 90%, var(--world-ink))')
+    &.md-note-warning
+      --prose-accent: unquote('color-mix(in srgb, var(--tone-amber) 90%, var(--world-ink))')
+    &.md-note-danger
+      --prose-accent: unquote('color-mix(in srgb, var(--tone-rose) 90%, var(--world-ink))')
+
+.post-body .reading-prose, .post-body .world-reading-guide, .post-body .world-reading-guide .guide-article, .world-standalone .menu-article-body
+  a:where(:not(.btn):not(.headerlink):not(.fancybox):not(.world-qr-trigger):not(.directory-entry-link):not(.guide-content-item):not(.world-home a):not(.guide-era-nav a):not(.nav-tabs a):not(:has(img)))
+    --prose-link-wash: unquote('color-mix(in srgb, var(--prose-accent) 12%, var(--world-paper))')
+    color: var(--world-link)
+    font-weight: 600
+    border-bottom: 1px solid currentColor
+    border-radius: 3px
+    text-decoration: none
+    background-image: none
+    box-decoration-break: clone
+    -webkit-box-decoration-break: clone
+    &:hover, &:focus-visible
+      color: var(--prose-accent)
+      background-color: var(--prose-link-wash)
+      background-image: none
+      border-bottom-color: currentColor
+      box-shadow: 3px 0 0 var(--prose-link-wash), -3px 0 0 var(--prose-link-wash)
+      outline-color: var(--prose-accent) !important
+
+  .world-entry-paragraph, .world-entry-paragraph > .world-paragraph-line
+    text-indent: 0
+
+// Quotes keep their original line breaks while reading as deliberate emphasis.
+.post-body .reading-prose blockquote.world-emphasis-quote, .post-body .world-reading-guide blockquote, .world-standalone .menu-article-body blockquote
+  padding: 22px 24px
+  margin: 26px 0
+  border: 1px solid unquote('color-mix(in srgb, var(--prose-accent) 20%, transparent)')
+  border-radius: 6px
+  color: unquote('color-mix(in srgb, var(--prose-accent) 65%, var(--world-ink))')
+  background: unquote('color-mix(in srgb, var(--prose-accent) 7%, transparent)')
+  font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif
+  font-size: 1.02em
+  line-height: 2
+  text-align: center
+  box-shadow: none
+  p, .world-paragraph-line
+    text-align: center
+    text-indent: 0
+    padding-inline: 0
+  p
+    max-width: 44em
+    margin: 0 auto 1em
+    &:last-child
+      margin-bottom: 0
+
+// Opt-in numbered explanations use spacing and a small marker, not repeated boxes.
+.post-body, .world-standalone .menu-article-body
+  .world-content-panel.world-content-steps
+    padding: 0
+    border: 0
+    background: transparent
+  // Parallel question modules share one open, unboxed heading role.
+  .world-content-panel.world-content-plain
+    padding: 0
+    margin: 28px 0
+    border: 0
+    background: transparent
+    box-shadow: none
+    > h4
+      font-size: 1.08em
+      line-height: 1.65
+      padding: 0 0 0 12px
+      margin: 0 0 18px
+      border: 0
+      border-left: 3px solid var(--content-accent)
+      border-radius: 0
+      background: transparent
+      color: unquote('color-mix(in srgb, var(--content-accent) 90%, var(--world-ink))')
+  // Subsections get a shared caption; the original heading remains the caption text.
+  .world-content-panel.world-content-group
+    padding: 0
+    margin: 0
+    border: 0
+    background: transparent
+    box-shadow: none
+    > h3
+      margin: 0 0 24px
+      padding: 10px 14px
+      border: 0
+      border-left: 3px solid var(--content-accent)
+      border-radius: 0 4px 4px 0
+      background: unquote('color-mix(in srgb, var(--content-accent) 7%, var(--world-paper))')
+      color: unquote('color-mix(in srgb, var(--content-accent) 90%, var(--world-ink))')
+      font-size: 1.18em
+      line-height: 1.65
+    > .world-content-panel:last-child
+      margin-bottom: 0
+  // Question boundaries are a component rule; Markdown hr remains open whitespace.
+  .world-content-panel.world-content-separated
+    margin-top: 24px
+    padding-top: 24px
+    border-top: 1px solid unquote('color-mix(in srgb, var(--content-accent) 35%, var(--world-edge))')
+    &:first-of-type
+      margin-top: 0
+  // Compact dimensions keep the source's ordered list, with only a small tone marker.
+  .world-content-panel.world-content-compact
+    padding: 0
+    margin: 0
+    border: 0
+    background: transparent
+    box-shadow: none
+    > h5
+      margin: 0 0 10px
+      padding: 0 0 0 10px
+      border: 0
+      border-left: 2px solid var(--content-accent)
+      font-size: .96em
+      line-height: 1.65
+    ol
+      margin: 0
+      padding-left: 1.65em
+      font-size: .96em
+      line-height: 1.85
+    li
+      margin: 0
+      & + li
+        margin-top: 6px
+    li::marker
+      color: var(--content-accent)
+      font-weight: 600
+  .world-content-grid:has(> .world-content-compact)
+    gap: 22px 28px
+    align-items: start
+    margin: 20px 0 24px
+  .world-content-grid.world-content-framed
+    box-sizing: border-box
+    padding: 20px 22px
+    border: 1px solid var(--world-ink)
+    border-radius: 4px
+    background: transparent
+    box-shadow: none
+  .world-content-step
+    padding: 24px 0
+    border-bottom: 1px solid var(--world-edge)
+    &:last-child
+      padding-bottom: 0
+      border-bottom: 0
+    > h5
+      display: flex
+      align-items: center
+      gap: 12px
+      padding: 0
+      margin: 0 0 18px
+      color: unquote('color-mix(in srgb, var(--content-accent) 85%, var(--world-ink))')
+      font: 600 .96em/1.6 var(--world-ui-font)
+      border: 0
+      position: relative
+      > .headerlink
+        position: absolute
+        inset-inline-start: -18px
+        top: 50%
+        transform: translateY(-50%)
+        display: grid
+        place-items: center
+        width: 16px
+        height: 24px
+        padding: 0
+        margin: 0
+        float: none
+        font-size: 12px
+        line-height: 1
+    > :last-child
+      margin-bottom: 0
+    > h5::before
+      display: inline-grid
+      place-items: center
+      content: counter(world-step)
+      flex: 0 0 30px
+      height: 30px
+      border-radius: 50%
+      border: 1px solid unquote('color-mix(in srgb, var(--content-accent) 35%, var(--world-edge))')
+      background: unquote('color-mix(in srgb, var(--content-accent) 9%, var(--world-paper))')
+      font: 600 14px/1 var(--world-ui-font)
+  .world-content-step-list
+    counter-reset: world-step
+    > .world-content-step
+      counter-increment: world-step
+
+  // Chronological entries connect marker centres; the last entry has no tail.
+  .world-content-panel.world-content-timeline
+    .world-content-step
+      position: relative
+      padding: 20px 0
+      border-bottom: 0
+      &:not(:last-child)::before
+        content: ''
+        position: absolute
+        inset-inline-start: 15px
+        top: 36px
+        bottom: -36px
+        width: 2px
+        background: unquote('color-mix(in srgb, var(--content-accent) 25%, var(--world-edge))')
+      > h5
+        margin-bottom: 12px
+        &::before
+          position: relative
+          z-index: 1
+          box-sizing: border-box
+          flex-basis: 32px
+          height: 32px
+      > p, > .world-natural-paragraph, > .world-paragraph-line
+        margin-inline-start: 44px
+        text-indent: 0
+
+  // Short metadata reads as a label plus wrapping, non-interactive terms.
+  .world-content-panel.world-content-tags
+    display: grid
+    grid-template-columns: 4em minmax(0, 1fr)
+    gap: 14px
+    align-items: start
+    > h5
+      margin: 4px 0 0
+      padding: 0
+      border: 0
+      position: relative
+      white-space: nowrap
+      font-size: .9em
+      line-height: 1.8
+      color: var(--world-muted)
+      > .headerlink
+        position: absolute
+        inset-inline-start: -18px
+        top: 50%
+        transform: translateY(-50%)
+        display: grid
+        place-items: center
+        width: 16px
+        height: 24px
+        padding: 0
+        margin: 0
+        float: none
+        font-size: 12px
+        line-height: 1
+    > ul
+      display: flex
+      flex-wrap: wrap
+      justify-content: flex-start
+      gap: 8px
+      padding: 0
+      margin: 0
+      list-style: none
+      > li
+        margin: 0
+        padding: 4px 11px
+        border: 1px solid unquote('color-mix(in srgb, var(--content-accent) 18%, var(--world-edge))')
+        border-radius: 999px
+        background: unquote('color-mix(in srgb, var(--content-accent) 5%, var(--world-paper))')
+        color: var(--world-ink)
+        font-size: .88em
+        line-height: 1.65
+        overflow-wrap: anywhere
+
+  .reading-prose .btn
+    display: inline-block
+    padding: 2px 10px
+    margin: 0 4px
+    font-size: .88em
+    line-height: 1.65
+    vertical-align: baseline
+    text-indent: 0
+    transform: none
+    background-image: none
+
+.swal-overlay
+  background: rgba(12, 12, 16, .45)
+  backdrop-filter: blur(4px)
+.swal-modal
+  --dialog-accent: var(--tone-blue)
+  --action-accent: var(--dialog-accent)
+  width: unquote('min(560px, calc(100vw - 32px))')
+  padding: 12px 0 0
+  border-top: 3px solid var(--dialog-accent)
+  border-radius: 10px
+  box-shadow: 0 18px 64px rgba(0, 0, 0, .22)
+  font-family: var(--world-ui-font)
+.swal-title
+  color: unquote('color-mix(in srgb, var(--dialog-accent) 80%, var(--world-ink))')
+  font-size: 22px
+  line-height: 1.5
+  margin: 0
+  padding: 16px 26px 0
+.swal-text
+  max-width: none
+  margin: 20px 26px 24px
+  padding: 0
+  font-size: 16px
+  line-height: 1.85
+  text-align: left
+.swal-footer
+  border-top: 1px solid var(--world-edge)
+  margin: 0
+  padding: 16px 24px
+  background: transparent
+.swal-button
+  background-image: none
+  transform: none
+.swal-button:not([disabled]):hover
+  background: unquote('color-mix(in srgb, var(--action-accent) 14%, var(--world-paper))')
+.swal-button:focus
+  box-shadow: none
+  outline: 2px solid var(--dialog-accent)
+  outline-offset: 3px
+
+@media (max-width: 767px)
+  .post-body, .world-standalone .menu-article-body
+    .world-content-grid.world-content-framed
+      padding: 16px
+  .post-body .reading-prose:has(> .world-content-section)
+    padding: 0
+  .post-body .reading-prose blockquote.world-emphasis-quote, .post-body .world-reading-guide blockquote, .world-standalone .menu-article-body blockquote
+    padding: 18px 16px

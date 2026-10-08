@@ -2,9 +2,9 @@
 layout: pages
 title: 异世之篇：规范宏元
 abbrlink: 20041117
-author: SCHNIE&schrolemons
+author: Mosae
 date: 2025-11-17
-categories: 合作赠稿
+categories: 异世之篇
 reading_style: story
 reading_tone: blue
 ---

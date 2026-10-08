@@ -1,6 +1,7 @@
 /* global hexo */
 'use strict';
-const { categoryTree, folderTree } = require('../lib/content-directory.cjs');
+const { categoryTree, folderTree, featureTone } = require('../lib/content-directory.cjs');
+hexo.extend.helper.register('world_feature_tone', featureTone);
 hexo.extend.helper.register('content_directory', function(kind, collectionKey) {
   const settings = this.site.data.content_directory || {};
   if (kind === 'folders') return folderTree(this.site.pages, settings, collectionKey || this.page.directory_collection || 'yinxing_world', this.site.posts);
@@ -38,8 +39,8 @@ hexo.extend.helper.register('sidebar_tag_groups', function() {
   const elements = ['金', '木', '水', '火', '土', '风', '雷', '草', '冰', '光', '阴', '阳'];
   const systems = ['灵耀体系', '九虹重启', '三大规划'];
   const tones = { 金: 'amber', 木: 'green', 水: 'blue', 火: 'rose', 土: 'amber', 风: 'cyan', 雷: 'violet', 草: 'green', 冰: 'cyan', 光: 'amber', 阴: 'violet', 阳: 'rose' };
-  const creative = ['创造', '记录', '感知'];
-  return [{ title: '体系', label: '文化体系', description: '按文化与叙事体系归集文章', names: systems, tone: 'violet' }, { title: '元素', label: '十二元素', description: '从元素主题寻找相关内容', names: elements, tone: 'cyan' }, { title: '三元', label: '世界三元', description: '创造、记录、感知', names: creative, tone: 'rose' }].map(group => ({
+  const creative = ['感知', '创造', '记录'];
+  return [{ title: '体系', label: '文化体系', description: '按文化与叙事体系归集文章', names: systems, tone: 'violet' }, { title: '元素', label: '十二元素', description: '从元素主题寻找相关内容', names: elements, tone: 'cyan' }, { title: '三元', label: '世界三元', description: '感知、创造、记录', names: creative, tone: 'rose' }].map(group => ({
     title: group.title,
     label: group.label, description: group.description, tone: group.tone,
     tags: tags.filter(tag => group.names.length ? group.names.includes(tag.name) : !elements.includes(tag.name) && !systems.includes(tag.name)).sort((a, b) => group.names.length ? group.names.indexOf(a.name) - group.names.indexOf(b.name) : b.length - a.length || a.name.localeCompare(b.name, 'zh-CN')).map(tag => ({ name: tag.name, path: tag.path, count: tag.length, tone: tones[tag.name] || group.tone }))
@@ -54,7 +55,7 @@ hexo.extend.helper.register('tag_directory', function() {
     name, count: tag?.length || 0, tone: metadata?.tone || 'violet',
     offset: (this.page.current - 1) * (this.config.tag_generator.per_page || this.config.per_page || 10),
     entries: this.page.posts.toArray().map(post => ({
-      title: post.title || '内容入口', path: post.link || post.path, external: !!post.link,
+      title: post.title || '内容入口', tone: featureTone(post), path: post.link || post.path, external: !!post.link,
       date: post.updated?.format('YYYY-MM-DD') || post.date?.format('YYYY-MM-DD') || '',
       categories: post.categories.toArray().map(category => ({ name: category.name, path: category.path }))
     }))
@@ -75,7 +76,7 @@ hexo.extend.helper.register('tag_index_groups', function() {
       }
       return { ...metadata,
         civilizations: [...civilizations].sort((a, b) => settings.civilization_order.indexOf(a[0]) - settings.civilization_order.indexOf(b[0])).map(([name, count]) => ({name, count, tone: settings.civilizations?.[name]?.tone || 'violet'})),
-        previews: posts.slice(0, 2).map(post => ({ title: post.title, path: post.path, category: post.categories.toArray().map(category => category.name).slice(0, 2).join(' / ') }))
+        previews: posts.slice(0, 2).map(post => ({ title: post.title, tone: featureTone(post), path: post.path, category: post.categories.toArray().map(category => category.name).slice(0, 2).join(' / ') }))
       };
     });
     return { ...group, tags, post_count: related.size };

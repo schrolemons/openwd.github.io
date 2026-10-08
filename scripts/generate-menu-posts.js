@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 const yaml = require('js-yaml');
+const { protectContainerTags, applyContainerTags } = require('../lib/content-containers.cjs');
 
 const POSTS_DIR = path.join(__dirname, '..', 'source', '_posts');
 const OUTPUT_DIR = path.join(__dirname, '..', 'source', 'menu', 'posts');
@@ -29,7 +30,7 @@ function protectHexoTags(mdContent) {
   mdContent = mdContent.replace(/\{%\s*endnote\s*%\}/gi, '<!-- HEXO_ENDNOTE -->');
   mdContent = mdContent.replace(/<!--more-->/g, '');
 
-  return mdContent;
+  return protectContainerTags(mdContent);
 }
 
 function applyHexoTags(html) {
@@ -43,7 +44,7 @@ function applyHexoTags(html) {
 
   html = html.replace(/<!--\s*HEXO_ENDNOTE\s*-->/gi, '</div>');
 
-  return html;
+  return applyContainerTags(html);
 }
 
 function markdownToHtml(mdContent) {

@@ -1,7 +1,7 @@
 // Homepage and chronological guide share the existing soft note palette.
 .world-home, .world-reading-guide
-  --directory-ink: #29354a
-  --directory-muted: #737d8e
+  --directory-ink: var(--world-ink)
+  --directory-muted: var(--world-muted)
   color: var(--directory-ink)
   font-size: 16px
   line-height: 1.85
@@ -32,7 +32,7 @@
     font-weight: 600
 
   a:focus-visible, summary:focus-visible
-    outline: 2px solid #7652a8
+    outline: 2px solid var(--tone-violet)
     outline-offset: 5px
 
 .reading-eyebrow
@@ -40,13 +40,13 @@
   font-size: 11px
   letter-spacing: .14em
   font-weight: 600
-  color: #737d8e
+  color: var(--world-muted)
 
 .world-home-page.main-inner
-  opacity: .97
+  opacity: 1
 
 .world-home-page .post-block
-  background: rgba(255, 255, 255, .95)
+  background: var(--world-paper)
 
 .home-hero
   position: relative
@@ -150,7 +150,7 @@
       background: #fff7e9
 
   a:last-child
-    color: #e9dfed
+    color: var(--world-edge)
 
   a:focus-visible
     outline-color: #f3e9d9
@@ -167,7 +167,7 @@
 
 .home-navigation
   padding-top: 30px
-  border-top: 2px solid #d8c9e5
+  border-top: 2px solid var(--world-edge)
 
 .home-route-grid
   display: grid
@@ -214,7 +214,7 @@
   span span
     display: block
     margin-top: 3px
-    color: #737d8e
+    color: var(--world-muted)
     font-size: 13px
 
   > span:last-child
@@ -227,7 +227,7 @@
   gap: 8px 16px
   margin-top: 32px
   padding-top: 16px
-  color: #9a8ca8
+  color: var(--world-muted)
   font-size: 11px
   letter-spacing: .08em
 
@@ -235,42 +235,42 @@
   display: flex
   gap: 20px
   padding: 22px 0
-  border-top: 1px solid #e8e8ef
+  border-top: 1px solid var(--world-edge)
 
   p
     margin: 0
     flex: 1
 
   strong
-    color: #685385
+    color: var(--world-ink)
 
 .home-paragraph-number
   flex-shrink: 0
-  color: #9c8eaf
+  color: var(--world-muted)
   font: 14px/2.1 Consolas, monospace
 
 .home-announcement
   margin: 28px 0
   padding: 22px 26px
-  border-left: 3px solid #4771b5
+  border-left: 3px solid var(--tone-blue)
   border-radius: 0 12px 12px 0
-  background: rgba(237,243,253,.8)
+  background: var(--world-soft)
 
   h2
     font-size: 17px
     margin-bottom: 10px
-    color: #4771b5
+    color: var(--tone-blue)
 
   p
     font-size: 14px
     margin: 0
-    color: #64748b
+    color: var(--world-muted)
 
   a
     display: inline-block
     margin-top: 8px
-    color: #4771b5
-    border-bottom: 1px solid #ceddf3
+    color: var(--tone-blue)
+    border-bottom: 1px solid var(--world-edge)
 
 .guide-resources
   display: grid
@@ -279,25 +279,25 @@
 
 .guide-resource
   padding: 20px 24px
-  background: rgba(237,247,241,.85)
-  border: 1px solid #cbe6d9
+  background: var(--world-soft)
+  border: 1px solid var(--world-edge)
   border-radius: 12px
 
   h3
     font-size: 18px
     margin-bottom: 8px
-    color: #468572
+    color: var(--tone-green)
 
   p
     font-size: 14px
     margin: 0
-    color: #64748b
+    color: var(--world-muted)
 
   a:not(.headerlink)
     display: inline-block
     margin-top: 8px
-    color: #468572
-    border-bottom: 1px solid #b6d8c9
+    color: var(--tone-green)
+    border-bottom: 1px solid var(--world-edge)
 
 .guide-preface
   display: grid
@@ -306,13 +306,13 @@
   align-items: start
   margin: 24px 0
   padding: 20px 24px
-  border: 1px solid #cbe6d9
-  border-left: 3px solid #468572
+  border: 1px solid var(--world-edge)
+  border-left: 3px solid var(--tone-green)
   border-radius: 10px
-  background: linear-gradient(110deg, rgba(237,247,241,.9), rgba(255,255,255,.7))
+  background: linear-gradient(110deg, var(--world-soft), var(--world-paper))
 
   > i
-    color: #468572
+    color: var(--tone-green)
     font-size: 22px
     margin-top: 4px
 
@@ -321,58 +321,77 @@
 
   .guide-reading-rule
     font-size: 16px
-    color: #29354a
+    color: var(--world-ink)
     font-weight: 500
 
     strong
-      color: #468572
-      box-shadow: inset 0 -.45em rgba(203,230,217,.6)
+      color: var(--tone-green)
+      box-shadow: inset 0 -.45em var(--world-edge)
 
   .guide-world-definition
     margin-top: 6px
     font-size: 13px
-    color: #737d8e
+    color: var(--world-muted)
 
     strong
-      color: #468572
+      color: var(--tone-green)
       font-weight: 500
 
 .guide-era-nav
   padding: 22px
   border-radius: 12px
-  background: rgba(244,239,251,.8)
-  border: 1px solid #ded0ef
+  background: var(--world-soft)
+  border: 1px solid var(--world-edge)
   margin-bottom: 40px
 
   > div
     display: grid
     grid-template-columns: repeat(2, minmax(0, 1fr))
-    gap: 6px 24px
-    margin-top: 12px
+    gap: 10px 12px
+    margin-top: 16px
 
   a
     display: flex
-    align-items: baseline
+    align-items: center
     gap: 12px
-    padding: 6px 0
-    font-size: 13px
-    color: #5f5272
+    box-sizing: border-box
+    min-height: 58px
+    padding: 12px 14px
+    border: 1px solid var(--world-edge)
+    border-radius: 6px
+    background: var(--world-paper)
+    font-size: 14px
+    line-height: 1.6
+    color: var(--world-ink)
 
-    &:hover
-      color: #7652a8
-      text-decoration: underline
+    &:hover, &:focus-visible
+      color: var(--world-ink)
+      background: var(--world-hover)
+      border-color: var(--world-gold)
+      text-decoration: none
 
   a span
-    color: #a695bb
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    flex: 0 0 28px
+    height: 28px
+    border-radius: 4px
+    background: var(--world-soft)
+    color: var(--world-muted)
     font: 12px Consolas, monospace
 
 .guide-era
   position: relative
-  border-left: 1px solid #dcd9e6
-  padding: 0 0 48px 28px
+  border: 1px solid var(--world-edge)
+  border-left: 3px solid var(--world-gold)
+  border-radius: 8px
+  background: var(--world-paper)
+  padding: 26px 28px
+  margin: var(--world-block-gap) 0
 
   &:last-child
-    padding-bottom: 0
+    margin-bottom: 0
 
 .guide-era-header
   display: flex
@@ -387,27 +406,27 @@
 
 .guide-era-number
   position: relative
-  margin-left: -46px
+  margin-left: 0
   margin-top: 6px
   display: grid
   place-items: center
   flex-shrink: 0
   width: 36px
   height: 36px
-  border: 1px solid #ded0ef
+  border: 1px solid var(--world-edge)
   border-radius: 50%
-  background: #f4effb
-  color: #7652a8
+  background: var(--world-soft)
+  color: var(--tone-violet)
   font: 13px Consolas, monospace
 
 .guide-era-time
   display: inline-block
-  color: #8f789f
+  color: var(--world-muted)
   font: 12px/1.8 Consolas, monospace
   margin-top: 6px
 
 .guide-era-events
-  background: rgba(244,239,251,.6)
+  background: var(--world-soft)
   border-radius: 10px
   padding: 18px 22px
   margin-bottom: 20px
@@ -419,26 +438,26 @@
 
     .guide-events
       padding: 14px 14px 14px 28px
-      background: rgba(255,255,255,.55)
-      border: 1px solid #e4d9ee
+      background: var(--world-paper)
+      border: 1px solid var(--world-edge)
       border-radius: 8px
 
 .world-reading-guide .guide-events
   margin: 0
   padding: 0 0 0 18px
   font-size: 14px
-  color: #5f6b7e
+  color: var(--world-muted)
 
   li
     padding: 3px 0
 
   .guide-event-key
-    color: #7652a8
+    color: var(--tone-violet)
     font-weight: 600
 
 .guide-era-content > p
   font-size: 13px
-  color: #737d8e
+  color: var(--world-muted)
   margin-bottom: 18px
 
 .guide-contents
@@ -446,7 +465,7 @@
 
   h3
     font-size: 12px
-    color: #737d8e
+    color: var(--world-muted)
     margin-bottom: 10px
     font-weight: 500
 
@@ -463,7 +482,7 @@
   padding: 12px 14px
   border: 1px solid var(--directory-edge)
   border-radius: 8px
-  background: linear-gradient(110deg, var(--directory-soft), rgba(255,255,255,.8))
+  background: linear-gradient(110deg, var(--directory-soft), var(--world-paper))
   font-size: 14px
 
   &:hover
@@ -476,7 +495,7 @@
   flex-shrink: 0
 
 .guide-content-name
-  color: #29354a
+  color: var(--world-ink)
   flex: 1
 
 .guide-content-arrow
@@ -492,7 +511,7 @@
   gap: 4px 6px
   padding: 12px 0 4px
   border: 0
-  border-top: 1px solid #e4d9ee
+  border-top: 1px solid var(--world-edge)
   border-radius: 0
   background: transparent
   text-decoration: none
@@ -500,7 +519,7 @@
   .guide-content-marker
     grid-column: 1
     font-size: 11px
-    color: #8a8097
+    color: var(--world-muted)
 
   .guide-content-type
     grid-column: 2
@@ -519,7 +538,7 @@
     font-size: 13px
 
   &:hover
-    border-color: #e4d9ee
+    border-color: var(--world-edge)
     background: transparent
 
     .guide-content-name
@@ -539,7 +558,7 @@
   border: 1px solid var(--directory-edge)
   border-left: 3px solid var(--directory-accent)
   border-radius: 12px
-  background: rgba(255,255,255,.88)
+  background: var(--world-paper)
 
   > header
     display: flex
@@ -624,11 +643,11 @@
 
   dt
     font-weight: 400
-    color: #8b93a1
+    color: var(--world-muted)
 
   dd
     margin: 0
-    color: #64748b
+    color: var(--world-muted)
 
 @media (max-width: 767px)
   .world-home, .world-reading-guide
@@ -665,12 +684,12 @@
     padding: 18px
 
   .guide-era
-    padding-left: 20px
+    padding: 22px 18px
 
   .guide-era-number
     width: 30px
     height: 30px
-    margin-left: -36px
+    margin-left: 0
 
   .guide-era-header
     gap: 12px

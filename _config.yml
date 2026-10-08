@@ -137,6 +137,10 @@ symbols_count_time:
   suffix: "mins."
 
 
+# Keep preview tabs independent while retaining automatic reloads.
+browsersync:
+  ghostMode: false
+
 # hexo-tag-cloud
 tag_cloud:
   textFont: Trebuchet MS, Helvetica

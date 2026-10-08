@@ -4,7 +4,7 @@ title: 异世之篇：旭阳下的暖梦
 abbrlink: 918187906
 author: 瑞Ruifox
 date: 2025-05-22 20:43:51
-categories: 合作赠稿
+categories: 异世之篇
 reading_style: story
 reading_tone: blue
 ---

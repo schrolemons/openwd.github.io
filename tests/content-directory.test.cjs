@@ -101,7 +101,7 @@ test('light_withme shows three groups while independent profile URLs remain avai
   assert.equal($('.directory-folder-section').length, 3, 'no nested mosae folder');
   assert.ok(!$('.content-directory').text().includes('未命名'));
   assert.equal($('.directory-folder-card[href="/light_withme/tests/"]').length, 1);
-  assert.match(readPage('light_withme/key_part/').text(), /第九边缘发行计划-logo设计/);
+  assert.equal(readPage('light_withme/key_part/')('.world-plan-logo .world-module-title').text().trim(), 'logo设计');
   assert.match(readPage('light_withme/operator/').text(), /协作方式/);
   const $friends = readPage('light_withme/friend_lists/');
   assert.equal($friends('.directory-entry-link').length, 1);
@@ -188,5 +188,7 @@ test('topic index has uniform rows and every tag pagination displays all matchin
     }
     assert.deepEqual(actual.sort(), expected.sort(), tag);
   }
-  assert.equal(readPage('tags/九虹重启/page/2/')('.directory-tag-article').length, 1);
+  const restartTotal = tags.get('九虹重启').length;
+  const restartFirst = readPage('tags/九虹重启/')('.directory-tag-article').length;
+  assert.equal(readPage('tags/九虹重启/page/2/')('.directory-tag-article').length, restartTotal - restartFirst);
 });

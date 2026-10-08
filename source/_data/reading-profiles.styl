@@ -1,461 +1,192 @@
-// Shared Markdown reading profiles; rules are scoped to .reading-document.
+// Profiles own reading rhythm and content layout, not component colours.
+.main:has(.reading-document):not(:has(.post-preview))
+  --world-column-measure: 816px
+  .main-inner
+    max-width: var(--world-column-measure)
+    margin-left: auto
+    margin-right: auto
+
+.main:has(.reading-document[data-reading-style='story']):not(:has(.post-preview))
+  --world-column-measure: 684px
+.main:has(.reading-document[data-reading-style='essay']):not(:has(.post-preview))
+  --world-column-measure: 720px
+.main:has(.reading-document[data-reading-style='poetry']):not(:has(.post-preview))
+  --world-column-measure: 648px
+.main:has(.reading-document[data-reading-style='lore']):not(:has(.post-preview))
+  --world-column-measure: 832px
+.main:has(.reading-document[data-reading-style='info']):not(:has(.post-preview))
+  --world-column-measure: 768px
+.main:has(.reading-document[data-reading-style='profile']):not(:has(.post-preview))
+  --world-column-measure: 1024px
+.main:has(.reading-document[data-reading-style='guide']):not(:has(.post-preview))
+  --world-column-measure: 1024px
+
+@media (min-width: 992px)
+  .main:has(.reading-document):not(:has(.post-preview))
+    width: calc(100% - 40px)
+    max-width: calc(var(--world-column-measure) + 252px)
+    .main-inner
+      margin-left: 0
+      margin-right: 0
+
 .main-inner:has(.reading-document)
-  opacity: .97
-
+  opacity: 1
 .post-block:has(.reading-document), .post-block.reading-document
-  background: rgba(255,255,255,.96)
-
+  background: transparent
+  padding: 0 !important
+  box-shadow: none
 .reading-document
-  --reading-measure: 48em
+  --reading-measure: var(--world-column-measure, 816px)
   --reading-size: 17px
   --reading-leading: 1.95
-  --reading-font: 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif
-  color: #334155
-
+  --reading-font: var(--world-ui-font)
+  color: var(--world-ink)
   .post-header
+    box-sizing: border-box
+    width: 100%
+    max-width: var(--reading-measure)
+    margin-left: auto
+    margin-right: auto
     text-align: left
-    margin-bottom: 32px
-    padding-bottom: 24px
-    border-bottom: 1px solid var(--directory-edge)
-
+    margin-bottom: var(--world-block-gap)
+    padding: 28px 32px
+    background: var(--world-paper)
+    border: 1px solid var(--world-edge)
+    border-top: 2px solid var(--world-gold)
+    border-radius: 8px
+    box-shadow: var(--world-shadow)
   .post-title
-    color: #29354a
-    font-size: clamp(24px, 2.4vw, 32px)
-    line-height: 1.5
-    font-weight: 600
+    color: var(--world-ink)
+    font: 600 clamp(24px, 2.4vw, 32px)/1.5 var(--world-ui-font)
     letter-spacing: .025em
-
-  .post-meta-container
-    margin-top: 12px
-
-  .post-meta
-    display: flex
-    flex-wrap: wrap
-    justify-content: flex-start
-    gap: 5px 16px
-    font-size: 12px
-    color: #808899
-    margin: 0
-
-  .post-meta-item
-    margin: 0
-
-  .post-meta-item::after
-    display: none
-
   .post-description
     text-align: left
-    color: #737d8e
-    font-size: 14px
-
+    color: var(--world-muted)
+    font: 14px/1.9 var(--world-ui-font)
   .post-footer
-    margin-top: 36px
-    font-size: 13px
+    box-sizing: border-box
+    width: 100%
+    max-width: var(--reading-measure)
+    margin-left: auto
+    margin-right: auto
+    margin-top: var(--world-block-gap)
+    padding: 24px 28px
+    border: 1px solid var(--world-edge)
+    border-radius: 8px
+    background: var(--world-paper)
+    color: var(--world-muted)
+    font: 13px/1.8 var(--world-ui-font)
     overflow-wrap: anywhere
-
-  .post-footer > div[style]
-    font-size: 12px !important
-    letter-spacing: .02em
-
+  .reading-prose
+    width: 100%
+    max-width: var(--reading-measure)
+    margin: 0 auto
+    font-family: var(--reading-font)
+    font-size: var(--reading-size)
+    line-height: var(--reading-leading)
+    letter-spacing: .015em
+    text-align: left
+    overflow-wrap: anywhere
+    p
+      line-height: inherit
 .reading-kicker
   display: flex
-  justify-content: flex-start
-  align-items: center
-  gap: 12px
+  flex-wrap: wrap
+  align-items: baseline
+  gap: 8px 12px
   margin: 0 0 12px
-  font: 12px/1.6 'Noto Sans SC', 'Microsoft YaHei', sans-serif
-  color: #8a93a2
-
+  font: 12px/1.6 var(--world-ui-font)
+  color: var(--world-muted)
   span:first-child
-    display: inline-block
     color: var(--directory-accent)
     padding: 3px 10px
+    border: 1px solid var(--world-edge)
     border-radius: 5px
-    background: var(--directory-soft)
+    background: var(--world-soft)
     font-weight: 600
-    letter-spacing: .04em
-
-.reading-document .reading-prose
-  width: 100%
-  max-width: var(--reading-measure)
-  margin: 0 auto
-  font-family: var(--reading-font)
-  font-size: var(--reading-size)
-  line-height: var(--reading-leading)
-  color: #334155
-  letter-spacing: .015em
-  text-align: left
-  overflow-wrap: anywhere
-
-  *, *::before, *::after
-    box-sizing: border-box
-
-  p
-    margin: 0 0 1.3em
-    line-height: inherit
-    text-align: left
-
-  h1, h2, h3, h4, h5, h6
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif
-    display: block
-    position: relative
-    padding: 0
-    border: 0
-    color: #29354a
-    letter-spacing: .03em
-    line-height: 1.65
-    font-weight: 600
-    scroll-margin-top: 24px
-
-    &::before, &::after
-      display: none
-
-  h1, h2
-    font-size: 1.45em
-    margin: 2.6em 0 1em
-    padding-bottom: .5em
-    border-bottom: 1px solid var(--directory-edge)
-
-  h3
-    font-size: 1.2em
-    margin: 2em 0 .85em
-    padding-left: 12px
-    border-left: 3px solid var(--directory-accent)
-
-  h4
-    font-size: 1.06em
-    margin: 1.6em 0 .65em
-
-  h5, h6
-    font-size: 1em
-    margin: 1.4em 0 .6em
-    color: #64748b
-
-  > :first-child
-    margin-top: 0
-
-  strong
-    color: #29354a
-    font-weight: 600
-
-  p a, li a
-    color: var(--directory-accent)
-    text-decoration: none
-    border-bottom: 1px solid var(--directory-edge)
-    border-radius: 3px
-    box-decoration-break: clone
-    -webkit-box-decoration-break: clone
-    transition: background-color .15s, border-color .15s
-
-    &:hover, &:focus-visible
-      background-color: unquote('color-mix(in srgb, var(--directory-accent) 18%, transparent)')
-      border-bottom-color: var(--directory-accent)
-
-    &:active
-      background-color: unquote('color-mix(in srgb, var(--directory-accent) 28%, transparent)')
-
-  ::selection
-    background: var(--directory-accent)
-    color: white
-
-  a:focus-visible, summary:focus-visible, .reading-table-scroll:focus-visible
-    outline: 2px solid var(--directory-accent)
-    outline-offset: 4px
-
-  blockquote
-    margin: 1.6em 0
-    padding: 16px 20px
-    border-left: 3px solid var(--directory-accent)
-    border-radius: 0 8px 8px 0
-    background: var(--directory-soft)
-    font-size: .95em
-    color: #5f6b7e
-    box-shadow: none
-
-    p:last-child
-      margin-bottom: 0
-
-    &::before, &::after
-      display: none
-
-  ul, ol
-    padding-left: 1.7em
-    margin: 1.2em 0
-
-  li
-    margin: .5em 0
-    line-height: inherit
-
-    &::marker
-      color: var(--directory-accent)
-
-  hr
-    margin: 2.8em 0
-    border: 0
-    border-top: 1px solid #e3e6ed
-
-    &::after
-      content: '· · ·'
-      color: #a8adba
-      font-size: .8em
-      letter-spacing: .12em
-      background: #fff
-
-  code
-    color: #675782
-    background: #f3eff8
-    padding: .12em .35em
-    border-radius: 4px
-    font-size: .87em
-
-  pre
-    max-width: 100%
-    overflow: auto
-    font-size: 13px
-    border-radius: 8px
-
-  figure.highlight
-    max-width: 100%
-    overflow: auto
-
-  img, video
-    max-width: 100%
-    height: auto
-    border-radius: 10px
-
-  .reading-table-scroll
-    overflow-x: auto
-    max-width: 100%
-    margin: 1.5em 0
-    border: 1px solid #dde3ec
-    border-radius: 10px
-    overscroll-behavior-x: contain
-    -webkit-overflow-scrolling: touch
-
-  table
-    width: 100%
-    margin: 0
-    border-collapse: collapse
-    border-radius: 0
-    box-shadow: none
-    font: 14px/1.8 'Noto Sans SC', 'Microsoft YaHei', sans-serif
-
-  th, td
-    padding: 12px 16px
-    border: 0
-    border-bottom: 1px solid #e6eaf0
-    background: rgba(255,255,255,.92)
-    color: #475569
-    vertical-align: top
-    text-align: left
-    min-width: 100px
-
-  th
-    background: var(--directory-soft)
-    color: var(--directory-accent)
-    font-weight: 600
-    white-space: nowrap
-
-  tr:last-child td
+// Generated legacy article indexes share one compact summary role.
+.post-preview .reading-document
+  .post-header
+    max-width: none
+    margin-bottom: 0
     border-bottom: 0
-
-  // Keep the note's semantic colour while reducing its visual weight.
-  .note
-    --note-accent: #4771b5
-    --note-soft: #edf3fd
-    border: 1px solid #e0e5ee
-    border-left: 3px solid var(--note-accent)
-    border-radius: 10px
-    padding: 20px 24px
-    margin: 1.6em 0
-    background: rgba(255,255,255,.8)
-    color: #475569
-    font-size: .95em
-    box-shadow: none
-
-    &::before
-      display: none
-
-    &.primary
-      --note-accent: #7652a8
-      --note-soft: #f4effb
-
-    &.success
-      --note-accent: #468572
-      --note-soft: #edf7f1
-
-    &.warning
-      --note-accent: #a57625
-      --note-soft: #fcf5e7
-
-    &.danger
-      --note-accent: #b85c7b
-      --note-soft: #fdf0f4
-
-    > :first-child
-      margin-top: 0
-
-    > :last-child
-      margin-bottom: 0
-
-    h2, h3, h4
-      border: 0
-      padding-left: 0
-
-  details.note
+    border-radius: 8px 8px 0 0
+  .post-body
+    padding: 24px 32px
+    background: var(--world-paper)
+    border: 1px solid var(--world-edge)
+    border-top: 0
+    border-radius: 0 0 8px 8px
+  .reading-preview
+    max-width: none
+    font: 16px/1.9 var(--world-ui-font)
+  .post-footer
+    margin: 0
     padding: 0
-    background: white
-
-    > summary
-      list-style: none
-      padding: 14px 20px
-      color: var(--note-accent)
-      background: var(--note-soft)
-      border-radius: 8px
-      cursor: pointer
-      font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif
-      font-size: 14px
-
-      &::-webkit-details-marker
-        display: none
-
-      p
-        display: inline
-        margin: 0
-
-      &::after
-        content: '+'
-        float: right
-        margin-left: 12px
-
-    &[open] > summary
-      border-radius: 8px 8px 0 0
-      border-bottom: 1px solid #e0e5ee
-
-      &::after
-        content: '−'
-
-    > :not(summary)
-      margin-left: 20px
-      margin-right: 20px
-
-    > summary + *
-      margin-top: 20px
-
-    > :last-child:not(summary)
-      margin-bottom: 20px
-
-  .label
-    border-radius: 4px
-    padding: 2px 7px
-    font-size: .85em
-
+    border: 0
+    background: none
+  .post-eof
+    margin: var(--world-block-gap) auto
+    background: var(--world-gold)
 .reading-document[data-reading-style='story']
-  --reading-measure: 38em
   --reading-size: 18px
   --reading-leading: 2.05
   --reading-font: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', SimSun, serif
-
-  .reading-prose > p:not(:has(img, video, iframe))
-    text-indent: 2em
-
-  .reading-prose > h2
-    margin-top: 3em
-
 .reading-document[data-reading-style='essay']
-  --reading-measure: 40em
   --reading-size: 18px
   --reading-leading: 2
-
 .reading-document[data-reading-style='poetry']
-  --reading-measure: 36em
   --reading-size: 18px
   --reading-leading: 2.2
   --reading-font: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', SimSun, serif
-
-  .reading-prose > p
+  .world-prose-section > p
     margin-bottom: 2em
-
 .reading-document[data-reading-style='lore']
-  --reading-measure: 52em
   --reading-size: 16px
   --reading-leading: 1.95
-
   .reading-prose h4
-    color: var(--directory-accent)
     padding: 8px 12px
     border-radius: 6px
-    background: var(--directory-soft)
-
+    background: var(--world-soft)
+    border-left: 2px solid var(--world-gold)
   .reading-prose .note h4
     background: none
     padding: 0
-
+    border: 0
 .reading-document[data-reading-style='info'], .reading-document[data-reading-style='profile']
   --reading-size: 16px
   --reading-leading: 1.9
-
 .reading-document[data-reading-style='profile'] .reading-prose
   .photos-page
     margin: 24px 0
-
   .img-list
     display: block
-
   .img-column
     display: grid
     grid-template-columns: repeat(3, minmax(0, 1fr))
     align-items: start
     gap: 12px
     width: 100%
-
     img
       width: 100%
       margin: 0
       object-fit: contain
-
 @media (max-width: 767px)
+  .post-preview .reading-document .post-body
+    padding: 18px 20px
   .reading-document
     --reading-size: 16px
-
     .post-header
-      margin-bottom: 24px
-      padding-bottom: 18px
-
+      padding: 22px 20px
     .post-title
       font-size: 24px
-
-    .reading-prose
-      font-size: var(--reading-size)
-
-      h2
-        font-size: 1.35em
-
-      h3
-        font-size: 1.18em
-
-      .note
-        padding: 16px !important
-
-      details.note
-        padding: 0 !important
-
-        > summary
-          padding: 12px 16px
-
-        > :not(summary)
-          margin-left: 16px
-          margin-right: 16px
-
-      blockquote
-        padding: 14px 16px
-
+    .post-footer
+      padding: 20px 18px
   .reading-document[data-reading-style='story'], .reading-document[data-reading-style='poetry'], .reading-document[data-reading-style='essay']
     --reading-size: 17px
-
   .reading-document[data-reading-style='profile'] .reading-prose .img-column
     grid-template-columns: minmax(0, 1fr)
 
-  .reading-kicker
-    flex-wrap: wrap
-    gap: 6px 12px
+@media (max-width: 991px)
+  .main:has(.reading-document):not(:has(.post-preview)) .main-inner
+    padding: 0 18px !important

@@ -20,21 +20,23 @@ fs.mkdirSync(output, { recursive: true });
           const block = document.querySelector('.post-block');
           return block.classList.contains('animated') && Number(getComputedStyle(block).opacity) > .99;
         });
+        await page.waitForFunction(() => { const body=document.querySelector('.post-body'); return body.classList.contains('animated') && Number(getComputedStyle(body).opacity) > .99; });
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${width} ${route} overflow`);
         assert.equal(await page.locator('.book-mark-link').count(), 0, 'bookmark button is disabled');
-        const frames = await page.locator('.reading-prose .note:not(details)').evaluateAll(nodes => nodes.map(node => {
+        const frames = await page.locator('.reading-prose .note:not(details):not(.world-module-heading)').evaluateAll(nodes => nodes.map(node => {
           const style = getComputedStyle(node);
-          return { border: style.borderTopWidth, left: style.borderLeftWidth, radius: style.borderRadius, padding: style.padding, background: style.backgroundColor };
+          return { file: node.classList.contains('world-file-note'), border: style.borderTopWidth, left: style.borderLeftWidth, radius: style.borderRadius, padding: style.padding, background: style.backgroundColor };
         }));
         for (const frame of frames) {
           assert.equal(frame.border, '1px', `${width} ${route} note outline`);
-          assert.equal(frame.left, '3px', `${width} ${route} note accent`);
-          assert.equal(frame.radius, '10px', `${width} ${route} note corners`);
+          assert.equal(frame.left, frame.file ? '1px' : '3px', `${width} ${route} file frame or note accent`);
+          assert.equal(frame.radius, '8px', `${width} ${route} note corners`);
           assert.equal(frame.padding, width < 768 ? '16px' : '20px 24px', `${width} ${route} note spacing`);
         }
         if (route === 'light_withme/key_part/') {
-          assert.equal(frames.length, 3);
-          assert.deepEqual(frames, Array(3).fill(frames[0]), 'heading-only and mixed-content notes share the same frame');
+          assert.equal(frames.length, 0, 'plan headings belong to their content module rather than a nested note frame');
+          const headers=await page.locator('.world-layout-plan .world-module-heading h3').evaluateAll(ns=>ns.map(n=>getComputedStyle(n).fontSize));
+          assert.deepEqual(headers,Array(3).fill(width<768?'18px':'20px'),'parallel plan headings share typography');
           const caption = page.locator('.photos-item > p');
           const geometry = await caption.evaluate(node => {
             const note = document.querySelector('.reading-prose .note');
@@ -46,9 +48,10 @@ fs.mkdirSync(output, { recursive: true });
           await link.hover();
           await page.waitForFunction(() => {
             const link = [...document.querySelectorAll('.reading-prose a')].find(node => node.textContent === '选择方式');
-            return getComputedStyle(link).backgroundColor !== 'rgba(0, 0, 0, 0)';
+            const style = getComputedStyle(link);
+            return style.backgroundColor !== 'rgba(0, 0, 0, 0)' || (style.backgroundImage !== 'none' && style.backgroundSize === '100% 100%');
           });
-          assert.equal(await link.evaluate(node => getComputedStyle(node, '::selection').color), 'rgb(255, 255, 255)', 'selected text remains readable on the theme highlight');
+          assert.equal(await link.evaluate(node => getComputedStyle(node, '::selection').color), 'rgb(23, 23, 23)', 'selected text remains readable on the gold highlight');
           if (width === 1092) {
             await page.addStyleTag({ content: '.fireworks, #__bs_notify__ { visibility: hidden !important; }' });
             await page.screenshot({ path: path.join(output, '1092-link-hover.png') });
@@ -57,7 +60,10 @@ fs.mkdirSync(output, { recursive: true });
           await page.keyboard.press('Tab');
           await link.focus();
           assert.ok(await link.evaluate(node => node.matches(':focus-visible')));
-          assert.notEqual(await link.evaluate(node => getComputedStyle(node).backgroundColor), 'rgba(0, 0, 0, 0)', 'keyboard link focus has a visible background');
+          await page.waitForFunction(() => {
+            const style = getComputedStyle(document.activeElement);
+            return style.backgroundColor !== 'rgba(0, 0, 0, 0)' || (style.backgroundImage !== 'none' && style.backgroundSize === '100% 100%');
+          });
           await link.evaluate(node => node.blur());
           if (width === 1092 || width === 390) {
             await page.addStyleTag({ content: '.fireworks, #__bs_notify__ { visibility: hidden !important; }' });

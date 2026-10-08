@@ -1,5 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
+<script src="{{ url_for('js/world-theme.js') }}?v={{ world_ui_version() }}"></script>
 {%- if theme.darkmode %}
 <meta name="theme-color" content="{{ theme.theme_color.light }}" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="{{ theme.theme_color.dark }}" media="(prefers-color-scheme: dark)">
@@ -44,7 +45,7 @@
   <meta name="baidu-site-verification" content="{{ theme.baidu_site_verification }}">
 {%- endif %}
 
-<link rel="stylesheet" href="{{ url_for(theme.css) }}/main.css">
+<link rel="stylesheet" href="{{ url_for(theme.css) }}/main.css?v={{ world_ui_version() }}">
 
 {{ next_font() }}
 

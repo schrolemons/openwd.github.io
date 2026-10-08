@@ -35,7 +35,7 @@ collections:
         tone: violet
         description: 人物展示与人物信息
       commission:
-        title: 合作赠稿
+        title: 异世之篇
         icon: feather-pointed
         tone: rose
         description: 来自协作者的异世之篇
@@ -73,7 +73,7 @@ collections:
         tone: blue
         description: 价值判断与人生观点、生命级手账本九问、OC设定与世界观
         direct_links: true
-        headings: ["第九边缘：协作者测试"]
+        headings: [测试题部分]
       friend_lists:
         hidden_from_collection: true
         title: 扩列内容

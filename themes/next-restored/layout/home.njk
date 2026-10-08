@@ -2,5 +2,5 @@
 {% import '_macro/sidebar.njk' as sidebar_template with context %}
 {% block title %}{{ page.title }} | {{ title }}{% endblock %}
 {% block class %}page posts-expand world-home-page{% endblock %}
-{% block content %}<div class="post-block"><div class="post-body">{{ world_homepage() }}</div></div>{% endblock %}
+{% block content %}<div class="post-block"><div class="post-body" data-world-built-at="{{ world_build_date() }}">{{ world_homepage() }}</div></div>{{- next_js('home-letter.js') }}{% endblock %}
 {% block sidebar %}{{ sidebar_template.render(false) }}{% endblock %}

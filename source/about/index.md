@@ -14,6 +14,7 @@ reading_tone: cyan
 网站初步建设（3.0）中，期待您对排版、世界观设定的建议/意见。
 {% endnote %}
 
+---
 
 {%note info%}
 ### 欢迎加入

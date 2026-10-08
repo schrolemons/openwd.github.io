@@ -3,7 +3,8 @@
 {{- next_js('comments.js') }}
 
 {{- next_js('utils.js') }}
-{{- next_js('directory-interactions.js') }}
+<script src="{{ url_for(theme.js) }}/directory-interactions.js?v={{ world_ui_version() }}"></script>
+<script src="{{ url_for('js/world-content-ui.js') }}?v={{ world_ui_version() }}"></script>
 {%- if theme.motion.enable %}
   {{- next_js('motion.js') }}
 {%- endif %}
