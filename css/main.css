@@ -1215,7 +1215,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #2fff3c;
+    background: #7df4b8;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -8579,6 +8579,117 @@ body:has(.world-home) .sidebar-tag-heading > a {
   .post-body .world-reading-guide blockquote,
   .world-standalone .menu-article-body blockquote {
     padding: 18px 16px;
+  }
+}
+.swal-modal.world-welcome-dialog {
+  --dialog-accent: var(--tone-amber);
+  --action-accent: var(--dialog-accent);
+  box-sizing: border-box;
+  width: min(520px, calc(100vw - 40px));
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: 0;
+  border: 1px solid var(--world-edge);
+  border-top: 2px solid color-mix(in srgb, var(--world-gold) 55%, var(--world-edge));
+  border-radius: 12px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--tone-amber) 4%, var(--world-paper)), var(--world-paper) 65%);
+  color: var(--world-ink);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.28), 0 4px 12px rgba(0,0,0,0.1);
+}
+.swal-modal.world-welcome-dialog::before,
+.swal-modal.world-welcome-dialog::after {
+  content: none;
+  display: none;
+}
+.swal-modal.world-welcome-dialog .swal-title {
+  color: var(--world-ink);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  margin: 0;
+  padding: 32px 32px 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.swal-modal.world-welcome-dialog .world-welcome-greeting {
+  display: block;
+  color: var(--world-muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.18em;
+  margin-bottom: 10px;
+}
+.swal-modal.world-welcome-dialog .world-welcome-world {
+  color: var(--tone-amber);
+  font: 32px/1.5 Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.04em;
+}
+.swal-modal.world-welcome-dialog .swal-text {
+  display: block;
+  width: auto;
+  max-width: none;
+  color: var(--world-muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 14px 32px 28px;
+  padding: 0;
+  text-align: left;
+}
+.swal-modal.world-welcome-dialog .swal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px 32px;
+  margin: 0;
+  border-top: 1px solid var(--world-edge);
+  background: var(--world-soft);
+}
+.swal-modal.world-welcome-dialog .swal-button-container {
+  margin: 0;
+}
+.swal-modal.world-welcome-dialog .swal-button {
+  min-width: 106px;
+  min-height: 42px;
+  padding: 9px 22px;
+  border: 1px solid color-mix(in srgb, var(--world-gold) 70%, var(--tone-amber));
+  border-radius: 6px;
+  background: var(--world-gold);
+  color: #171717 !important;
+  font: 500 14px/1.6 var(--world-ui-font);
+  letter-spacing: 0.12em;
+  box-shadow: none;
+}
+.swal-modal.world-welcome-dialog .swal-button:not([disabled]):hover {
+  background: var(--world-gold);
+  border-color: var(--world-gold);
+  color: #171717 !important;
+  box-shadow: 0 4px 14px rgba(255,215,0,0.16), inset 0 0 0 1px rgba(255,255,255,0.4);
+}
+.swal-modal.world-welcome-dialog .swal-button:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none;
+}
+.swal-modal.world-welcome-dialog .swal-button:focus-visible {
+  outline: 1px solid rgba(23,23,23,0.55) !important;
+  outline-offset: -4px !important;
+  box-shadow: none;
+}
+@media (max-width: 480px) {
+  .swal-modal.world-welcome-dialog .swal-title {
+    font-size: 22px;
+    padding: 26px 24px 0;
+  }
+  .swal-modal.world-welcome-dialog .world-welcome-world {
+    font-size: 27px;
+  }
+  .swal-modal.world-welcome-dialog .swal-text {
+    font-size: 13px;
+    margin: 12px 24px 24px;
+  }
+  .swal-modal.world-welcome-dialog .swal-footer {
+    padding: 16px 24px;
   }
 }
 body {
