@@ -68,7 +68,7 @@
     const stickyTop = Math.max(0, Math.min(12, top));
     const firstTop = sheets[0].offsetTop;
     const margin = parseFloat(getComputedStyle(sheets[0]).marginTop);
-    const lift = margin + 56;
+    const lift = margin + parseFloat(getComputedStyle(home.querySelector('.home-envelope-peeks')).height);
     const distance = Math.round(Math.max(160, Math.min(320, innerHeight * .32)));
     sheets.forEach(sheet => sheet.style.setProperty('--letter-shift', `${-(sheet.offsetTop - firstTop + lift)}px`));
     home.style.setProperty('--envelope-top', `${stickyTop}px`);
