@@ -1,4 +1,4 @@
-// Homepage correspondence: a dark envelope followed by three separate sheets.
+// Homepage correspondence: a dark envelope followed by four separate sheets.
 .world-home
   .home-hero
     padding: 50px 48px 76px
@@ -128,7 +128,7 @@
     left: 20px
     right: 20px
     top: 100%
-    height: 56px
+    height: 72px
     z-index: -1
     pointer-events: none
 
@@ -147,21 +147,27 @@
       font: 10px/24px 'Microsoft YaHei', sans-serif
       text-align: right
       letter-spacing: .1em
-      z-index: 3
+      z-index: 4
 
       &:nth-child(2)
         top: 16px
         left: 8px
         right: 8px
-        z-index: 2
+        z-index: 3
 
       &:nth-child(3)
         top: 32px
         left: 16px
         right: 16px
+        z-index: 2
+
+      &:nth-child(4)
+        top: 48px
+        left: 24px
+        right: 24px
         z-index: 1
 
-  .home-announcement, .home-introduction, .home-navigation
+  .home-announcement, .home-recent-updates, .home-introduction, .home-navigation
     position: relative
     margin: 40px 14px 0
     padding: 34px 38px
@@ -305,7 +311,7 @@
       font-size: 10px
       gap: 6px
 
-    .home-announcement, .home-introduction, .home-navigation
+    .home-announcement, .home-recent-updates, .home-introduction, .home-navigation
       margin: 30px 2px 0
       padding: 26px 20px
 
@@ -322,7 +328,7 @@
       padding-bottom: 16px
       margin-bottom: 20px
 
-// A native scroll runway keeps the cover still while all three sheets fan out.
+// A native scroll runway keeps the cover still while all four sheets fan out.
 .home-mail-scene
   position: relative
   display: flow-root
@@ -342,7 +348,7 @@
     display: block
     opacity: unquote('clamp(0, calc(1 - var(--letter-progress) * 5), 1)')
 
-  > .home-announcement, > .home-introduction, > .home-navigation
+  > .home-announcement, > .home-recent-updates, > .home-introduction, > .home-navigation
     transform: unquote('translateY(calc(var(--letter-shift) * (1 - var(--letter-progress))))')
     clip-path: unquote('inset(0 0 calc((1 - var(--letter-progress)) * 100%) 0)')
     transition: none
@@ -353,7 +359,7 @@
       animation: none
       visibility: hidden
 
-    > .home-announcement, > .home-introduction, > .home-navigation
+    > .home-announcement, > .home-recent-updates, > .home-introduction, > .home-navigation
       clip-path: none
       will-change: auto
 
@@ -365,7 +371,7 @@
     position: static
     padding-top: 0
 
-    > .home-announcement, > .home-introduction, > .home-navigation
+    > .home-announcement, > .home-recent-updates, > .home-introduction, > .home-navigation
       transform: none
       clip-path: none
 

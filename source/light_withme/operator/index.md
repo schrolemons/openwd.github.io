@@ -3,6 +3,7 @@ title: 协作者档案
 date: 2025-02-22 19:28:51
 reading_style: profile
 reading_tone: amber
+updated: '2026-10-17T00:39:27+08:00'
 ---
 {% note primary %}
 ### 协作者介绍
@@ -12,6 +13,11 @@ reading_tone: amber
 本网站的**起源建设者**。
 性格特征为INTJ-A，[欢迎扩列~](https://world.sch-nie.com/light_withme/friend_lists/mosae)
 入职日：2024-9-1
+{% endnote %}
+
+{%note info no-icon 协作者档案：璃风 %}
+本网站的**协作建设者**。
+负责唱反调
 {% endnote %}
 
 {%note  info no-icon 协作者档案：瑞Ruifox %}

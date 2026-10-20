@@ -58,11 +58,11 @@ test('all nested category pages contain exactly their descendant articles and a 
   }
 });
 
-test('folder landing pages list all seven independent pages without including other folders', () => {
+test('folder landing pages list all independent source pages without including other folders', () => {
   const pages = sources('source/yinxing_world');
   const $ = readPage('yinxing_world/');
   assert.equal($('.directory-folder-card').length, 4);
-  assert.equal($('.directory-entry-link').length, 7);
+  assert.equal($('.directory-entry-link').length, pages.length);
   for (const folder of ['character', 'commission', 'nowadays', 'resion']) {
     const own = pages.filter(p => p.source.startsWith(`source/yinxing_world/${folder}/`));
     const $folder = readPage(`yinxing_world/${folder}/`);

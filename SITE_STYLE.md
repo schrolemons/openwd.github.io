@@ -12,10 +12,15 @@
 - `content-directory.styl`、`reading-layout.styl`：保留目录和时间线的内容结构，公共表面与文字引用设计变量。
 - `lib/content-layout.cjs`、`content-modules.styl`：发行计划、协作者及关于的内容结构适配；源文不加页面样式，模块沿用公共标题、纸面、字体、链接和折叠规则。
 - `home-refinement.styl`、`home-letter.styl`：仅首页的信封、信纸与艺术布局。
+- `home-updates.styl`：第二张信纸的最近三篇内容，类型、标题、分类与原文摘要左对齐，更新或发布时间放在条目右上角；类型、序号与分类使用元数据对应的共享语义色，标签用琥珀色，正文保持纸面文字色。
 - `welcome-dialog.styl`：仅 `.world-welcome-dialog` 欢迎弹窗的纸面、原文标题层级与金色操作按钮，不添加 logo 或图案；自动聚焦采用细内描边，沿用共用明暗主题变量。
 - `world-standalone.styl`：受控独立 HTML 的 UI 适配，保留原画布、星图和内容交互。
 
 欢迎弹窗的“最新更新时间”由 `scripts/build-date.js` 在每次 Hexo 生成前按 `Asia/Shanghai` 固定日期，经首页模板的 `data-world-built-at` 注入页面。无需在 Markdown 中填写日期；访客打开页面不改变时间，下一次生成会重新计算。日期表示构建时间，发布后线上页面读取该次构建的日期；动态公告等原文日期保持独立。
+
+文章日期由 `scripts/metadata-dates.js` / `lib/metadata-dates.cjs` 在 `hexo g` 的 `before_generate` 阶段同步源文件 mtime：没有日期字段时补 `date`，已有日期时保留 `date` 并同步 `updated`；旧文章只有 `updated` 时继续同步该字段。写入带 `+08:00` 的秒级时间并恢复文件原 mtime，明确刷新受影响的 Hexo 源缓存，让当次生成就读取新日期。完整规则与边界见 [Markdown 日期自动同步](docs/Markdown日期自动同步.md)。
+
+首页信纸顺序为动态公告、最近更新、网站介绍、导引。`scripts/reading-layout.js` 合并 Hexo posts 与 pages，交由 `lib/recent-updates.cjs` 读取源 Markdown 元数据并选取三篇：优先 `updated`，其次 `date`，均缺失时使用文件修改时间并标为“文件更新”。不带时区的元数据日期按 `Asia/Shanghai` 解释；同日按时间排序，同时间按源路径稳定排序。内容型目录 `index.md` 纳入，首页、目录导航、标签归档、测试页和第三方文档排除。摘要优先 `description` / `summary` / `excerpt`，否则摘取正文原句；不生成新的文章观点。四张纸页都参与滚动展开和收回，未展开时保持 inert；深链接、减少动态效果和无脚本环境直接呈现完整阅读视图。
 
 不在单篇 Markdown 中声明配色与组件样式。新内容通过 `reading_style` / `reading_tone` 声明阅读类型与语义分类；同一角色的按钮、链接、note 和标题使用共用规则。
 
@@ -95,6 +100,7 @@ node tests/interactions-browser.cjs
 node tests/directory-browser.cjs
 node tests/reading-browser.cjs
 node tests/homepage-browser.cjs
+node tests/recent-updates-browser.cjs
 ```
 
 执行前源码快照和验收证据保存在 `.repair-backups/20261003/style-unification/`。最终验证范围记录于实施计划。

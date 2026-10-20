@@ -44,11 +44,18 @@ test('homepage preserves original introduction, announcement and four working re
   const original = cheerio.load(db.Page.find(page => page.source === 'index.md').content);
   const page = read('index.html');
   assert.equal(page('.world-home').length, 1);
-  assert.deepEqual(page('.world-home').children().map((_, el) => page(el).attr('class')).get(), ['home-hero', 'home-announcement', 'home-introduction', 'home-navigation']);
+  assert.deepEqual(page('.world-home').children().map((_, el) => page(el).attr('class')).get(), ['home-hero', 'home-announcement', 'home-recent-updates', 'home-introduction', 'home-navigation']);
   assert.deepEqual(page('.home-motif span').map((_, el) => page(el).text()).get(), ['感知', '创造', '记录']);
   assert.equal(normalize(page('.home-hero h1').text()), normalize(db.Page.find(page => page.source === 'index.md').title));
   assert.equal(page('.home-title-world').text(), 'WORLD');
   assert.equal(page('.home-navigation .home-endnote').length, 1);
+  assert.equal(page('.home-update-link').length, 3);
+  for (const node of page('.home-update-link').toArray()) {
+    const route = page(node).attr('href');
+    assert.ok(fs.existsSync('public' + route), 'recent-update destination exists: ' + route);
+    assert.ok(page(node).find('.home-update-title').text().trim());
+    assert.ok(page(node).find('.home-update-summary').text().trim());
+  }
   const intro = original('.note.danger p').text().split(/[1-4]\./).filter(Boolean);
   for (const p of intro) assert.ok(normalize(page('.world-home').text()).includes(normalize(p)));
   assert.equal(normalize(page('.home-announcement p').text()), normalize(original('.note.info p').first().text()));

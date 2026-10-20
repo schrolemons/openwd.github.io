@@ -25,7 +25,8 @@ test('every source-backed metadata field appears once inside its page header, in
 });
 
 test('every rendered Markdown has the correct reading profile and retains its complete content and embeds', () => {
-  assert.equal(documents.length, 50);
+  const sourceFiles = fs.readdirSync('source', { recursive: true }).filter(name => /\.md$/i.test(name)).map(name => name.replace(/\\/g, '/'));
+  assert.deepEqual(documents.map(doc => doc.source.replace(/\\/g, '/')).sort(), sourceFiles.sort());
   const found = new Set();
   for (const doc of documents) {
     const route = doc.source.startsWith('_posts/') ? `posts/${doc.abbrlink}.html` : doc.path;
